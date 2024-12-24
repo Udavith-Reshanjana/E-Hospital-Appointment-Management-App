@@ -3,6 +3,28 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/E-hospital/E-Hospital-Appointment-Management-App/app/src/main/res/layout/activity_docappointmentmanage.xml" value="0.3625" />
+        <entry key="..\:/E-hospital/E-Hospital-Appointment-Management-App/app/src/main/res/layout/activity_docappointments.xml" value="0.3625" />
+        <entry key="..\:/E-hospital/E-Hospital-Appointment-Management-App/app/src/main/res/layout/activity_docavailable.xml" value="0.3625" />
+        <entry key="..\:/E-hospital/E-Hospital-Appointment-Management-App/app/src/main/res/layout/activity_docprofile.xml" value="0.3625" />
+        <entry key="..\:/E-hospital/E-Hospital-Appointment-Management-App/app/src/main/res/layout/activity_docreg.xml" value="0.3625" />
+        <entry key="..\:/E-hospital/E-Hospital-Appointment-Management-App/app/src/main/res/layout/activity_doctormain.xml" value="0.3625" />
+        <entry key="..\:/E-hospital/E-Hospital-Appointment-Management-App/app/src/main/res/layout/activity_login.xml" value="0.33" />
+        <entry key="..\:/E-hospital/E-Hospital-Appointment-Management-App/app/src/main/res/layout/activity_patient_reg.xml" value="0.20923913043478262" />
+        <entry key="..\:/E-hospital/E-Hospital-Appointment-Management-App/app/src/main/res/layout/activity_patientmain.xml" value="0.20923913043478262" />
+        <entry key="..\:/E-hospital/E-Hospital-Appointment-Management-App/app/src/main/res/layout/content_doctormain.xml" value="0.3625" />
+        <entry key="..\:/E-hospital/E-Hospital-Appointment-Management-App/app/src/main/res/layout/fragment_appointment.xml" value="0.3625" />
+        <entry key="..\:/E-hospital/E-Hospital-Appointment-Management-App/app/src/main/res/layout/fragment_chatbot.xml" value="0.3625" />
+        <entry key="..\:/E-hospital/E-Hospital-Appointment-Management-App/app/src/main/res/layout/fragment_doctorbookprofile.xml" value="0.3625" />
+        <entry key="..\:/E-hospital/E-Hospital-Appointment-Management-App/app/src/main/res/layout/fragment_doctorsearch.xml" value="0.3625" />
+        <entry key="..\:/E-hospital/E-Hospital-Appointment-Management-App/app/src/main/res/layout/fragment_home.xml" value="0.20923913043478262" />
+        <entry key="..\:/E-hospital/E-Hospital-Appointment-Management-App/app/src/main/res/layout/fragment_myappointments.xml" value="0.1" />
+        <entry key="..\:/E-hospital/E-Hospital-Appointment-Management-App/app/src/main/res/layout/fragment_notification.xml" value="0.3625" />
+        <entry key="..\:/E-hospital/E-Hospital-Appointment-Management-App/app/src/main/res/layout/fragment_patientprofile.xml" value="0.3625" />
+        <entry key="..\:/E-hospital/E-Hospital-Appointment-Management-App/app/src/main/res/layout/fragment_paycomplete.xml" value="0.3625" />
+        <entry key="..\:/E-hospital/E-Hospital-Appointment-Management-App/app/src/main/res/layout/fragment_payment.xml" value="0.3625" />
+        <entry key="..\:/E-hospital/E-Hospital-Appointment-Management-App/app/src/main/res/layout/fragment_selectdate.xml" value="0.3625" />
+        <entry key="..\:/E-hospital/E-Hospital-Appointment-Management-App/app/src/main/res/layout/fragment_settings.xml" value="0.3625" />
         <entry key="..\:/Users/lenovo/Documents/GitHub/E-Hospital-Appointment-Management-App/app/src/main/res/drawable/ic_launcher_lhospital_logo_background.xml" value="0.1945" />
         <entry key="..\:/Users/lenovo/Documents/GitHub/E-Hospital-Appointment-Management-App/app/src/main/res/layout/activity_docreg.xml" value="0.2" />
         <entry key="..\:/Users/lenovo/Documents/GitHub/E-Hospital-Appointment-Management-App/app/src/main/res/layout/activity_login.xml" value="0.2" />
@@ -11,7 +33,7 @@
       </map>
     </option>
   </component>
-  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="Android Studio default JDK" project-jdk-type="JavaSDK">
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="11" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/build/classes" />
   </component>
   <component name="ProjectType">

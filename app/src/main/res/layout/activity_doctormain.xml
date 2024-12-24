@@ -37,7 +37,7 @@
             android:orientation="vertical">
 
             <Button
-                android:id="@+id/button"
+                android:id="@+id/doc_apmng"
                 android:layout_width="match_parent"
                 android:layout_marginBottom="10dp"
                 android:textSize="18dp"
@@ -46,7 +46,7 @@
                 android:text="Appointment Management" />
 
             <Button
-                android:id="@+id/button2"
+                android:id="@+id/doc_avmng"
                 android:textSize="18dp"
                 android:layout_width="match_parent"
                 android:layout_marginBottom="10dp"
@@ -55,7 +55,7 @@
                 android:text="Availability management" />
 
             <Button
-                android:id="@+id/button4"
+                android:id="@+id/doc_profilebutton"
                 android:textSize="18dp"
                 android:layout_width="match_parent"
                 android:layout_marginBottom="10dp"
@@ -72,13 +72,13 @@
             android:orientation="vertical">
 
             <Button
-                android:id="@+id/button3"
+                android:id="@+id/doc_logoutbutton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textStyle="bold"
                 android:textSize="20dp"
                 android:padding="20dp"
-                android:layout_marginBottom="25dp"
+                android:layout_marginBottom="20dp"
                 android:text="Log out" />
         </LinearLayout>
 

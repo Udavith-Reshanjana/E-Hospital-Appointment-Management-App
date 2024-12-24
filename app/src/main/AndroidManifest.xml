@@ -14,8 +14,14 @@
         android:theme="@style/Theme.EHospitalAppointmentManagementApp"
         tools:targetApi="31">
         <activity
-            android:name=".Doctormain"
-            android:exported="true" >
+            android:name=".docavailable"
+            android:exported="false" />
+        <activity
+            android:name=".docappointmentmanage"
+            android:exported="false" />
+        <activity
+            android:name=".Login"
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -23,9 +29,14 @@
             </intent-filter>
         </activity>
         <activity
+            android:name=".docappointments"
+            android:exported="false" />
+        <activity
+            android:name=".Doctormain"
+            android:exported="false" />
+        <activity
             android:name=".Patientmain"
             android:exported="false" />
-
         <activity
             android:name=".Docreg"
             android:exported="false" />
@@ -33,7 +44,7 @@
             android:name=".PatientReg"
             android:exported="false" />
         <activity
-            android:name=".Login"
+            android:name=".docprofile"
             android:exported="false" />
     </application>
 
