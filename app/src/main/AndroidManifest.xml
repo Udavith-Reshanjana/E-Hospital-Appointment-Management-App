@@ -17,7 +17,7 @@
             android:name=".Patientmain"
             android:exported="false" />
         <activity
-            android:name=".Patientmainscreen"
+            android:name=".Patientmain"
             android:exported="false"
             android:label="@string/title_activity_patientmainscreen"
             android:theme="@style/Theme.EHospitalAppointmentManagementApp.NoActionBar" />

@@ -1,7 +1,7 @@
 package com.example.e_hospitalappointmentmanagementapp
 
-import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
 
 class Docreg : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
