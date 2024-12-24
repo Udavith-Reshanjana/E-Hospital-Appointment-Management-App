@@ -26,7 +26,7 @@
             android:src="@drawable/homeicon"
             tools:srcCompat="@tools:sample/avatars" />
         <ImageButton
-            android:id="@+id/Chat"
+            android:id="@+id/Chatbutton"
             android:layout_width="0dp"
             android:layout_weight="1"
             android:layout_height="fill_parent"
@@ -36,7 +36,7 @@
             android:src="@drawable/chatboticon"
             tools:srcCompat="@tools:sample/avatars" />
         <ImageButton
-            android:id="@+id/Notification"
+            android:id="@+id/Notificationbutton"
             android:layout_width="0dp"
             android:layout_weight="1"
             android:layout_height="fill_parent"
@@ -46,7 +46,7 @@
             android:src="@drawable/notificationicon"
             tools:srcCompat="@tools:sample/avatars" />
         <ImageButton
-            android:id="@+id/Profile"
+            android:id="@+id/Profilebutton"
             android:layout_width="0dp"
             android:layout_weight="1"
             android:layout_height="fill_parent"
@@ -56,7 +56,7 @@
             android:src="@drawable/profileicon"
             tools:srcCompat="@tools:sample/avatars" />
         <ImageButton
-            android:id="@+id/Settings"
+            android:id="@+id/Settingsbutton"
             android:layout_width="0dp"
             android:layout_weight="1"
             android:layout_height="fill_parent"
@@ -71,7 +71,7 @@
         android:id="@+id/fragmentviewer"
         android:layout_marginLeft="15dp"
         android:layout_marginRight="15dp"
-        android:layout_marginBottom="15dp"
+        android:layout_marginBottom="5dp"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
