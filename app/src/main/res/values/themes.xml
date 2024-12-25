@@ -8,12 +8,4 @@
         <!-- Customize your theme here. -->
     </style>
 
-    <style name="Theme.EHospitalAppointmentManagementApp.NoActionBar">
-        <item name="windowActionBar">false</item>
-        <item name="windowNoTitle">true</item>
-    </style>
-
-    <style name="Theme.EHospitalAppointmentManagementApp.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
-
-    <style name="Theme.EHospitalAppointmentManagementApp.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 </resources>
