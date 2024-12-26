@@ -21,13 +21,22 @@
         android:text="Doctor Registration" />
 
     <EditText
-        android:id="@+id/DFullname"
+        android:id="@+id/DFirstname"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10"
         android:inputType="textPersonName"
         android:layout_marginBottom="5dp"
-        android:hint="Full Name" />
+        android:hint="First Name" />
+
+    <EditText
+        android:id="@+id/DLastname"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:layout_marginBottom="5dp"
+        android:hint="Last Name" />
 
     <EditText
         android:id="@+id/DEmail"
@@ -36,7 +45,7 @@
         android:ems="10"
         android:hint="Email"
         android:layout_marginBottom="5dp"
-        android:inputType="textPersonName" />
+        android:inputType="textEmailAddress" />
 
 
 
@@ -58,6 +67,7 @@
             android:textSize="18dp" />
 
         <RadioGroup
+            android:id="@+id/Dgender"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
@@ -78,6 +88,14 @@
 
     </LinearLayout>
 
+    <EditText
+        android:id="@+id/Dspecialty"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="1"
+        android:hint="Your Specialized Area"
+        android:layout_marginBottom="5dp"
+        android:inputType="textPersonName" />
 
     <EditText
         android:id="@+id/Dpass"
@@ -117,7 +135,10 @@
             android:layout_width="fill_parent"
             android:textStyle="bold"
             android:layout_height="wrap_content"
-            android:text="Upload" />
+            android:text="Upload"
+            android:onClick="uploadProfilePic"
+            android:background="@color/purple_700"
+            android:textColor="#FFFFFF"/>
     </LinearLayout>
 
     <CheckBox
@@ -133,7 +154,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textStyle="bold"
-        android:text="Sign up" />
+        android:text="Sign up"
+        android:onClick="docSignUp"
+        android:background="@color/purple_200"
+        android:textColor="#FFFFFF"/>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -155,7 +179,11 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textStyle="bold"
-            android:text="Sign Up as a Patient" />
+            android:text="Sign Up as a Patient"
+            android:onClick="gotoPatietRegistration"
+            android:background="@color/teal_200"
+            android:textColor="#FFFFFF"
+            android:padding="10dp"/>
 
     </LinearLayout>
 
