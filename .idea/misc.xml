@@ -3,6 +3,12 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/E-hospital/E-Hospital-Appointment-Management-App/app/src/main/res/layout/activity_docreg.xml" value="0.33" />
+        <entry key="..\:/E-hospital/E-Hospital-Appointment-Management-App/app/src/main/res/layout/activity_doctormain.xml" value="0.33" />
+        <entry key="..\:/E-hospital/E-Hospital-Appointment-Management-App/app/src/main/res/layout/activity_login.xml" value="0.33" />
+        <entry key="..\:/E-hospital/E-Hospital-Appointment-Management-App/app/src/main/res/layout/activity_patient_reg.xml" value="0.33" />
+        <entry key="..\:/E-hospital/E-Hospital-Appointment-Management-App/app/src/main/res/layout/activity_patientmain.xml" value="0.2558876811594203" />
+        <entry key="..\:/E-hospital/E-Hospital-Appointment-Management-App/app/src/main/res/layout/fragment_settings.xml" value="0.20923913043478262" />
         <entry key="..\:/Users/lenovo/Documents/GitHub/E-Hospital-Appointment-Management-App/app/src/main/res/drawable/ic_launcher_lhospital_logo_background.xml" value="0.1945" />
         <entry key="..\:/Users/lenovo/Documents/GitHub/E-Hospital-Appointment-Management-App/app/src/main/res/layout/activity_docreg.xml" value="0.2" />
         <entry key="..\:/Users/lenovo/Documents/GitHub/E-Hospital-Appointment-Management-App/app/src/main/res/layout/activity_doctormain.xml" value="0.2" />

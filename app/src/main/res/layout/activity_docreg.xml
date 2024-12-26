@@ -5,6 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:background="#F8EDEB"
+
     android:padding="15dp"
     tools:context=".Docreg">
 
@@ -133,12 +135,11 @@
         <Button
             android:id="@+id/Dupload"
             android:layout_width="fill_parent"
-            android:textStyle="bold"
             android:layout_height="wrap_content"
-            android:text="Upload"
+            android:background="#FCD5CE"
             android:onClick="uploadProfilePic"
-            android:background="@color/purple_700"
-            android:textColor="#FFFFFF"/>
+            android:text="Upload"
+            android:textStyle="bold" />
     </LinearLayout>
 
     <CheckBox
@@ -156,8 +157,7 @@
         android:textStyle="bold"
         android:text="Sign up"
         android:onClick="docSignUp"
-        android:background="@color/purple_200"
-        android:textColor="#FFFFFF"/>
+        android:background="#DEC5E3" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -181,8 +181,7 @@
             android:textStyle="bold"
             android:text="Sign Up as a Patient"
             android:onClick="gotoPatietRegistration"
-            android:background="@color/teal_200"
-            android:textColor="#FFFFFF"
+            android:background="#A9F8FB"
             android:padding="10dp"/>
 
     </LinearLayout>

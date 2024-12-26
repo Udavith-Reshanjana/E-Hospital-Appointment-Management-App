@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:orientation="vertical"
+    android:background="#F8EDEB"
     android:layout_height="match_parent"
     tools:context=".Patientmain">
 
@@ -16,6 +17,7 @@
 
 
         <ImageButton
+            android:tag="Home"
             android:id="@+id/Homebutton"
             android:layout_width="0dp"
             android:layout_weight="1"
@@ -26,6 +28,7 @@
             android:src="@drawable/homeicon"
             tools:srcCompat="@tools:sample/avatars" />
         <ImageButton
+            android:tag="Chatbot"
             android:id="@+id/Chatbutton"
             android:layout_width="0dp"
             android:layout_weight="1"
@@ -36,6 +39,7 @@
             android:src="@drawable/chatboticon"
             tools:srcCompat="@tools:sample/avatars" />
         <ImageButton
+            android:tag="Notifications"
             android:id="@+id/Notificationbutton"
             android:layout_width="0dp"
             android:layout_weight="1"
@@ -46,6 +50,7 @@
             android:src="@drawable/notificationicon"
             tools:srcCompat="@tools:sample/avatars" />
         <ImageButton
+            android:tag="Profile"
             android:id="@+id/Profilebutton"
             android:layout_width="0dp"
             android:layout_weight="1"
@@ -56,6 +61,7 @@
             android:src="@drawable/profileicon"
             tools:srcCompat="@tools:sample/avatars" />
         <ImageButton
+            android:tag="Settings"
             android:id="@+id/Settingsbutton"
             android:layout_width="0dp"
             android:layout_weight="1"
