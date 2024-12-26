@@ -13,6 +13,8 @@ class Patientmain : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_patientmain)
         openFragment(Home())
+        buttoncolor(findViewById(R.id.Homebutton))
+
 
         val homebutton = findViewById<ImageButton>(R.id.Homebutton)
         val chatbutton = findViewById<ImageButton>(R.id.Chatbutton)

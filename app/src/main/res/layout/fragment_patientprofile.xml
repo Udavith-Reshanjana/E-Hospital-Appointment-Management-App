@@ -15,7 +15,7 @@
             android:layout_marginTop="25dp"
             android:layout_width="match_parent"
             android:layout_marginBottom="15dp"
-            android:layout_height="450dp">
+            android:layout_height="500dp">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -79,7 +79,7 @@
                         android:layout_height="wrap_content"
                         android:ems="10"
                         android:inputType="date"
-                        android:text="Birthday" />
+                        android:text="" />
                 </LinearLayout>
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -176,7 +176,7 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="fill_parent"
                 android:layout_marginBottom="25dp"
                 android:gravity="center|bottom"
 
@@ -187,10 +187,13 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textStyle="bold"
+                    android:layout_marginRight="15dp"
+                    android:background="#DEC5E3"
                     android:text="Save" />
 
                 <Button
                     android:id="@+id/logoutbutton"
+                    android:background="#B6DCFE"
                     android:layout_width="wrap_content"
                     android:textStyle="bold"
                     android:layout_height="wrap_content"
