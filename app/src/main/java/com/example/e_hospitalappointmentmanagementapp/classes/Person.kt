@@ -61,7 +61,7 @@ open class Person(private val context: Context) {
         role: Int,
         docSpecialty: String?,
         medicalLicence: ByteArray?,
-        age: Int?
+        birthDay: String?
     ): Boolean {
         return try {
             dbHelper.writableDatabase.use { db ->
@@ -74,7 +74,7 @@ open class Person(private val context: Context) {
                     put("ROLE_TYPE", role)
                     put("DOC_SPECIALITY", docSpecialty)
                     put("MEDICAL_LICENCE", medicalLicence)
-                    put("AGE", age)
+                    put("BIRTHDAY", birthDay)
                 }
                 val rowId = db.insert("PERSON", null, values)
                 rowId != -1L // Returns true if insertion was successful

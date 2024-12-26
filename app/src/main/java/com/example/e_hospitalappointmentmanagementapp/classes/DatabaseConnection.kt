@@ -27,7 +27,7 @@ class DatabaseConnection(context: Context) : SQLiteOpenHelper(context, DATABASE_
                 ROLE_TYPE INTEGER NOT NULL,
                 DOC_SPECIALITY TEXT,
                 MEDICAL_LICENCE BLOB,
-                AGE INTEGER,
+                BIRTHDAY TEXT,
                 PRIMARY KEY(PERSON_ID),
                 FOREIGN KEY(ROLE_TYPE) REFERENCES ROLES(ROLE_ID)
             );

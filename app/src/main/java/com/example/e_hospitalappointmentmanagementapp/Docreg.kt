@@ -84,7 +84,7 @@ class Docreg : AppCompatActivity() {
                 role = 1,
                 docSpecialty = docSpecialty,
                 medicalLicence = medicalLicence,
-                age = null
+                birthDay = null
             )
 
             if (isRegistered) {
