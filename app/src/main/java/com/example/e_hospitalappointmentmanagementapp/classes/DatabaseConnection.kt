@@ -27,7 +27,7 @@ class DatabaseConnection(context: Context) : SQLiteOpenHelper(context, DATABASE_
                 ROLE_TYPE INTEGER NOT NULL,
                 DOC_SPECIALITY TEXT,
                 MEDICAL_LICENCE BLOB,
-                AGE INTEGER,
+                BIRTHDAY TEXT,
                 PRIMARY KEY(PERSON_ID),
                 FOREIGN KEY(ROLE_TYPE) REFERENCES ROLES(ROLE_ID)
             );
@@ -106,7 +106,7 @@ class DatabaseConnection(context: Context) : SQLiteOpenHelper(context, DATABASE_
         db.execSQL("INSERT INTO DOC_AVAILABILITY VALUES (1, 'Tuesday', '12:00', '15:00');")
         db.execSQL("INSERT INTO HOSPITAL VALUES (1, 1, 'ABC Hospital', '2024-12-24');")
         db.execSQL("INSERT INTO PERSON VALUES (1, 'Udavith', 'Reshanjana', 'abc@email.com', '11111', NULL, 1, 'Nurology', NULL, NULL);")
-        db.execSQL("INSERT INTO PERSON VALUES (2, 'Tharuka', 'Fernando', 'def@email.com', '11111', NULL, 2, NULL, NULL, 24);")
+        db.execSQL("INSERT INTO PERSON VALUES (2, 'Tharuka', 'Fernando', 'def@email.com', '11111', NULL, 2, NULL, NULL, '2001-01-01');")
         db.execSQL("INSERT INTO PERSON VALUES (3, 'Dave', 'Jhones', 'blackpearl@pirate.com', '11111', NULL, 3, NULL, NULL, NULL);")
         db.execSQL("INSERT INTO ROLES VALUES (1, 'Doctor');")
         db.execSQL("INSERT INTO ROLES VALUES (2, 'Patient');")

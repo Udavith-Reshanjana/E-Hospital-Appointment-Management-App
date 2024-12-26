@@ -20,13 +20,22 @@
         android:text="Patient Registration" />
 
     <EditText
-        android:id="@+id/PFullname"
+        android:id="@+id/PFirstname"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10"
         android:inputType="textPersonName"
         android:layout_marginBottom="5dp"
-        android:hint="Full Name" />
+        android:hint="First Name" />
+
+    <EditText
+        android:id="@+id/PLastname"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:layout_marginBottom="5dp"
+        android:hint="Last Name" />
 
     <EditText
         android:id="@+id/PEmail"
@@ -35,16 +44,16 @@
         android:ems="10"
         android:hint="Email"
         android:layout_marginBottom="5dp"
-        android:inputType="textPersonName" />
+        android:inputType="textEmailAddress" />
 
     <EditText
         android:id="@+id/PBirthday"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10"
-        android:hint="Birthday"
+        android:hint="Birthday (YYYY-MM-DD)"
         android:layout_marginBottom="5dp"
-        android:inputType="date" />
+        android:inputType="textPersonName" />
 
 
     <LinearLayout
@@ -64,6 +73,7 @@
             android:textSize="18dp" />
 
         <RadioGroup
+                android:id="@+id/Pgender"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
@@ -116,7 +126,10 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:textStyle="bold"
-        android:text="Sign up" />
+        android:text="Sign up"
+        android:onClick="patientSignUp"
+        android:background="@color/purple_200"
+        android:textColor="#FFFFFF"/>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -138,7 +151,11 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textStyle="bold"
-            android:text="Sign Up as a doctor" />
+            android:text="Sign Up as a doctor"
+            android:background="@color/teal_200"
+            android:textColor="#FFFFFF"
+            android:padding="10dp"
+            android:onClick="gotoDoctorRegistration"/>
 
     </LinearLayout>
 

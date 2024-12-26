@@ -5,6 +5,8 @@ import android.content.Context
 import android.database.sqlite.SQLiteOpenHelper
 import android.widget.Toast
 import java.sql.Blob
+import java.text.SimpleDateFormat
+import java.util.*
 
 open class Person(private val context: Context) {
     protected val dbHelper: SQLiteOpenHelper = DatabaseConnection(context)
@@ -61,7 +63,7 @@ open class Person(private val context: Context) {
         role: Int,
         docSpecialty: String?,
         medicalLicence: ByteArray?,
-        age: Int?
+        birthDay: String?
     ): Boolean {
         return try {
             dbHelper.writableDatabase.use { db ->
@@ -74,7 +76,7 @@ open class Person(private val context: Context) {
                     put("ROLE_TYPE", role)
                     put("DOC_SPECIALITY", docSpecialty)
                     put("MEDICAL_LICENCE", medicalLicence)
-                    put("AGE", age)
+                    put("BIRTHDAY", birthDay)
                 }
                 val rowId = db.insert("PERSON", null, values)
                 rowId != -1L // Returns true if insertion was successful
@@ -104,4 +106,15 @@ open class Person(private val context: Context) {
         }
     }
 
+    // date validator
+    fun isValidDate(dateString: String): Boolean {
+        val dateFormat = SimpleDateFormat("yyyy-mm-dd", Locale.getDefault())
+        dateFormat.isLenient = false
+        return try {
+            val date = dateFormat.parse(dateString)
+            date != null
+        } catch (e: Exception) {
+            false
+        }
+    }
 }
