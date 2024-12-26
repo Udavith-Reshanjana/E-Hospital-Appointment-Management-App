@@ -5,6 +5,8 @@ import android.content.Context
 import android.database.sqlite.SQLiteOpenHelper
 import android.widget.Toast
 import java.sql.Blob
+import java.text.SimpleDateFormat
+import java.util.*
 
 open class Person(private val context: Context) {
     protected val dbHelper: SQLiteOpenHelper = DatabaseConnection(context)
@@ -104,4 +106,15 @@ open class Person(private val context: Context) {
         }
     }
 
+    // date validator
+    fun isValidDate(dateString: String): Boolean {
+        val dateFormat = SimpleDateFormat("yyyy-mm-dd", Locale.getDefault())
+        dateFormat.isLenient = false
+        return try {
+            val date = dateFormat.parse(dateString)
+            date != null
+        } catch (e: Exception) {
+            false
+        }
+    }
 }
