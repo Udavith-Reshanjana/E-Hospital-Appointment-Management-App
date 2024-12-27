@@ -27,13 +27,13 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:orientation="vertical" >
 
             <ListView
                 android:id="@+id/datelist"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent" />
+                android:layout_height="280dp" />
         </LinearLayout>
     </ScrollView>
 
@@ -50,7 +50,8 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:layout_marginBottom="10dp">
 
         <TextView
             android:id="@+id/textView40"
@@ -59,19 +60,17 @@
             android:layout_height="wrap_content"
             android:text="Date: " />
 
-        <EditText
-            android:id="@+id/timeday"
-            android:layout_width="fill_parent"
+        <Spinner
+            android:id="@+id/availableDay"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:ems="10"
-            android:inputType="date"
-            android:text="" />
+            android:layout_weight="1" />
     </LinearLayout>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:layout_marginBottom="10dp">
 
         <TextView
             android:id="@+id/textView41"
@@ -105,8 +104,8 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:ems="10"
-            android:inputType="date"
-            android:text="" />
+            android:inputType="textPersonName"
+            android:hint="08:00" />
 
         <TextView
             android:id="@+id/textView43"
@@ -122,8 +121,8 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:ems="10"
-            android:inputType="date"
-            android:text="" />
+            android:inputType="textPersonName"
+            android:hint="13:00" />
 
     </LinearLayout>
     <LinearLayout
@@ -139,14 +138,17 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textStyle="bold"
-            android:text="Remove" />
+            android:text="Remove"
+            android:background="#A9F8FB"/>
 
         <Button
             android:id="@+id/addtime"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textStyle="bold"
-            android:text="Add" />
+            android:text="Add"
+            android:background="#DEC5E3"
+            android:layout_marginLeft="20dp"/>
 
     </LinearLayout>
 

@@ -8,7 +8,7 @@ import java.sql.Blob
 import java.text.SimpleDateFormat
 import java.util.*
 
-open class Person(private val context: Context) {
+open class Person(val context: Context) {
     protected val dbHelper: SQLiteOpenHelper = DatabaseConnection(context)
 
     // Log the user in
@@ -134,6 +134,25 @@ open class Person(private val context: Context) {
         } catch (e: Exception) {
             e.printStackTrace()
             -2 // Return -2 in case of an error
+        }
+    }
+
+    // person first name getter
+    fun getPersonFirstName(userEmail: String, userPassword: String): String? {
+        return try {
+            dbHelper.readableDatabase.use { db ->
+                val query = "SELECT FIRST_NAME FROM PERSON WHERE EMAIL = ? AND PERSON_PASSWORD = ?"
+                db.rawQuery(query, arrayOf(userEmail, userPassword)).use { cursor ->
+                    if (cursor.moveToFirst()) {
+                        cursor.getString(cursor.getColumnIndexOrThrow("FIRST_NAME"))
+                    } else {
+                        null
+                    }
+                }
+            }
+        } catch (e: Exception) {
+            e.printStackTrace()
+            null
         }
     }
 
