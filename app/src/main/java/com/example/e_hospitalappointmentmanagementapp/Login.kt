@@ -48,11 +48,10 @@ class Login : AppCompatActivity() {
         val person = Person(this)
         val bundle = Bundle()
         val userId = person.findPersonId(userEmail, userPassword)
+        val firstName = person.getPersonFirstName(userEmail, userPassword)
         bundle.putInt("person_id", userId)
         when (userTypeInt) {
             1 -> {
-                val doctor = Doctor(this)
-                val firstName = doctor.getDoctorFirstName(userEmail, userPassword)
                 bundle.putString("first_name", "Dr. $firstName")
                 val intent = Intent(this, Doctormain::class.java)
                 intent.putExtras(bundle)
@@ -60,6 +59,7 @@ class Login : AppCompatActivity() {
                 finish()
             }
             2 -> {
+                bundle.putString("first_name", "$firstName")
                 val intent = Intent(this, Patientmain::class.java)
                 intent.putExtras(bundle)
                 startActivity(intent)
