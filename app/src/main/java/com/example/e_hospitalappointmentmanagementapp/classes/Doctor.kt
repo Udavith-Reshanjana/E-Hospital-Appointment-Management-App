@@ -60,4 +60,79 @@ class Doctor(context: Context) : Person(context) {
             false
         }
     }
+
+    fun getAvailabilityForDoctor(personId: Int): List<Map<String, String>> {
+        val availability = mutableListOf<Map<String, String>>()
+        val db = dbHelper.readableDatabase
+        val query = "SELECT AVAILABLE_DAY, AVAILABLE_TIME, AVAILABLE_TIME_END FROM DOC_AVAILABILITY WHERE PERSON_ID = ?"
+        val cursor = db.rawQuery(query, arrayOf(personId.toString()))
+        while (cursor.moveToNext()) {
+            availability.add(
+                mapOf(
+                    "AVAILABLE_DAY" to cursor.getString(cursor.getColumnIndexOrThrow("AVAILABLE_DAY")),
+                    "AVAILABLE_TIME" to cursor.getString(cursor.getColumnIndexOrThrow("AVAILABLE_TIME")),
+                    "AVAILABLE_TIME_END" to cursor.getString(cursor.getColumnIndexOrThrow("AVAILABLE_TIME_END"))
+                )
+            )
+        }
+        cursor.close()
+        db.close()
+        return availability
+    }
+
+    fun addAvailability(personId: Int, day: String, fromTime: String, toTime: String): Boolean {
+        val db = dbHelper.writableDatabase
+        return try {
+            db.execSQL(
+                "INSERT INTO DOC_AVAILABILITY (PERSON_ID, AVAILABLE_DAY, AVAILABLE_TIME, AVAILABLE_TIME_END) VALUES (?, ?, ?, ?)",
+                arrayOf(personId, day, fromTime, toTime)
+            )
+            true
+        } catch (e: Exception) {
+            e.printStackTrace()
+            false
+        } finally {
+            db.close()
+        }
+    }
+
+    fun removeAvailability(personId: Int, day: String, fromTime: String): Boolean {
+        val db = dbHelper.writableDatabase
+        return try {
+            // Delete only the specified availability based on PERSON_ID, AVAILABLE_DAY, and AVAILABLE_TIME
+            val rowsDeleted = db.delete(
+                "DOC_AVAILABILITY",
+                "PERSON_ID = ? AND AVAILABLE_DAY = ? AND AVAILABLE_TIME = ?",
+                arrayOf(personId.toString(), day, fromTime)
+            )
+            rowsDeleted > 0 // Return true if at least one row was deleted
+        } catch (e: Exception) {
+            e.printStackTrace()
+            false // Return false if any exception occurs
+        } finally {
+            db.close() // Ensure the database connection is closed
+        }
+    }
+
+    fun getHospitalsForDoctor(personId: Int): List<String> {
+        val hospitals = mutableListOf<String>()
+        val db = dbHelper.readableDatabase
+
+        val query = "SELECT HOSPITAL_NAME FROM HOSPITAL WHERE PERSON_ID = ?"
+        val cursor = db.rawQuery(query, arrayOf(personId.toString()))
+
+        try {
+            while (cursor.moveToNext()) {
+                hospitals.add(cursor.getString(cursor.getColumnIndexOrThrow("HOSPITAL_NAME")))
+            }
+        } finally {
+            cursor.close()
+            db.close()
+        }
+
+        return hospitals
+    }
+
+
+
 }
