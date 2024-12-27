@@ -26,6 +26,7 @@ class Doctormain : AppCompatActivity() {
     private fun gotoAnyScreen(activityClass: Class<*>) {
         val intent = Intent(this, activityClass).apply {
             putExtra("person_id", doctorPersonId)
+            putExtra("firstName", doctorFirstName)
         }
         startActivity(intent)
     }
