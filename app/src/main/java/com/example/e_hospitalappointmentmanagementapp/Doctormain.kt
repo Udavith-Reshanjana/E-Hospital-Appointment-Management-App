@@ -10,6 +10,7 @@ class Doctormain : AppCompatActivity() {
         setContentView(R.layout.activity_doctormain)
 
         val doctorFirstName = intent.getStringExtra("first_name")
+        val doctorPersonId = intent.getIntExtra("person_id",-1)
 
         val docFirstName = findViewById<TextView>(R.id.doctorUserName)
         docFirstName.text = doctorFirstName
