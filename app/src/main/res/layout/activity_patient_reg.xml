@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:orientation="vertical"
     android:padding="15dp"
+    android:background="#F8EDEB"
     android:layout_height="match_parent"
     tools:context=".PatientReg">
 
@@ -128,8 +129,7 @@
         android:textStyle="bold"
         android:text="Sign up"
         android:onClick="patientSignUp"
-        android:background="@color/purple_200"
-        android:textColor="#FFFFFF"/>
+        android:background="#DEC5E3" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -142,7 +142,7 @@
             android:id="@+id/textView3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="5dp"
+            android:layout_marginBottom="10dp"
             android:gravity="center"
             android:text="Are you a Doctor?" />
 
@@ -152,8 +152,7 @@
             android:layout_height="wrap_content"
             android:textStyle="bold"
             android:text="Sign Up as a doctor"
-            android:background="@color/teal_200"
-            android:textColor="#FFFFFF"
+            android:background="#A9F8FB"
             android:padding="10dp"
             android:onClick="gotoDoctorRegistration"/>
 

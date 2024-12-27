@@ -28,7 +28,8 @@
 
             <TextView
                 android:id="@+id/textView20"
-                android:layout_width="130dp"
+                android:layout_width="150dp"
+                android:textSize="18dp"
                 android:layout_height="wrap_content"
                 android:text="Payment Amount: " />
 
@@ -49,7 +50,8 @@
 
             <TextView
                 android:id="@+id/textView22"
-                android:layout_width="130dp"
+                android:textSize="18dp"
+                android:layout_width="150dp"
                 android:layout_height="wrap_content"
                 android:text="Name on the card: " />
 
@@ -68,7 +70,8 @@
 
             <TextView
                 android:id="@+id/textView23"
-                android:layout_width="130dp"
+                android:textSize="18dp"
+                android:layout_width="150dp"
                 android:layout_height="wrap_content"
                 android:text="Card number" />
 
@@ -87,7 +90,8 @@
 
             <TextView
                 android:id="@+id/textView24"
-                android:layout_width="130dp"
+                android:layout_width="150dp"
+                android:textSize="18dp"
                 android:layout_height="wrap_content"
                 android:text="Expiry Date" />
 
@@ -106,7 +110,8 @@
 
             <TextView
                 android:id="@+id/textView21"
-                android:layout_width="130dp"
+                android:layout_width="150dp"
+                android:textSize="18dp"
                 android:layout_height="wrap_content"
                 android:text="Security Code" />
 
@@ -131,7 +136,7 @@
                 android:textSize="30dp"
                 android:paddingLeft="25dp"
                 android:paddingRight="25dp"
-
+                android:background="#DEC5E3"
                 android:layout_height="wrap_content"
                 android:textStyle="bold"
                 android:text="Pay" />
