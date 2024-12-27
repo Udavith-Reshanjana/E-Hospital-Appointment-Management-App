@@ -16,23 +16,25 @@
         <activity
             android:name=".Doctormain"
             android:theme="@style/AppTheme"
-            android:exported="false" >
-<!--            <intent-filter>-->
-<!--                <action android:name="android.intent.action.MAIN" />-->
+            android:exported="false" />
 
-<!--                <category android:name="android.intent.category.LAUNCHER" />-->
-<!--            </intent-filter>-->
-        </activity>
-        <activity android:name=".docappointments" android:exported="false"/>
-        <activity android:name=".docprofile" android:exported="false"/>
-        <activity android:name=".docavailable" android:exported="false"/>
-        <activity android:name=".docappointmentmanage" android:exported="true">
-        <intent-filter>
-            <action android:name="android.intent.action.MAIN" />
+        <activity
+            android:theme="@style/AppTheme"
+            android:name=".docappointments"
+            android:exported="false"/>
+        <activity
+            android:theme="@style/AppTheme"
+            android:name=".docprofile"
+            android:exported="false"/>
+        <activity
+            android:theme="@style/AppTheme"
+            android:name=".docavailable"
+            android:exported="false"/>
+        <activity
+            android:theme="@style/AppTheme"
+            android:name=".docappointmentmanage"
+            android:exported="false"/>
 
-            <category android:name="android.intent.category.LAUNCHER" />
-        </intent-filter>
-        </activity>
         <activity
             android:theme="@style/AppTheme"
             android:name=".Patientmain"
@@ -49,7 +51,13 @@
         <activity
             android:name=".Login"
             android:theme="@style/AppTheme"
-            android:exported="true" />
+            android:exported="true" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
 
     </application>
 </manifest>
