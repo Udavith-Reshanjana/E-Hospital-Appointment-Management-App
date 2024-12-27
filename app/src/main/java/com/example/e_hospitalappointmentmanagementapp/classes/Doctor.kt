@@ -1,7 +1,11 @@
 package com.example.e_hospitalappointmentmanagementapp.classes
 
+import android.content.ContentValues
 import android.content.Context
 import android.database.sqlite.SQLiteDatabase
+import android.graphics.Bitmap
+import android.widget.Toast
+import java.io.ByteArrayOutputStream
 
 class Doctor(context: Context) : Person(context) {
 
@@ -132,6 +136,109 @@ class Doctor(context: Context) : Person(context) {
 
         return hospitals
     }
+
+    fun updateProfile(
+        personId: Int,
+        firstName: String,
+        lastName: String,
+        email: String,
+        oldPassword: String,
+        newPassword: String
+    ): Boolean {
+        val db = dbHelper.writableDatabase
+
+        // Validate old password if new password is provided
+        if (newPassword.isNotBlank()) {
+            val query = "SELECT PERSON_PASSWORD FROM PERSON WHERE PERSON_ID = ?"
+            val cursor = db.rawQuery(query, arrayOf(personId.toString()))
+            if (cursor.moveToFirst()) {
+                val currentPassword = cursor.getString(cursor.getColumnIndexOrThrow("PERSON_PASSWORD"))
+                if (currentPassword != oldPassword) {
+                    cursor.close()
+                    db.close()
+                    Toast.makeText(context, "Old password is incorrect", Toast.LENGTH_SHORT).show()
+                    return false
+                }
+            }
+            cursor.close()
+
+            if (newPassword == oldPassword) {
+                Toast.makeText(context, "New password cannot be the same as the old password", Toast.LENGTH_SHORT).show()
+                db.close()
+                return false
+            }
+        }
+
+        // Update profile data
+        return try {
+            val contentValues = ContentValues().apply {
+                put("FIRST_NAME", firstName)
+                put("LAST_NAME", lastName)
+                put("EMAIL", email)
+                if (newPassword.isNotBlank()) put("PERSON_PASSWORD", newPassword)
+            }
+
+            val rowsUpdated = db.update(
+                "PERSON",
+                contentValues,
+                "PERSON_ID = ?",
+                arrayOf(personId.toString())
+            )
+            rowsUpdated > 0
+        } catch (e: Exception) {
+            e.printStackTrace()
+            false
+        } finally {
+            db.close()
+        }
+    }
+
+    fun getProfile(personId: Int): Map<String, String>? {
+        val db = dbHelper.readableDatabase
+        val query = """
+        SELECT FIRST_NAME, LAST_NAME, EMAIL, PERSON_PASSWORD 
+        FROM PERSON 
+        WHERE PERSON_ID = ?
+    """
+        val cursor = db.rawQuery(query, arrayOf(personId.toString()))
+
+        return if (cursor.moveToFirst()) {
+            mapOf(
+                "FIRST_NAME" to cursor.getString(cursor.getColumnIndexOrThrow("FIRST_NAME")),
+                "LAST_NAME" to cursor.getString(cursor.getColumnIndexOrThrow("LAST_NAME")),
+                "EMAIL" to cursor.getString(cursor.getColumnIndexOrThrow("EMAIL")),
+                "PERSON_PASSWORD" to cursor.getString(cursor.getColumnIndexOrThrow("PERSON_PASSWORD"))
+            )
+        } else {
+            null
+        }.also {
+            cursor.close()
+            db.close()
+        }
+    }
+
+    fun getHospitals(personId: Int): List<String> {
+        val hospitals = mutableListOf<String>()
+        val db = dbHelper.readableDatabase
+        val query = """
+        SELECT HOSPITAL_NAME 
+        FROM HOSPITAL 
+        WHERE PERSON_ID = ?
+    """
+        val cursor = db.rawQuery(query, arrayOf(personId.toString()))
+
+        try {
+            while (cursor.moveToNext()) {
+                hospitals.add(cursor.getString(cursor.getColumnIndexOrThrow("HOSPITAL_NAME")))
+            }
+        } finally {
+            cursor.close()
+            db.close()
+        }
+
+        return hospitals
+    }
+
 
 
 

@@ -8,7 +8,7 @@ import java.sql.Blob
 import java.text.SimpleDateFormat
 import java.util.*
 
-open class Person(private val context: Context) {
+open class Person(val context: Context) {
     protected val dbHelper: SQLiteOpenHelper = DatabaseConnection(context)
 
     // Log the user in
