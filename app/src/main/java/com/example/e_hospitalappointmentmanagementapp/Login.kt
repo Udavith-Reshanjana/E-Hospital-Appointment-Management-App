@@ -45,11 +45,14 @@ class Login : AppCompatActivity() {
     }
 
     private fun gotoPersonMainScreen(userTypeInt: Int, userEmail: String, userPassword: String) {
+        val person = Person(this)
+        val bundle = Bundle()
+        val userId = person.findPersonId(userEmail, userPassword)
+        bundle.putInt("person_id", userId)
         when (userTypeInt) {
             1 -> {
                 val doctor = Doctor(this)
                 val firstName = doctor.getDoctorFirstName(userEmail, userPassword)
-                val bundle = Bundle()
                 bundle.putString("first_name", "Dr. $firstName")
                 val intent = Intent(this, Doctormain::class.java)
                 intent.putExtras(bundle)
@@ -58,6 +61,7 @@ class Login : AppCompatActivity() {
             }
             2 -> {
                 val intent = Intent(this, Patientmain::class.java)
+                intent.putExtras(bundle)
                 startActivity(intent)
                 finish()
             }

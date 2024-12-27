@@ -117,4 +117,24 @@ open class Person(private val context: Context) {
             false
         }
     }
+
+    // find person ID by email and password function
+    fun findPersonId(userEmail: String, userPassword: String): Int {
+        return try {
+            dbHelper.readableDatabase.use { db ->
+                val query = "SELECT PERSON_ID FROM PERSON WHERE EMAIL = ? AND PERSON_PASSWORD = ?"
+                db.rawQuery(query, arrayOf(userEmail, userPassword)).use { cursor ->
+                    if (cursor.moveToFirst()) {
+                        cursor.getInt(cursor.getColumnIndexOrThrow("PERSON_ID"))
+                    } else {
+                        -1 // Return -1 if no user is found
+                    }
+                }
+            }
+        } catch (e: Exception) {
+            e.printStackTrace()
+            -2 // Return -2 in case of an error
+        }
+    }
+
 }
