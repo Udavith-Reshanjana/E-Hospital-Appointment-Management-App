@@ -27,6 +27,8 @@
         <entry key="..\:/Users/lenovo/Documents/GitHub/E-Hospital-Appointment-Management-App/app/src/main/res/layout/activity_main.xml" value="0.2" />
         <entry key="..\:/Users/lenovo/Documents/GitHub/E-Hospital-Appointment-Management-App/app/src/main/res/layout/activity_patient_reg.xml" value="0.2" />
         <entry key="..\:/Users/lenovo/Documents/GitHub/E-Hospital-Appointment-Management-App/app/src/main/res/layout/activity_patientmain.xml" value="0.2" />
+        <entry key="..\:/Users/lenovo/Documents/GitHub/E-Hospital-Appointment-Management-App/app/src/main/res/layout/fragment_appointment.xml" value="0.2" />
+        <entry key="..\:/Users/lenovo/Documents/GitHub/E-Hospital-Appointment-Management-App/app/src/main/res/layout/fragment_myappointments.xml" value="0.2" />
       </map>
     </option>
   </component>
