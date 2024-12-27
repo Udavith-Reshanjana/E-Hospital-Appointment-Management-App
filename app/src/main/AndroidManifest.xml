@@ -8,13 +8,14 @@
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
         android:icon="@mipmap/ic_launcher_hospital_logo"
-        android:label="@string/app_name"
+        android:label=""
         android:roundIcon="@mipmap/ic_launcher_hospital_logo_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.EHospitalAppointmentManagementApp"
         tools:targetApi="31">
         <activity
             android:name=".Doctormain"
+            android:theme="@style/AppTheme"
             android:exported="false" >
 <!--            <intent-filter>-->
 <!--                <action android:name="android.intent.action.MAIN" />-->
@@ -23,17 +24,21 @@
 <!--            </intent-filter>-->
         </activity>
         <activity
+            android:theme="@style/AppTheme"
             android:name=".Patientmain"
             android:exported="false" />
 
         <activity
             android:name=".Docreg"
+            android:theme="@style/AppTheme"
             android:exported="false" />
         <activity
             android:name=".PatientReg"
+            android:theme="@style/AppTheme"
             android:exported="false" />
         <activity
             android:name=".Login"
+            android:theme="@style/AppTheme"
             android:exported="true" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

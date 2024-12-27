@@ -156,28 +156,34 @@
                 android:inputType="textPersonName"
                 android:text="" />
         </LinearLayout>
-    </LinearLayout>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="fill_parent"
-        android:layout_marginBottom="50dp"
-        android:gravity="center|bottom"
-        android:orientation="horizontal">
 
-        <Button
-            android:id="@+id/leavefeedback"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textStyle="bold"
-            android:text="Leave a feedback" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="fill_parent"
+            android:layout_marginBottom="50dp"
+            android:gravity="center|bottom"
+            android:orientation="horizontal">
 
-        <Button
-            android:id="@+id/back"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textStyle="bold"
-            android:text="Back" />
+            <Button
+                android:id="@+id/leavefeedback"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="#DEC5E3"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:text="Leave a feedback"
+                android:layout_marginRight="15dp"
+                android:textStyle="bold" />
 
+            <Button
+                android:id="@+id/back"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="#B6DCFE"
+                android:text="Back"
+                android:textStyle="bold" />
+
+        </LinearLayout>
     </LinearLayout>
 
 </FrameLayout>
