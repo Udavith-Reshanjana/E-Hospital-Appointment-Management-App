@@ -281,5 +281,45 @@ class Patient(context: Context) : Person(context) {
         return hospitals
     }
 
+    fun getAppointmentsByPersonId(personId: Int): List<Map<String, String>> {
+        val appointments = mutableListOf<Map<String, String>>()
+        val db = dbHelper.readableDatabase
+        val query = """
+        SELECT 
+            APPOINMENT.APPOINMENT_ID,
+            APPOINMENT.APPOINMENT_DATE,
+            APPOINMENT.STATUS,
+            APPOINMENT.BOOKED_DATE,
+            APPOINMENT.FEEDBACK
+        FROM 
+            PATIENT_APPOINMENT
+        INNER JOIN 
+            APPOINMENT 
+        ON 
+            PATIENT_APPOINMENT.APPOINMENT_ID = APPOINMENT.APPOINMENT_ID
+        WHERE 
+            PATIENT_APPOINMENT.PERSON_ID = ?
+    """
+        val cursor = db.rawQuery(query, arrayOf(personId.toString()))
+
+        try {
+            while (cursor.moveToNext()) {
+                val appointment = mapOf(
+                    "APPOINMENT_ID" to cursor.getInt(cursor.getColumnIndexOrThrow("APPOINMENT_ID")).toString(),
+                    "APPOINMENT_DATE" to cursor.getString(cursor.getColumnIndexOrThrow("APPOINMENT_DATE")),
+                    "STATUS" to cursor.getString(cursor.getColumnIndexOrThrow("STATUS")),
+                    "BOOKED_DATE" to cursor.getString(cursor.getColumnIndexOrThrow("BOOKED_DATE")),
+                    "FEEDBACK" to (cursor.getString(cursor.getColumnIndexOrThrow("FEEDBACK")) ?: "No feedback")
+                )
+                appointments.add(appointment)
+            }
+        } finally {
+            cursor.close()
+            db.close()
+        }
+
+        return appointments
+    }
+
 
 }
