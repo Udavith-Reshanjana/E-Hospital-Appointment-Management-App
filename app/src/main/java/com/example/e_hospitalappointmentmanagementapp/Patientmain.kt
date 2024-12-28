@@ -9,6 +9,9 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentTransaction
 
 class Patientmain : AppCompatActivity() {
+
+    private val bundle = Bundle()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_patientmain)
@@ -29,7 +32,7 @@ class Patientmain : AppCompatActivity() {
         }
 
         chatbutton.setOnClickListener {
-            openFragment(chatbot()) // Ensure `Home` extends `androidx.fragment.app.Fragment`
+            openFragment(chatbot())
             buttoncolor(chatbutton)
         }
 
@@ -48,14 +51,21 @@ class Patientmain : AppCompatActivity() {
             buttoncolor(settingsbutton)
         }
 
+        val firstName = intent.getStringExtra("first_name")
+        val personId = intent.getIntExtra("person_id", -1)
+
+        bundle.putString("first_name", firstName)
+        bundle.putInt("person_id", personId)
     }
 
-    private fun openFragment(fragment: androidx.fragment.app.Fragment) {
+    private fun openFragment(fragment: Fragment) {
+        fragment.arguments = bundle
         val fragmentTransaction: FragmentTransaction = supportFragmentManager.beginTransaction()
         fragmentTransaction.replace(R.id.fragmentviewer, fragment)
-        fragmentTransaction.addToBackStack(null) // Optional: Add the transaction to the back stack
+        fragmentTransaction.addToBackStack(null) // Add the transaction to the back stack
         fragmentTransaction.commit()
     }
+
 
     fun buttoncolor(button: ImageButton){
         findViewById<ImageButton>(R.id.Homebutton).setImageResource(R.drawable.homeicon)
