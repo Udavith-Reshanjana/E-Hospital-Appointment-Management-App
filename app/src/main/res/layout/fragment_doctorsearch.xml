@@ -12,7 +12,8 @@
         android:orientation="vertical">
 
         <SearchView
-            android:queryHint="Search doctor here"
+            android:id="@+id/searchView"
+            android:queryHint="Search Doctor Here"
             android:iconifiedByDefault="false"
             android:layout_width="match_parent"
             android:layout_height="match_parent" >
