@@ -32,7 +32,7 @@ class Doctormain : AppCompatActivity() {
     }
 
     fun gotoDocAppoinmentManagement(view: View) {
-        gotoAnyScreen(docappointmentmanage::class.java)
+        gotoAnyScreen(docappointments::class.java)
     }
 
     fun gotoDocAvailabilityManagement(view: View) {
