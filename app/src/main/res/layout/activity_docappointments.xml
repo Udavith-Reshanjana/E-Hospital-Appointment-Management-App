@@ -22,6 +22,7 @@
             android:text="My Appointments" />
 
         <ScrollView
+            android:id="@+id/sc1"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
@@ -33,7 +34,7 @@
                 <ListView
                     android:id="@+id/docappointments"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="662dp"
                     android:layout_marginTop="15dp" />
             </LinearLayout>
         </ScrollView>

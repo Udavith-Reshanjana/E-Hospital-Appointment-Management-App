@@ -105,14 +105,14 @@ class DatabaseConnection(context: Context) : SQLiteOpenHelper(context, DATABASE_
         db.execSQL("INSERT INTO DOC_AVAILABILITY VALUES (1, 'Monday', '07:00', '12:00');")
         db.execSQL("INSERT INTO DOC_AVAILABILITY VALUES (1, 'Tuesday', '12:00', '15:00');")
         db.execSQL("INSERT INTO HOSPITAL VALUES (1, 1, 'ABC Hospital', '2024-12-24');")
-        db.execSQL("INSERT INTO PERSON VALUES (1,'Udavith','Reshanjana','abc@email.com','11111', NULL, 1,'Neurology',NULL);")
-        db.execSQL("INSERT INTO PERSON VALUES (2,'Tharuka','Fernando','def@gmail.com','11111', NULL, 2,NULL,NULL,'2001-01-01');")
-        db.execSQL("INSERT INTO PERSON VALUES (3,'Dave','Jhones','blackpearl@pirate.com','11111', NULL,3,NULL,NULL,NULL);")
+        db.execSQL("INSERT INTO PERSON VALUES (1,'Udavith','Reshanjana','abc@email.com','11111', NULL, 1,'Neurology',NULL, NULL);")
+        db.execSQL("INSERT INTO PERSON VALUES (2,'Tharuka','Fernando','def@email.com','11111', NULL, 2,NULL,NULL,'2001-01-01');")
+        db.execSQL("INSERT INTO PERSON VALUES (3,'Dave','Jones','blackpearl@pirate.com','11111', NULL,3,NULL,NULL,NULL);")
         db.execSQL("INSERT INTO ROLES VALUES (1, 'Doctor');")
         db.execSQL("INSERT INTO ROLES VALUES (2, 'Patient');")
         db.execSQL("INSERT INTO ROLES VALUES (3, 'Admin');")
-        db.execSQL("INSERT INTO APPOINMENT VALUES (NULL, 1, '2024-12-31 09:00:00', 'Scheduled', '2024-12-30', 'Looking forward to the appointment.');");
-        db.execSQL("INSERT INTO APPOINMENT VALUES (NULL, 1, '2025-01-05 14:30:00', 'Completed', '2024-12-28', 'Excellent service.');");
+        db.execSQL("INSERT INTO APPOINMENT VALUES (1, 1, '2024-12-31', 'Scheduled', '2024-12-30', 'Looking forward to the appointment.');");
+        db.execSQL("INSERT INTO APPOINMENT VALUES (2, 1, '2025-01-05', 'Completed', '2024-12-28', 'Excellent service.');");
     }
 
     override fun onUpgrade(db: SQLiteDatabase, oldVersion: Int, newVersion: Int) {

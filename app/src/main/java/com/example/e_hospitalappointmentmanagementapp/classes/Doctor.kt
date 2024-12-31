@@ -56,14 +56,17 @@ class Doctor(context: Context) : Person(context) {
     fun removeAppointment(appointmentId: Int): Boolean {
         val db = dbHelper.writableDatabase
         return try {
-            val rowsDeleted = db.delete("Appointments", "AppointmentID = ?", arrayOf(appointmentId.toString()))
-            db.close()
-            rowsDeleted > 0
+            // Correct table and column name
+            val rowsDeleted = db.delete("APPOINMENT", "APPOINMENT_ID = ?", arrayOf(appointmentId.toString()))
+            rowsDeleted > 0 // Returns true if at least one row was deleted
         } catch (e: Exception) {
             e.printStackTrace()
-            false
+            false // Returns false if an exception occurs
+        } finally {
+            db.close() // Ensure the database is closed
         }
     }
+
 
     fun getAvailabilityForDoctor(personId: Int): List<Map<String, String>> {
         val availability = mutableListOf<Map<String, String>>()
@@ -239,6 +242,43 @@ class Doctor(context: Context) : Person(context) {
         return hospitals
     }
 
+    fun getAppointmentDetails(personId: Int, appointmentId: String): Map<String, String>? {
+        val db = dbHelper.readableDatabase
+        val query = """
+        SELECT 
+            A.APPOINMENT_ID, 
+            A.APPOINMENT_DATE, 
+            A.STATUS, 
+            A.BOOKED_DATE, 
+            A.FEEDBACK, 
+            P.AMOUNT AS PAYMENT 
+        FROM 
+            APPOINMENT A
+        LEFT JOIN 
+            PAYMENT P ON P.PAYMENT_ID = 
+            (SELECT PAYMENT_ID FROM NOTIFICATION WHERE NOTIFICATION.APPOINMENT_ID = A.APPOINMENT_ID)
+        WHERE 
+            A.PERSON_ID = ? AND A.APPOINMENT_ID = ?
+    """
+        val cursor = db.rawQuery(query, arrayOf(personId.toString(), appointmentId))
+
+        return if (cursor.moveToFirst()) {
+            val appointmentDetails = mutableMapOf<String, String>()
+            appointmentDetails["APPOINMENT_ID"] = cursor.getInt(cursor.getColumnIndexOrThrow("APPOINMENT_ID")).toString()
+            appointmentDetails["APPOINMENT_DATE"] = cursor.getString(cursor.getColumnIndexOrThrow("APPOINMENT_DATE"))
+            appointmentDetails["STATUS"] = cursor.getString(cursor.getColumnIndexOrThrow("STATUS"))
+            appointmentDetails["BOOKED_DATE"] = cursor.getString(cursor.getColumnIndexOrThrow("BOOKED_DATE"))
+            appointmentDetails["FEEDBACK"] = cursor.getString(cursor.getColumnIndexOrThrow("FEEDBACK"))
+            appointmentDetails["PAYMENT"] = cursor.getString(cursor.getColumnIndexOrThrow("PAYMENT")) ?: "0.0"
+
+            appointmentDetails
+        } else {
+            null
+        }.also {
+            cursor.close()
+            db.close()
+        }
+    }
 
 
 
