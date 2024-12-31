@@ -1,6 +1,7 @@
 package com.example.e_hospitalappointmentmanagementapp
 
 import android.os.Bundle
+import android.util.Log
 import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
@@ -10,18 +11,20 @@ import com.example.e_hospitalappointmentmanagementapp.classes.Doctor
 
 class docappointmentmanage : AppCompatActivity() {
 
-    private var docId: Int = -1
+    private var personId: Int = -1
+    private var appointmentId: String? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_docappointmentmanage)
 
-        // Retrieve the doctor's ID passed from the intent
-        docId = intent.getIntExtra("person_id", -1)
+        // Retrieve the IDs passed via the intent
+        personId = intent.extras?.getInt("person_id", -1) ?: -1
+        appointmentId = intent.extras?.getString("appointment_id")
 
-        // Validate the doctor ID
-        if (docId == -1) {
-            Toast.makeText(this, "Invalid Doctor ID", Toast.LENGTH_SHORT).show()
+        // Validate IDs
+        if (personId == -1 || appointmentId.isNullOrEmpty()) {
+            Toast.makeText(this, "Invalid data received. Returning to previous screen.", Toast.LENGTH_SHORT).show()
             finish()
             return
         }
@@ -37,41 +40,40 @@ class docappointmentmanage : AppCompatActivity() {
     private fun loadAppointmentDetails() {
         val doctor = Doctor(this)
 
-        // Fetch appointments for the doctor
-        val appointments = doctor.getAppointmentsByDoctor(docId)
+        // Fetch the specific appointment using personId and appointmentId
+        val appointment = doctor.getAppointmentDetails(personId, appointmentId!!)
 
-        // Display the first appointment (for simplicity)
-        if (appointments.isNotEmpty()) {
-            val appointment = appointments[0]
-            findViewById<TextView>(R.id.textView31).text = "Appointment ID: ${appointment["AppointmentID"]}"
-            findViewById<EditText>(R.id.a_appointmentdate).setText(appointment["AppointmentDate"])
-            findViewById<EditText>(R.id.a_booked).setText(appointment["BookedOn"])
-            findViewById<EditText>(R.id.a_status).setText(appointment["Status"])
-            findViewById<EditText>(R.id.a_pay).setText(appointment["Payment"])
-            findViewById<EditText>(R.id.a_feedback).setText(appointment["Feedback"])
+        if (appointment != null) {
+            findViewById<TextView>(R.id.textView31).text = "Appointment ID: ${appointment["APPOINMENT_ID"]}"
+            findViewById<EditText>(R.id.a_appointmentdate).setText(appointment["APPOINMENT_DATE"])
+            findViewById<EditText>(R.id.a_booked).setText(appointment["BOOKED_DATE"])
+            findViewById<EditText>(R.id.a_status).setText(appointment["STATUS"])
+            findViewById<EditText>(R.id.a_pay).setText(appointment["PAYMENT"])
+            findViewById<EditText>(R.id.a_feedback).setText(appointment["FEEDBACK"])
         } else {
-            findViewById<TextView>(R.id.textView31).text = "No appointments found."
+            findViewById<TextView>(R.id.textView31).text = "No details available for this appointment."
+            Toast.makeText(this, "Failed to load appointment details.", Toast.LENGTH_SHORT).show()
         }
     }
 
     private fun removeAppointment() {
-        val doctor = Doctor(this)
-        val appointmentIdText = findViewById<TextView>(R.id.textView31).text.toString()
-        val appointmentId = appointmentIdText.substringAfter("Appointment ID: ").toIntOrNull()
+        if (appointmentId != null) {
+            val doctor = Doctor(this)
 
-        if (appointmentId == null) {
-            Toast.makeText(this, "Invalid Appointment ID", Toast.LENGTH_SHORT).show()
-            return
-        }
+            Log.d("docappointmentmanage", "Removing appointment with ID: $appointmentId")
 
-        // Remove appointment using Doctor class method
-        val isRemoved = doctor.removeAppointment(appointmentId)
+            // Attempt to remove the appointment using its ID
+            val isRemoved = doctor.removeAppointment(appointmentId!!.toInt())
 
-        if (isRemoved) {
-            Toast.makeText(this, "Appointment removed successfully.", Toast.LENGTH_SHORT).show()
-            finish() // Return to previous screen
+            if (isRemoved) {
+                Toast.makeText(this, "Appointment removed successfully.", Toast.LENGTH_SHORT).show()
+                setResult(RESULT_OK) // Indicate success
+                finish() // Close this activity
+            } else {
+                Toast.makeText(this, "Failed to remove appointment.", Toast.LENGTH_SHORT).show()
+            }
         } else {
-            Toast.makeText(this, "Failed to remove appointment.", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, "Invalid Appointment ID.", Toast.LENGTH_SHORT).show()
         }
     }
 }

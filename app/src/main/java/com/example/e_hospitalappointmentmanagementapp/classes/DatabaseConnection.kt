@@ -111,8 +111,8 @@ class DatabaseConnection(context: Context) : SQLiteOpenHelper(context, DATABASE_
         db.execSQL("INSERT INTO ROLES VALUES (1, 'Doctor');")
         db.execSQL("INSERT INTO ROLES VALUES (2, 'Patient');")
         db.execSQL("INSERT INTO ROLES VALUES (3, 'Admin');")
-        db.execSQL("INSERT INTO APPOINMENT VALUES (NULL, 1, '2024-12-31 09:00:00', 'Scheduled', '2024-12-30', 'Looking forward to the appointment.');");
-        db.execSQL("INSERT INTO APPOINMENT VALUES (NULL, 1, '2025-01-05 14:30:00', 'Completed', '2024-12-28', 'Excellent service.');");
+        db.execSQL("INSERT INTO APPOINMENT VALUES (1, 1, '2024-12-31', 'Scheduled', '2024-12-30', 'Looking forward to the appointment.');");
+        db.execSQL("INSERT INTO APPOINMENT VALUES (2, 1, '2025-01-05', 'Completed', '2024-12-28', 'Excellent service.');");
     }
 
     override fun onUpgrade(db: SQLiteDatabase, oldVersion: Int, newVersion: Int) {

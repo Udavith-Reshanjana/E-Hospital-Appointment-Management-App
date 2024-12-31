@@ -1,16 +1,22 @@
 package com.example.e_hospitalappointmentmanagementapp
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
-import android.widget.LinearLayout
-import android.widget.TextView
+import android.widget.ArrayAdapter
+import android.widget.ListView
 import androidx.appcompat.app.AppCompatActivity
 import com.example.e_hospitalappointmentmanagementapp.classes.Doctor
 
 class docappointments : AppCompatActivity() {
 
     private var personID: Int? = null
-    private lateinit var appointmentsContainer: LinearLayout
+    private lateinit var appointmentsListView: ListView
+    private lateinit var appointments: List<Map<String, String>>
+
+    companion object {
+        const val REQUEST_CODE_MANAGE_APPOINTMENT = 1001
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -19,8 +25,8 @@ class docappointments : AppCompatActivity() {
         // Get the person ID from the intent
         personID = intent.getIntExtra("person_id", -1)
 
-        // Initialize the LinearLayout inside the ScrollView
-        appointmentsContainer = findViewById(R.id.docappointments)
+        // Initialize the ListView
+        appointmentsListView = findViewById(R.id.docappointments)
 
         // Load and display appointments
         personID?.let {
@@ -28,7 +34,13 @@ class docappointments : AppCompatActivity() {
                 loadAppointments(it)
             } else {
                 Log.e("docappointments", "Invalid person ID.")
+                showErrorMessage("Invalid person ID.")
             }
+        }
+
+        // Set item click listener for ListView
+        appointmentsListView.setOnItemClickListener { _, _, position, _ ->
+            navigateToAppointmentManage(position)
         }
     }
 
@@ -36,39 +48,69 @@ class docappointments : AppCompatActivity() {
         try {
             // Use the Doctor class to fetch appointments
             val doctor = Doctor(this)
-            val appointments = doctor.getAppointmentsByDoctor(personId)
+            appointments = doctor.getAppointmentsByDoctor(personId)
 
             if (appointments.isNotEmpty()) {
-                for (appointment in appointments) {
-                    val appointmentDetails = """
+                val appointmentDetailsList = appointments.map { appointment ->
+                    """
                         Appointment ID: ${appointment["APPOINMENT_ID"]}
                         Date: ${appointment["APPOINMENT_DATE"]}
                         Status: ${appointment["STATUS"]}
                         Booked Date: ${appointment["BOOKED_DATE"]}
                         Feedback: ${appointment["FEEDBACK"]}
-                        Payment: ${appointment["PAYMENT"]}
                     """.trimIndent()
+                }
 
-                    // Create and add TextView for each appointment
-                    val textView = TextView(this).apply {
-                        text = appointmentDetails
-                        textSize = 16f
-                        setPadding(16, 16, 16, 16)
-                    }
-                    appointmentsContainer.addView(textView)
-                }
+                // Use ArrayAdapter to display appointments in the ListView
+                val adapter = ArrayAdapter(
+                    this,
+                    android.R.layout.simple_list_item_1,
+                    appointmentDetailsList
+                )
+                appointmentsListView.adapter = adapter
             } else {
-                // Show "No appointments found" message
-                val noDataTextView = TextView(this).apply {
-                    text = "No appointments found."
-                    textSize = 18f
-                    setPadding(16, 16, 16, 16)
-                }
-                appointmentsContainer.addView(noDataTextView)
+                showErrorMessage("No appointments found.")
             }
         } catch (e: Exception) {
             e.printStackTrace()
             Log.e("docappointments", "Error loading appointments: ${e.message}")
+            showErrorMessage("Error loading appointments.")
         }
+    }
+
+    private fun navigateToAppointmentManage(position: Int) {
+        try {
+            val selectedAppointment = appointments[position]
+            val appointmentId = selectedAppointment["APPOINMENT_ID"]
+
+            if (appointmentId != null && personID != null) {
+                val intent = Intent(this, docappointmentmanage::class.java).apply {
+                    val bundle = Bundle().apply {
+                        putInt("person_id", personID!!)
+                        putString("appointment_id", appointmentId)
+                    }
+                    putExtras(bundle)
+                }
+                startActivityForResult(intent, REQUEST_CODE_MANAGE_APPOINTMENT)
+            } else {
+                Log.e("docappointments", "Invalid appointment or person ID.")
+            }
+        } catch (e: Exception) {
+            e.printStackTrace()
+            Log.e("docappointments", "Error navigating to appointment manage: ${e.message}")
+        }
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+
+        if (requestCode == REQUEST_CODE_MANAGE_APPOINTMENT && resultCode == RESULT_OK) {
+            // Reload appointments after a successful operation in docappointmentmanage
+            personID?.let { loadAppointments(it) }
+        }
+    }
+
+    private fun showErrorMessage(message: String) {
+        Log.e("docappointments", message)
     }
 }
