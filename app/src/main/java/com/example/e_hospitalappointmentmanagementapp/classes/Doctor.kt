@@ -196,7 +196,7 @@ class Doctor(context: Context) : Person(context) {
         }
     }
 
-    fun getProfile(personId: Int): Map<String, String>? {
+    fun getProfile1(personId: Int): Map<String, String>? {
         val db = dbHelper.readableDatabase
         val query = """
         SELECT FIRST_NAME, LAST_NAME, EMAIL, PERSON_PASSWORD 
@@ -219,6 +219,32 @@ class Doctor(context: Context) : Person(context) {
             db.close()
         }
     }
+
+    fun getProfile(personId: Int): Map<String, Any?>? {
+        val db = dbHelper.readableDatabase
+        val query = """
+        SELECT FIRST_NAME, LAST_NAME, EMAIL, PERSON_PASSWORD, PROFILE_PIC 
+        FROM PERSON 
+        WHERE PERSON_ID = ?
+    """
+        val cursor = db.rawQuery(query, arrayOf(personId.toString()))
+
+        return if (cursor.moveToFirst()) {
+            mapOf(
+                "FIRST_NAME" to cursor.getString(cursor.getColumnIndexOrThrow("FIRST_NAME")),
+                "LAST_NAME" to cursor.getString(cursor.getColumnIndexOrThrow("LAST_NAME")),
+                "EMAIL" to cursor.getString(cursor.getColumnIndexOrThrow("EMAIL")),
+                "PERSON_PASSWORD" to cursor.getString(cursor.getColumnIndexOrThrow("PERSON_PASSWORD")),
+                "PROFILE_PIC" to cursor.getBlob(cursor.getColumnIndexOrThrow("PROFILE_PIC")) // Fetch profile picture as Blob
+            )
+        } else {
+            null
+        }.also {
+            cursor.close()
+            db.close()
+        }
+    }
+
 
     fun getHospitals(personId: Int): List<String> {
         val hospitals = mutableListOf<String>()
@@ -280,6 +306,46 @@ class Doctor(context: Context) : Person(context) {
         }
     }
 
+    fun updateProfileFields(personId: Int, fields: Map<String, String>, oldPassword: String): Boolean {
+        return try {
+            dbHelper.writableDatabase.use { db ->
+                // Validate the old password if a new password is being updated
+                if (fields.containsKey("NEW_PASSWORD")) {
+                    val cursor = db.rawQuery(
+                        "SELECT PERSON_PASSWORD FROM PERSON WHERE PERSON_ID = ?",
+                        arrayOf(personId.toString())
+                    )
+                    if (cursor.moveToFirst()) {
+                        val storedPassword = cursor.getString(0)
+                        if (storedPassword != oldPassword) {
+                            return false // Old password does not match
+                        }
+                    }
+                    cursor.close()
+                }
+
+                val values = ContentValues().apply {
+                    fields.forEach { (key, value) ->
+                        if (key == "NEW_PASSWORD") {
+                            put("PERSON_PASSWORD", value)
+                        } else {
+                            put(key, value)
+                        }
+                    }
+                }
+                val rowsAffected = db.update(
+                    "PERSON",
+                    values,
+                    "PERSON_ID = ?",
+                    arrayOf(personId.toString())
+                )
+                rowsAffected > 0
+            }
+        } catch (e: Exception) {
+            e.printStackTrace()
+            false
+        }
+    }
 
 
 }
