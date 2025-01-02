@@ -1,9 +1,11 @@
 package com.example.e_hospitalappointmentmanagementapp
 
+import android.app.TimePickerDialog
 import android.os.Bundle
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import com.example.e_hospitalappointmentmanagementapp.classes.Doctor
+import java.util.*
 import java.util.regex.Pattern
 
 class docavailable : AppCompatActivity() {
@@ -35,7 +37,7 @@ class docavailable : AppCompatActivity() {
         // Initialize UI components
         dateListView = findViewById(R.id.datelist)
         daySpinner = findViewById(R.id.availableDay)
-        hospitalSpinner = findViewById(R.id.avl_hospitallist) // Initialize hospital spinner
+        hospitalSpinner = findViewById(R.id.avl_hospitallist)
         fromTimeInput = findViewById(R.id.timefrom)
         toTimeInput = findViewById(R.id.timeto)
 
@@ -48,8 +50,12 @@ class docavailable : AppCompatActivity() {
         }
 
         setupDaySpinner()
-        loadHospitals() // Load hospital data into the spinner
+        loadHospitals()
         loadAvailability()
+
+        // Set TimePickerDialog for fromTimeInput and toTimeInput
+        fromTimeInput.setOnClickListener { showTimePickerDialog(fromTimeInput) }
+        toTimeInput.setOnClickListener { showTimePickerDialog(toTimeInput) }
 
         findViewById<Button>(R.id.addtime).setOnClickListener { addAvailability() }
         findViewById<Button>(R.id.removetime).setOnClickListener { removeAvailability() }
@@ -101,6 +107,11 @@ class docavailable : AppCompatActivity() {
             return
         }
 
+        if (!isFromTimeBeforeToTime(fromTime, toTime)) {
+            Toast.makeText(this, "From time must be before To time", Toast.LENGTH_SHORT).show()
+            return
+        }
+
         val isAdded = doctor.addAvailability(docId, selectedDay, fromTime, toTime)
 
         if (isAdded) {
@@ -110,6 +121,17 @@ class docavailable : AppCompatActivity() {
             Toast.makeText(this, "Failed to add availability", Toast.LENGTH_SHORT).show()
         }
     }
+
+    private fun isFromTimeBeforeToTime(fromTime: String, toTime: String): Boolean {
+        val fromParts = fromTime.split(":").map { it.toInt() }
+        val toParts = toTime.split(":").map { it.toInt() }
+
+        val fromMinutes = fromParts[0] * 60 + fromParts[1]
+        val toMinutes = toParts[0] * 60 + toParts[1]
+
+        return fromMinutes < toMinutes
+    }
+
 
     private fun removeAvailability() {
         if (selectedItemPosition == AdapterView.INVALID_POSITION) {
@@ -135,5 +157,18 @@ class docavailable : AppCompatActivity() {
     private fun isValid24HourTime(time: String): Boolean {
         val timePattern = Pattern.compile("([01]?[0-9]|2[0-3]):[0-5][0-9]")
         return timePattern.matcher(time).matches()
+    }
+
+    private fun showTimePickerDialog(editText: EditText) {
+        val calendar = Calendar.getInstance()
+        val hour = calendar.get(Calendar.HOUR_OF_DAY)
+        val minute = calendar.get(Calendar.MINUTE)
+
+        val timePickerDialog = TimePickerDialog(this, { _, selectedHour, selectedMinute ->
+            val formattedTime = String.format("%02d:%02d", selectedHour, selectedMinute)
+            editText.setText(formattedTime)
+        }, hour, minute, true) // Use true for 24-hour format
+
+        timePickerDialog.show()
     }
 }
