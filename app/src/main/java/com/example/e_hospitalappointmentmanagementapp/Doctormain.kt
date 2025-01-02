@@ -1,5 +1,6 @@
 package com.example.e_hospitalappointmentmanagementapp
 
+import android.app.AlertDialog
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
@@ -44,9 +45,16 @@ class Doctormain : AppCompatActivity() {
     }
 
     fun logout(view: View) {
-        val intent = Intent(this, Login::class.java)
-        intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
-        startActivity(intent)
-        finish()
+        AlertDialog.Builder(this)
+            .setTitle("Confirm Logout")
+            .setMessage("Are you sure you want to log out?")
+            .setPositiveButton("Yes") { _, _ ->
+                val intent = Intent(this, Login::class.java)
+                intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+                startActivity(intent)
+                finish()
+            }
+            .setNegativeButton("No", null)
+            .show()
     }
 }
