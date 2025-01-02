@@ -3,8 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:orientation="vertical"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context=".docprofile">
 
     <LinearLayout
@@ -13,32 +13,34 @@
         android:orientation="vertical">
 
         <ScrollView
-            android:layout_marginTop="25dp"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:layout_marginTop="25dp">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical" >
+                android:orientation="vertical">
 
                 <ImageButton
                     android:id="@+id/propic"
                     android:layout_width="150dp"
                     android:layout_height="150dp"
-                    android:layout_marginBottom="5dp"
                     android:layout_gravity="center"
-                    android:background="@drawable/doc_img" />
+                    android:layout_marginBottom="5dp"
+                    android:onClick="changeProfilePicture"/>
 
                 <TextView
                     android:id="@+id/docUsername"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="10dp"
                     android:layout_gravity="center"
+                    android:layout_marginBottom="10dp"
                     android:text="Username"
-                    android:textSize="20dp" />
+                    android:textSize="20sp" />
 
+                <!-- First Name -->
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -49,18 +51,19 @@
                         android:id="@+id/textView1"
                         android:layout_width="130dp"
                         android:layout_height="wrap_content"
-                        android:textSize="18dp"
-                        android:text="First Name: " />
+                        android:text="First Name:"
+                        android:textSize="18sp" />
 
                     <EditText
                         android:id="@+id/docprofilefirstname"
-                        android:layout_width="fill_parent"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:ems="10"
-                        android:inputType="textPersonName"
-                        android:hint="First Name" />
+                        android:layout_weight="1"
+                        android:hint="First Name"
+                        android:inputType="textPersonName" />
                 </LinearLayout>
 
+                <!-- Last Name -->
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -71,23 +74,19 @@
                         android:id="@+id/textView12"
                         android:layout_width="130dp"
                         android:layout_height="wrap_content"
-                        android:textSize="18dp"
-                        android:text="Last Name: " />
+                        android:text="Last Name:"
+                        android:textSize="18sp" />
 
                     <EditText
                         android:id="@+id/docprofilelastname"
-                        android:layout_width="fill_parent"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:ems="10"
-                        android:inputType="textPersonName"
-                        android:hint="Last Name" />
+                        android:layout_weight="1"
+                        android:hint="Last Name"
+                        android:inputType="textPersonName" />
                 </LinearLayout>
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="2dp"
-                    android:orientation="horizontal"/>
+                <!-- Email -->
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -98,19 +97,19 @@
                         android:id="@+id/textView14"
                         android:layout_width="130dp"
                         android:layout_height="wrap_content"
-                        android:textSize="18dp"
-                        android:text="Email: " />
+                        android:text="Email:"
+                        android:textSize="18sp" />
 
                     <EditText
                         android:id="@+id/docprofileemail"
-                        android:layout_width="fill_parent"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:ems="10"
-                        android:inputType="textEmailAddress"
-                        android:hint="Email" />
+                        android:layout_weight="1"
+                        android:hint="Email"
+                        android:inputType="textEmailAddress" />
                 </LinearLayout>
 
-
+                <!-- Hospitals -->
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -122,15 +121,17 @@
                         android:id="@+id/textView2"
                         android:layout_width="130dp"
                         android:layout_height="wrap_content"
-                        android:textSize="18dp"
-                        android:text="Hospitals: " />
+                        android:text="Hospitals:"
+                        android:textSize="18sp" />
 
                     <Spinner
                         android:id="@+id/profilehosptiallist"
-                        android:layout_width="fill_parent"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1" />
                 </LinearLayout>
+
+                <!-- Old Password -->
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -141,17 +142,26 @@
                         android:id="@+id/textView16"
                         android:layout_width="130dp"
                         android:layout_height="wrap_content"
-                        android:textSize="18dp"
-                        android:text="Old Password" />
+                        android:text="Old Password:"
+                        android:textSize="18sp" />
 
                     <EditText
                         android:id="@+id/docprofilepw"
-                        android:layout_width="fill_parent"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:ems="10"
-                        android:inputType="textPassword"
-                        android:text="" />
+                        android:layout_weight="1"
+                        android:inputType="textPassword" />
+
+                    <ImageButton
+                        android:id="@+id/toggleOldPassword"
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:scaleType="centerCrop"
+                        android:background="#FFFFFF"
+                        android:src="@drawable/ic_eye" />
                 </LinearLayout>
+
+                <!-- New Password -->
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -161,50 +171,53 @@
                         android:id="@+id/textView17"
                         android:layout_width="130dp"
                         android:layout_height="wrap_content"
-                        android:layout_marginBottom="2dp"
-                        android:textSize="18dp"
-                        android:text="New Password" />
+                        android:text="New Password:"
+                        android:textSize="18sp" />
 
                     <EditText
                         android:id="@+id/docprofilepwc"
-                        android:layout_width="fill_parent"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:ems="10"
-                        android:inputType="textPassword"
-                        android:text="" />
+                        android:layout_weight="1"
+                        android:inputType="textPassword" />
+
+                    <ImageButton
+                        android:id="@+id/toggleNewPassword"
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:scaleType="centerCrop"
+                        android:background="#FFFFFF"
+                        android:src="@drawable/ic_eye" />
                 </LinearLayout>
             </LinearLayout>
-
         </ScrollView>
 
+        <!-- Buttons -->
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginBottom="25dp"
-            android:gravity="center|bottom"
-
-            android:orientation="horizontal">
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:padding="16dp">
 
             <Button
                 android:id="@+id/doc_savebutton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textStyle="bold"
                 android:text="Save"
-                android:onClick="updateProfile"
+                android:textStyle="bold"
                 android:background="@color/purple_200"
-                android:layout_marginRight="20dp"/>
+                android:layout_marginEnd="20dp"
+                android:onClick="updateProfile"/>
 
             <Button
                 android:id="@+id/doc_logoutbutton"
                 android:layout_width="wrap_content"
-                android:textStyle="bold"
                 android:layout_height="wrap_content"
                 android:text="Log Out"
-                android:onClick="logout"
-                android:background="#A9F8FB"/>
+                android:textStyle="bold"
+                android:background="#A9F8FB"
+                android:onClick="logout"/>
         </LinearLayout>
-
     </LinearLayout>
-
 </LinearLayout>

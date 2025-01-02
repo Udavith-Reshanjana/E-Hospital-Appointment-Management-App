@@ -87,11 +87,6 @@ open class Person(val context: Context) {
         }
     }
 
-    fun isEmailValid(email: String): Boolean {
-        val emailPattern = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+"
-        return !email.matches(emailPattern.toRegex())
-    }
-
     fun isEmailExists(email: String): Boolean {
         return try {
             dbHelper.readableDatabase.use { db ->
@@ -155,5 +150,26 @@ open class Person(val context: Context) {
             null
         }
     }
+
+    fun changePersonProfilePicture(personId: Int, profilePic: ByteArray?): Boolean {
+        return try {
+            dbHelper.writableDatabase.use { db ->
+                val values = ContentValues().apply {
+                    put("PROFILE_PIC", profilePic)
+                }
+                val rowsAffected = db.update(
+                    "PERSON",
+                    values,
+                    "PERSON_ID = ?",
+                    arrayOf(personId.toString())
+                )
+                rowsAffected > 0 // Returns true if at least one row is updated
+            }
+        } catch (e: Exception) {
+            e.printStackTrace()
+            false
+        }
+    }
+
 
 }
