@@ -373,5 +373,28 @@ class Patient(context: Context) : Person(context) {
         }
     }
 
+    fun getDoctorAvailableDays(doctorId: Int): List<String> {
+        val availableDays = mutableListOf<String>()
+        val db = dbHelper.readableDatabase
+        val query = """
+        SELECT DISTINCT AVAILABLE_DAY 
+        FROM DOC_AVAILABILITY
+        WHERE PERSON_ID = ?
+    """
+        val cursor = db.rawQuery(query, arrayOf(doctorId.toString()))
+
+        try {
+            while (cursor.moveToNext()) {
+                val day = cursor.getString(cursor.getColumnIndexOrThrow("AVAILABLE_DAY"))
+                availableDays.add(day)
+            }
+        } finally {
+            cursor.close()
+            db.close()
+        }
+
+        return availableDays
+    }
+
 
 }

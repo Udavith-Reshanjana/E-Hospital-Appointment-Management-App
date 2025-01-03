@@ -22,21 +22,56 @@
 
         <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="316dp">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical" >
+                android:orientation="vertical">
 
                 <ListView
                     android:id="@+id/timelist"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:layout_height="301dp"
                     android:layout_marginTop="15dp" />
             </LinearLayout>
         </ScrollView>
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="50dp">
+
+            <TextView
+                android:id="@+id/appoinmentDatetxt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Select Appointment Date: "
+                android:textColor="@color/black"
+                android:textSize="20dp"/>
+
+            <EditText
+                android:id="@+id/appointmentDate"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:ems="10"
+                android:focusable="false"
+                android:clickable="true"
+                android:hint="01-01-2025"/>
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/proceedToPayBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Proceed to Pay"
+            android:layout_marginTop="50dp"
+            android:layout_gravity="center"
+            android:padding="10dp"
+            android:background="#DEC5E3"/>
 
     </LinearLayout>
 </FrameLayout>
