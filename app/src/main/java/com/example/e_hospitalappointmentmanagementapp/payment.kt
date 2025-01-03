@@ -38,7 +38,7 @@ class payment : Fragment() {
         doctorId = arguments?.getInt("doctor_id") ?: -1
         patientId = arguments?.getInt("person_id") ?: -1
         appointmentDate = arguments?.getString("selected_date")
-        hospitalId = arguments?.getInt("hospital_id") ?: -1
+        hospitalId = arguments?.getInt("hospital") ?: -1
 
         // Set up pay button click listener
         payButton.setOnClickListener {
@@ -117,6 +117,7 @@ class payment : Fragment() {
             putInt("hospital_id", hospitalId)
             putInt("doctor_id", doctorId)
             putInt("payment_id", paymentId)
+            putInt("patient_id", patientId)
         }
 
         val payCompleteFragment = Paycomplete()

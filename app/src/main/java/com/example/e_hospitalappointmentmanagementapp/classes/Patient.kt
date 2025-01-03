@@ -419,14 +419,20 @@ class Patient(context: Context) : Person(context) {
 
     fun insertPatientAppointment(patientId: Int, appointmentId: Int): Boolean {
         val db = dbHelper.writableDatabase
-        val contentValues = ContentValues().apply {
-            put("PERSON_ID", patientId)
-            put("APPOINMENT_ID", appointmentId)
+        return try {
+            val contentValues = ContentValues().apply {
+                put("PERSON_ID", patientId)
+                put("APPOINMENT_ID", appointmentId)
+            }
+            db.insert("PATIENT_APPOINMENT", null, contentValues) != -1L
+        } catch (e: Exception) {
+            e.printStackTrace()
+            false
+        } finally {
+            db.close()
         }
-        val result = db.insert("PATIENT_APPOINMENT", null, contentValues) != -1L
-        db.close()
-        return result
     }
+
 
     fun insertPayment(paymentDate: String, paymentTime: String, amount: Double): Int {
         val db = dbHelper.writableDatabase
@@ -439,6 +445,50 @@ class Patient(context: Context) : Person(context) {
         db.close()
         return paymentId
     }
+
+    fun getHospitalNameByAppointment(appointmentId: Int): String? {
+        val db = dbHelper.readableDatabase
+        val query = """
+        SELECT HOSPITAL.HOSPITAL_NAME
+        FROM HOSPITAL
+        INNER JOIN APPOINMENT ON HOSPITAL.PERSON_ID = APPOINMENT.PERSON_ID
+        WHERE APPOINMENT.APPOINMENT_ID = ?
+    """
+        val cursor = db.rawQuery(query, arrayOf(appointmentId.toString()))
+        return try {
+            if (cursor.moveToFirst()) {
+                cursor.getString(cursor.getColumnIndexOrThrow("HOSPITAL_NAME"))
+            } else {
+                null
+            }
+        } finally {
+            cursor.close()
+            db.close()
+        }
+    }
+
+    fun getDoctorAvailableTimePeriod(doctorId: Int): String? {
+        val db = dbHelper.readableDatabase
+        val query = """
+        SELECT AVAILABLE_TIME, AVAILABLE_TIME_END
+        FROM DOC_AVAILABILITY
+        WHERE PERSON_ID = ?
+    """
+        val cursor = db.rawQuery(query, arrayOf(doctorId.toString()))
+        return try {
+            if (cursor.moveToFirst()) {
+                val startTime = cursor.getString(cursor.getColumnIndexOrThrow("AVAILABLE_TIME"))
+                val endTime = cursor.getString(cursor.getColumnIndexOrThrow("AVAILABLE_TIME_END"))
+                "$startTime - $endTime"
+            } else {
+                null
+            }
+        } finally {
+            cursor.close()
+            db.close()
+        }
+    }
+
 
 
 }

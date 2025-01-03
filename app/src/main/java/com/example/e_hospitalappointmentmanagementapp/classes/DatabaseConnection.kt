@@ -95,7 +95,7 @@ class DatabaseConnection(context: Context) : SQLiteOpenHelper(context, DATABASE_
             CREATE TABLE IF NOT EXISTS PATIENT_APPOINMENT (
                 PERSON_ID INTEGER NOT NULL,
                 APPOINMENT_ID INTEGER NOT NULL,
-                PRIMARY KEY(PERSON_ID),
+                PRIMARY KEY(PERSON_ID, APPOINMENT_ID),
                 FOREIGN KEY(APPOINMENT_ID) REFERENCES APPOINMENT(APPOINMENT_ID),
                 FOREIGN KEY(PERSON_ID) REFERENCES PERSON(PERSON_ID)
             );
