@@ -1,5 +1,6 @@
 package com.example.e_hospitalappointmentmanagementapp
 
+import android.app.AlertDialog
 import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -52,10 +53,17 @@ class Home : Fragment() {
 
         // Handle "Log Out" button click
         logoutButton.setOnClickListener {
-            val intent = Intent(requireContext(), Login::class.java)
-            intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
-            startActivity(intent)
-            requireActivity().finish()
+            AlertDialog.Builder(requireContext()) 
+                .setTitle("Confirm Logout")
+                .setMessage("Are you sure you want to log out?")
+                .setPositiveButton("Yes") { _, _ ->
+                    val intent = Intent(requireContext(), Login::class.java)
+                    intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+                    startActivity(intent)
+                    requireActivity().finish()
+                }
+                .setNegativeButton("No", null)
+                .show()
         }
 
         return view
