@@ -51,13 +51,13 @@
                         android:textSize="18dp"
                         android:text="Full Name: " />
 
-                    <EditText
+                    <TextView
                         android:id="@+id/profilename"
                         android:layout_width="fill_parent"
                         android:layout_height="wrap_content"
                         android:ems="10"
                         android:inputType="textPersonName"
-                        android:text="Name" />
+                        android:text="Full Name" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -73,7 +73,7 @@
                         android:textSize="18dp"
                         android:text="Email: " />
 
-                    <EditText
+                    <TextView
                         android:id="@+id/profileemail"
                         android:layout_width="fill_parent"
                         android:layout_height="wrap_content"
@@ -81,27 +81,7 @@
                         android:inputType="textPersonName"
                         android:text="Email" />
                 </LinearLayout>
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="2dp"
-                    android:orientation="horizontal">
 
-                    <TextView
-                        android:id="@+id/textView15"
-                        android:layout_width="130dp"
-                        android:layout_height="wrap_content"
-                        android:textSize="18dp"
-                        android:text="Gender: " />
-
-                    <EditText
-                        android:id="@+id/profilegender"
-                        android:layout_width="fill_parent"
-                        android:layout_height="wrap_content"
-                        android:ems="10"
-                        android:inputType="textPersonName"
-                        android:text="Male / Female" />
-                </LinearLayout>
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -115,7 +95,7 @@
                         android:textSize="18dp"
                         android:text="Specialized in: " />
 
-                    <EditText
+                    <TextView
                         android:id="@+id/Specialize"
                         android:layout_width="fill_parent"
                         android:layout_height="wrap_content"
@@ -123,27 +103,7 @@
                         android:inputType="textPersonName"
                         android:text="" />
                 </LinearLayout>
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="2dp"
-                    android:orientation="horizontal">
 
-                    <TextView
-                        android:id="@+id/textView16"
-                        android:layout_width="130dp"
-                        android:layout_height="wrap_content"
-                        android:textSize="18dp"
-                        android:text="Mobile: " />
-
-                    <EditText
-                        android:id="@+id/profilemobile"
-                        android:layout_width="fill_parent"
-                        android:layout_height="wrap_content"
-                        android:ems="10"
-                        android:inputType="numberDecimal"
-                        android:text="0123456789" />
-                </LinearLayout>
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -163,7 +123,6 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1" />
 
-
                 </LinearLayout>
             </LinearLayout>
         </ScrollView>
@@ -177,7 +136,7 @@
             android:layout_marginBottom="25dp"
             android:gravity="center|bottom"
 
-            android:orientation="horizontal">
+            android:orientation="vertical">
 
             <Button
                 android:id="@+id/logoutbutton"
@@ -187,8 +146,19 @@
                 android:paddingRight="15dp"
                 android:paddingLeft="15dp"
                 android:background="#DEC5E3"
-
                 android:text="Book an appointment" />
+
+            <Button
+                android:id="@+id/discardbutton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textStyle="bold"
+                android:paddingRight="15dp"
+                android:paddingLeft="15dp"
+                android:background="#FF746C"
+                android:layout_marginTop="60dp"
+                android:layout_marginBottom="20dp"
+                android:text="Discard the appoinment" />
         </LinearLayout>
 
 

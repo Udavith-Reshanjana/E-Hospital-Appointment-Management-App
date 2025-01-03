@@ -3,7 +3,7 @@ package com.example.e_hospitalappointmentmanagementapp.classes
 import android.content.Context
 
 class Patient(context: Context) : Person(context) {
-    
+
     fun getAllDoctors(): List<Map<String, String>> {
         val doctors = mutableListOf<Map<String, String>>()
         val db = dbHelper.readableDatabase
@@ -311,6 +311,66 @@ class Patient(context: Context) : Person(context) {
         }
 
         return appointments
+    }
+
+    fun getHospitalsByDoctorId(doctorId: Int): List<String> {
+        val hospitals = mutableListOf<String>()
+        val db = dbHelper.readableDatabase
+        val query = """
+        SELECT DISTINCT HOSPITAL.HOSPITAL_NAME 
+        FROM HOSPITAL
+        WHERE HOSPITAL.PERSON_ID = ?
+    """
+        val cursor = db.rawQuery(query, arrayOf(doctorId.toString()))
+
+        try {
+            while (cursor.moveToNext()) {
+                val hospitalName = cursor.getString(cursor.getColumnIndexOrThrow("HOSPITAL_NAME"))
+                hospitals.add(hospitalName)
+            }
+        } finally {
+            cursor.close()
+            db.close()
+        }
+
+        return hospitals
+    }
+
+
+    fun getDoctorById(doctorId: Int): Map<String, Any?>? {
+        val db = dbHelper.readableDatabase
+        val query = """
+        SELECT 
+            PERSON.PERSON_ID, 
+            PERSON.FIRST_NAME, 
+            PERSON.LAST_NAME, 
+            PERSON.EMAIL, 
+            PERSON.DOC_SPECIALITY, 
+            PERSON.PROFILE_PIC
+        FROM 
+            PERSON
+        WHERE 
+            PERSON.PERSON_ID = ? AND PERSON.ROLE_TYPE = 1
+    """
+        val cursor = db.rawQuery(query, arrayOf(doctorId.toString()))
+
+        return try {
+            if (cursor.moveToFirst()) {
+                mapOf(
+                    "PERSON_ID" to cursor.getInt(cursor.getColumnIndexOrThrow("PERSON_ID")).toString(),
+                    "FIRST_NAME" to cursor.getString(cursor.getColumnIndexOrThrow("FIRST_NAME")),
+                    "LAST_NAME" to cursor.getString(cursor.getColumnIndexOrThrow("LAST_NAME")),
+                    "EMAIL" to cursor.getString(cursor.getColumnIndexOrThrow("EMAIL")),
+                    "DOC_SPECIALITY" to cursor.getString(cursor.getColumnIndexOrThrow("DOC_SPECIALITY")),
+                    "PROFILE_PIC" to cursor.getBlob(cursor.getColumnIndexOrThrow("PROFILE_PIC"))
+                )
+            } else {
+                null
+            }
+        } finally {
+            cursor.close()
+            db.close()
+        }
     }
 
 
