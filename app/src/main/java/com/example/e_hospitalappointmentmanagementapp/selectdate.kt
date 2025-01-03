@@ -23,6 +23,7 @@ class selectdate : Fragment() {
     private var selectedDate: String? = null
     private var doctorId: Int = -1
     private var personId: Int = -1
+    private var hospital: String = ""
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -41,6 +42,7 @@ class selectdate : Fragment() {
         // Get arguments
         doctorId = arguments?.getInt("doctor_id") ?: -1
         personId = arguments?.getInt("person_id") ?: -1
+        hospital = arguments?.getString("hospital") ?: ""
 
         if (doctorId == -1 || personId == -1) {
             Toast.makeText(requireContext(), "Invalid doctor or patient ID.", Toast.LENGTH_SHORT).show()
@@ -144,6 +146,8 @@ class selectdate : Fragment() {
             putInt("doctor_id", doctorId)
             putInt("person_id", personId)
             putString("selected_day", selectedDay)
+            putString("hospital_name", hospital)
+            putString("selected_date", selectedDate)
         }
         val paymentFragment = payment()
         paymentFragment.arguments = bundle
@@ -153,4 +157,5 @@ class selectdate : Fragment() {
             .addToBackStack(null)
             .commit()
     }
+
 }
