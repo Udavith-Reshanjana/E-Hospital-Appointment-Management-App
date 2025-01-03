@@ -85,7 +85,7 @@ class Paycomplete : Fragment() {
     private fun navigateToHomeScreen() {
         val homeFragment = Home()
         val bundle = Bundle().apply {
-            putInt("patient_id", patientId)
+            putInt("person_id", patientId)
         }
         homeFragment.arguments = bundle
 
