@@ -21,7 +21,6 @@ class doctorsearch : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.fragment_doctorsearch, container, false)
 
         // Initialize UI elements
@@ -30,49 +29,21 @@ class doctorsearch : Fragment() {
         specializationSpinner = view.findViewById(R.id.spinner)
         hospitalSpinner = view.findViewById(R.id.spinner2)
 
-        // Initialize Patient (inherits database methods from Person)
+        // Initialize Patient
         patient = Patient(requireContext())
 
-        // Populate initial data
+        // Populate initial doctor list
         populateDoctorList()
 
         // Set up spinners
         setupFilterSpinners()
 
-        // Handle search queries
-        searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
-            override fun onQueryTextSubmit(query: String?): Boolean {
-                if (query != null) {
-                    searchDoctors(query)
-                }
-                return true
-            }
-
-            override fun onQueryTextChange(newText: String?): Boolean {
-                if (newText != null && newText.isEmpty()) {
-                    populateDoctorList() // Reload full list on empty query
-                }
-                return true
-            }
-        })
+        // Set up search functionality
+        setupSearchView()
 
         // Handle doctor item clicks
         doctorsListView.setOnItemClickListener { _, _, position, _ ->
-            val selectedDoctor = doctorsListView.adapter.getItem(position) as String
-            val doctorDetails = selectedDoctor.split("\n")
-            val doctorName = doctorDetails[0].replace("Dr. ", "")
-
-            val doctorId = patient.getDoctorIdByName(doctorName)
-            val personId = arguments?.getInt("person_id", -1) ?: -1
-
-            val alertDialog = AlertDialog.Builder(requireContext())
-            alertDialog.setTitle("Book Appointment")
-            alertDialog.setMessage("Do you want to book an appointment for Dr. $doctorName?")
-            alertDialog.setPositiveButton("Yes") { _, _ ->
-                navigateToDoctorBookProfile(doctorId, personId)
-            }
-            alertDialog.setNegativeButton("No", null)
-            alertDialog.show()
+            handleDoctorItemClick(position)
         }
 
         return view
@@ -84,18 +55,20 @@ class doctorsearch : Fragment() {
             val adapter = ArrayAdapter(
                 requireContext(),
                 android.R.layout.simple_list_item_1,
-                doctors.map {
-                    "Dr. ${it["FIRST_NAME"]} ${it["LAST_NAME"]}\n" +
-                            "Specialized in: ${it["DOC_SPECIALITY"]}\n" +
-                            "Email: ${it["EMAIL"]}\n" +
-                            "Available: ${it["AVAILABILITY"]}\n" +
-                            "Hospitals: ${it["HOSPITALS"]}"
-                }
+                doctors.map { formatDoctorInfo(it) }
             )
             doctorsListView.adapter = adapter
         } else {
             Toast.makeText(requireContext(), "No doctors available.", Toast.LENGTH_SHORT).show()
         }
+    }
+
+    private fun formatDoctorInfo(doctor: Map<String, String>): String {
+        return """
+            Dr. ${doctor["FIRST_NAME"]} ${doctor["LAST_NAME"]}
+            Specialized in: ${doctor["DOC_SPECIALITY"]}
+            Email: ${doctor["EMAIL"]}
+        """.trimIndent()
     }
 
     private fun searchDoctors(query: String) {
@@ -104,13 +77,7 @@ class doctorsearch : Fragment() {
             val adapter = ArrayAdapter(
                 requireContext(),
                 android.R.layout.simple_list_item_1,
-                filteredDoctors.map {
-                    "Dr. ${it["FIRST_NAME"]} ${it["LAST_NAME"]}\n" +
-                            "Specialized in: ${it["DOC_SPECIALITY"]}\n" +
-                            "Email: ${it["EMAIL"]}\n" +
-                            "Available: ${it["AVAILABILITY"]}\n" +
-                            "Hospitals: ${it["HOSPITALS"]}"
-                }
+                filteredDoctors.map { formatDoctorInfo(it) }
             )
             doctorsListView.adapter = adapter
         } else {
@@ -119,20 +86,20 @@ class doctorsearch : Fragment() {
     }
 
     private fun setupFilterSpinners() {
-        val specializations = patient.getAllSpecializations()
-        val hospitals = patient.getAllHospitals()
+        val specializations = listOf("Select Specialization") + patient.getAllSpecializations()
+        val hospitals = listOf("Select Hospital") + patient.getAllHospitals()
 
-        val specializationAdapter = ArrayAdapter(requireContext(), android.R.layout.simple_spinner_item, listOf("Select Specialization") + specializations)
+        val specializationAdapter = ArrayAdapter(requireContext(), android.R.layout.simple_spinner_item, specializations)
         specializationAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
         specializationSpinner.adapter = specializationAdapter
 
-        val hospitalAdapter = ArrayAdapter(requireContext(), android.R.layout.simple_spinner_item, listOf("Select Hospital") + hospitals)
+        val hospitalAdapter = ArrayAdapter(requireContext(), android.R.layout.simple_spinner_item, hospitals)
         hospitalAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
         hospitalSpinner.adapter = hospitalAdapter
 
         specializationSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(parent: AdapterView<*>, view: View, position: Int, id: Long) {
-                if (position > 0) filterDoctorsBySpecializationAndHospital() // Ignore the first "Select" option
+                if (position > 0) filterDoctorsBySpecializationAndHospital()
             }
 
             override fun onNothingSelected(parent: AdapterView<*>) {}
@@ -140,7 +107,7 @@ class doctorsearch : Fragment() {
 
         hospitalSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(parent: AdapterView<*>, view: View, position: Int, id: Long) {
-                if (position > 0) filterDoctorsBySpecializationAndHospital() // Ignore the first "Select" option
+                if (position > 0) filterDoctorsBySpecializationAndHospital()
             }
 
             override fun onNothingSelected(parent: AdapterView<*>) {}
@@ -161,18 +128,48 @@ class doctorsearch : Fragment() {
             val adapter = ArrayAdapter(
                 requireContext(),
                 android.R.layout.simple_list_item_1,
-                filteredDoctors.map {
-                    "Dr. ${it["FIRST_NAME"]} ${it["LAST_NAME"]}\n" +
-                            "Specialized in: ${it["DOC_SPECIALITY"]}\n" +
-                            "Email: ${it["EMAIL"]}\n" +
-                            "Available: ${it["AVAILABILITY"]}\n" +
-                            "Hospitals: ${it["HOSPITALS"]}"
-                }
+                filteredDoctors.map { formatDoctorInfo(it) }
             )
             doctorsListView.adapter = adapter
         } else {
             Toast.makeText(requireContext(), "No doctors match the selected filters.", Toast.LENGTH_SHORT).show()
         }
+    }
+
+    private fun setupSearchView() {
+        searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+            override fun onQueryTextSubmit(query: String?): Boolean {
+                query?.let { searchDoctors(it) }
+                return true
+            }
+
+            override fun onQueryTextChange(newText: String?): Boolean {
+                if (newText.isNullOrEmpty()) {
+                    populateDoctorList()
+                }
+                return true
+            }
+        })
+    }
+
+    private fun handleDoctorItemClick(position: Int) {
+        val selectedDoctor = doctorsListView.adapter.getItem(position) as String
+        val doctorDetails = selectedDoctor.split("\n")
+        val doctorName = doctorDetails[0].replace("Dr. ", "").trim()
+
+        val doctorId = patient.getDoctorIdByName(doctorName)
+        val personId = arguments?.getInt("person_id", -1) ?: -1
+
+        val alertDialog = AlertDialog.Builder(requireContext())
+            .setTitle("Book Appointment")
+            .setMessage("Do you want to book an appointment for $doctorName?")
+            .setPositiveButton("Yes") { _, _ ->
+                navigateToDoctorBookProfile(doctorId, personId)
+            }
+            .setNegativeButton("No", null)
+            .create()
+
+        alertDialog.show()
     }
 
     private fun navigateToDoctorBookProfile(doctorId: Int, personId: Int) {

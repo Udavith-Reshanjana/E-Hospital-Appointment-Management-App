@@ -3,7 +3,7 @@ package com.example.e_hospitalappointmentmanagementapp.classes
 import android.content.Context
 
 class Patient(context: Context) : Person(context) {
-
+    
     fun getAllDoctors(): List<Map<String, String>> {
         val doctors = mutableListOf<Map<String, String>>()
         val db = dbHelper.readableDatabase
@@ -13,16 +13,9 @@ class Patient(context: Context) : Person(context) {
             PERSON.FIRST_NAME, 
             PERSON.LAST_NAME, 
             PERSON.EMAIL, 
-            PERSON.DOC_SPECIALITY, 
-            DOC_AVAILABILITY.AVAILABLE_DAY, 
-            DOC_AVAILABILITY.AVAILABLE_TIME, 
-            DOC_AVAILABILITY.AVAILABLE_TIME_END
+            PERSON.DOC_SPECIALITY
         FROM 
             PERSON
-        LEFT JOIN 
-            DOC_AVAILABILITY 
-        ON 
-            PERSON.PERSON_ID = DOC_AVAILABILITY.PERSON_ID
         WHERE 
             PERSON.ROLE_TYPE = 1
     """
@@ -35,9 +28,7 @@ class Patient(context: Context) : Person(context) {
                     "FIRST_NAME" to cursor.getString(cursor.getColumnIndexOrThrow("FIRST_NAME")),
                     "LAST_NAME" to cursor.getString(cursor.getColumnIndexOrThrow("LAST_NAME")),
                     "EMAIL" to cursor.getString(cursor.getColumnIndexOrThrow("EMAIL")),
-                    "DOC_SPECIALITY" to cursor.getString(cursor.getColumnIndexOrThrow("DOC_SPECIALITY")),
-                    "AVAILABILITY" to "${cursor.getString(cursor.getColumnIndexOrThrow("AVAILABLE_DAY"))}, " +
-                            "${cursor.getString(cursor.getColumnIndexOrThrow("AVAILABLE_TIME"))}-${cursor.getString(cursor.getColumnIndexOrThrow("AVAILABLE_TIME_END"))}"
+                    "DOC_SPECIALITY" to cursor.getString(cursor.getColumnIndexOrThrow("DOC_SPECIALITY"))
                 )
                 doctors.add(doctor)
             }
@@ -48,6 +39,7 @@ class Patient(context: Context) : Person(context) {
 
         return doctors
     }
+
 
     fun searchDoctors(query: String): List<Map<String, String>> {
         val doctors = mutableListOf<Map<String, String>>()
