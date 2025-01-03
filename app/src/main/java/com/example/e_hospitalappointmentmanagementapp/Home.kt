@@ -53,7 +53,7 @@ class Home : Fragment() {
 
         // Handle "Log Out" button click
         logoutButton.setOnClickListener {
-            AlertDialog.Builder(requireContext()) 
+            AlertDialog.Builder(requireContext())
                 .setTitle("Confirm Logout")
                 .setMessage("Are you sure you want to log out?")
                 .setPositiveButton("Yes") { _, _ ->
