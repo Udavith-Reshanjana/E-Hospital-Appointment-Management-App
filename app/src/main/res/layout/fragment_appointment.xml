@@ -35,14 +35,18 @@
             <EditText
                 android:id="@+id/a_appointmentdate"
                 android:layout_width="fill_parent"
-                android:enabled="false"
-                android:textColor="@color/black"
                 android:layout_height="wrap_content"
+                android:enabled="false"
+                android:focusable="false"
+                android:clickable="false"
+                android:cursorVisible="false"
+                android:textColor="@color/black"
                 android:layout_weight="1"
                 android:ems="10"
                 android:inputType="textPersonName"
                 android:text="" />
         </LinearLayout>
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -58,14 +62,18 @@
             <EditText
                 android:id="@+id/a_booked"
                 android:layout_width="fill_parent"
-                android:enabled="false"
-                android:textColor="@color/black"
                 android:layout_height="wrap_content"
+                android:enabled="false"
+                android:focusable="false"
+                android:clickable="false"
+                android:cursorVisible="false"
+                android:textColor="@color/black"
                 android:layout_weight="1"
                 android:ems="10"
                 android:inputType="textPersonName"
                 android:text="" />
         </LinearLayout>
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -81,14 +89,18 @@
             <EditText
                 android:id="@+id/a_doc"
                 android:layout_width="fill_parent"
-                android:enabled="false"
-                android:textColor="@color/black"
                 android:layout_height="wrap_content"
+                android:enabled="false"
+                android:focusable="false"
+                android:clickable="false"
+                android:cursorVisible="false"
+                android:textColor="@color/black"
                 android:layout_weight="1"
                 android:ems="10"
                 android:inputType="textPersonName"
                 android:text="" />
         </LinearLayout>
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -104,13 +116,17 @@
             <EditText
                 android:id="@+id/a_status"
                 android:layout_width="fill_parent"
-                android:enabled="false"
-                android:textColor="@color/black"
                 android:layout_height="wrap_content"
+                android:enabled="false"
+                android:focusable="false"
+                android:clickable="false"
+                android:cursorVisible="false"
+                android:textColor="@color/black"
                 android:ems="10"
                 android:inputType="textPersonName"
                 android:text="" />
         </LinearLayout>
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -126,14 +142,18 @@
             <EditText
                 android:id="@+id/a_pay"
                 android:layout_width="fill_parent"
-                android:enabled="false"
-                android:textColor="@color/black"
                 android:layout_height="wrap_content"
+                android:enabled="false"
+                android:focusable="false"
+                android:clickable="false"
+                android:cursorVisible="false"
+                android:textColor="@color/black"
                 android:layout_weight="1"
                 android:ems="10"
                 android:inputType="textPersonName"
                 android:text="" />
         </LinearLayout>
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -149,9 +169,11 @@
             <EditText
                 android:id="@+id/a_feedback"
                 android:layout_width="fill_parent"
-                android:enabled="false"
-                android:textColor="@color/black"
                 android:layout_height="wrap_content"
+                android:focusable="true"
+                android:clickable="true"
+                android:cursorVisible="true"
+                android:textColor="@color/black"
                 android:ems="10"
                 android:inputType="textPersonName"
                 android:text="" />
@@ -182,8 +204,6 @@
                 android:background="#B6DCFE"
                 android:text="Back"
                 android:textStyle="bold" />
-
         </LinearLayout>
     </LinearLayout>
-
 </FrameLayout>
