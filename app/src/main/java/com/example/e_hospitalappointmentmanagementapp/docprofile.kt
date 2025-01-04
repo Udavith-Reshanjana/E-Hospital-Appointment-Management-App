@@ -153,7 +153,6 @@ class docprofile : AppCompatActivity() {
         }
     }
 
-
     private val pickImage = registerForActivityResult(ActivityResultContracts.GetContent()) { uri: Uri? ->
         uri?.let {
             val inputStream: InputStream? = contentResolver.openInputStream(it)

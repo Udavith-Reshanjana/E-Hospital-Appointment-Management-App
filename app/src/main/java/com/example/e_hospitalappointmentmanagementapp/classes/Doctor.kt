@@ -196,30 +196,6 @@ class Doctor(context: Context) : Person(context) {
         }
     }
 
-    fun getProfile1(personId: Int): Map<String, String>? {
-        val db = dbHelper.readableDatabase
-        val query = """
-        SELECT FIRST_NAME, LAST_NAME, EMAIL, PERSON_PASSWORD 
-        FROM PERSON 
-        WHERE PERSON_ID = ?
-    """
-        val cursor = db.rawQuery(query, arrayOf(personId.toString()))
-
-        return if (cursor.moveToFirst()) {
-            mapOf(
-                "FIRST_NAME" to cursor.getString(cursor.getColumnIndexOrThrow("FIRST_NAME")),
-                "LAST_NAME" to cursor.getString(cursor.getColumnIndexOrThrow("LAST_NAME")),
-                "EMAIL" to cursor.getString(cursor.getColumnIndexOrThrow("EMAIL")),
-                "PERSON_PASSWORD" to cursor.getString(cursor.getColumnIndexOrThrow("PERSON_PASSWORD"))
-            )
-        } else {
-            null
-        }.also {
-            cursor.close()
-            db.close()
-        }
-    }
-
     fun getProfile(personId: Int): Map<String, Any?>? {
         val db = dbHelper.readableDatabase
         val query = """
