@@ -52,9 +52,10 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10"
+        android:focusable="false"
+        android:clickable="true"
         android:hint="Birthday (YYYY-MM-DD)"
-        android:layout_marginBottom="5dp"
-        android:inputType="textPersonName" />
+        android:layout_marginBottom="5dp" />
 
 
     <LinearLayout

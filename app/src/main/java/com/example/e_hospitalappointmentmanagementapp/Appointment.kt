@@ -7,6 +7,8 @@ import android.view.ViewGroup
 import android.widget.*
 import androidx.fragment.app.Fragment
 import com.example.e_hospitalappointmentmanagementapp.classes.Patient
+import java.text.SimpleDateFormat
+import java.util.*
 
 class Appointment : Fragment() {
 
@@ -74,7 +76,7 @@ class Appointment : Fragment() {
     /**
      * Populates appointment details from the database.
      */
-    private fun populateAppointmentDetails() {
+    private fun populateAppointmentDetails1() {
         val appointmentDetails = patient.getAppointmentDetails(appointmentId)
 
         appointmentDetails?.let {
@@ -89,24 +91,38 @@ class Appointment : Fragment() {
         }
     }
 
+    private fun populateAppointmentDetails() {
+        val appointmentDetails = patient.getAppointmentDetails(appointmentId)
 
-    /**
-     * Saves the feedback entered by the user to the database.
-     */
-    private fun saveFeedback1() {
-        val feedback = feedbackEditText.text.toString().trim()
-        if (feedback.isEmpty()) {
-            Toast.makeText(requireContext(), "Feedback cannot be empty.", Toast.LENGTH_SHORT).show()
-            return
-        }
+        appointmentDetails?.let {
+            appointmentDateEditText.setText(it["APPOINTMENT_DATE"] ?: "")
 
-        val success = patient.updateAppointmentFeedback(appointmentId, feedback)
-        if (success) {
-            Toast.makeText(requireContext(), "Feedback saved successfully.", Toast.LENGTH_SHORT).show()
-        } else {
-            Toast.makeText(requireContext(), "Failed to save feedback.", Toast.LENGTH_SHORT).show()
+            // Convert and format the "Booked On" date to "dd-MM-yyyy"
+            val bookedDate = it["BOOKED_DATE"]
+            bookedDateEditText.setText(formatDateToDDMMYYYY(bookedDate) ?: "")
+
+            doctorNameEditText.setText(it["DOCTOR_NAME"] ?: "")
+            statusEditText.setText(it["STATUS"] ?: "")
+            paymentEditText.setText(it["PAYMENT"] ?: "")
+            feedbackEditText.setText(it["FEEDBACK"] ?: "")
+        } ?: run {
+            Toast.makeText(requireContext(), "Failed to load appointment details.", Toast.LENGTH_SHORT).show()
         }
     }
+
+    private fun formatDateToDDMMYYYY(dateString: String?): String? {
+        return try {
+            val inputFormat = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
+            val outputFormat = SimpleDateFormat("dd-MM-yyyy", Locale.getDefault())
+            val date = inputFormat.parse(dateString ?: return null)
+            outputFormat.format(date)
+        } catch (e: Exception) {
+            e.printStackTrace()
+            null
+        }
+    }
+
+
 
     /**
      * Saves the feedback entered by the user to the database.

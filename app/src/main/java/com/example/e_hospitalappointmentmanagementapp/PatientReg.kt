@@ -1,16 +1,25 @@
 package com.example.e_hospitalappointmentmanagementapp
 
+import android.app.DatePickerDialog
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import com.example.e_hospitalappointmentmanagementapp.classes.Patient
+import java.text.SimpleDateFormat
+import java.util.*
 
 class PatientReg : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_patient_reg)
+
+        // Initialize birthday field to open the DatePickerDialog
+        val birthdayEditText = findViewById<EditText>(R.id.PBirthday)
+        birthdayEditText.setOnClickListener {
+            showDatePickerDialog(birthdayEditText)
+        }
     }
 
     fun patientSignUp(view: View) {
@@ -37,7 +46,7 @@ class PatientReg : AppCompatActivity() {
         }
 
         if (patient.isEmailExists(patientEmail)) {
-            Toast.makeText(this, "Your email is already exists", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, "Your email already exists", Toast.LENGTH_SHORT).show()
             return
         }
 
@@ -117,4 +126,32 @@ class PatientReg : AppCompatActivity() {
         gotoAnyScreen(Docreg::class.java)
     }
 
+    private fun showDatePickerDialog(editText: EditText) {
+        val calendar = Calendar.getInstance()
+        val year = calendar.get(Calendar.YEAR)
+        val month = calendar.get(Calendar.MONTH)
+        val day = calendar.get(Calendar.DAY_OF_MONTH)
+
+        val datePickerDialog = DatePickerDialog(
+            this,
+            { _, selectedYear, selectedMonth, selectedDay ->
+                val selectedDate = Calendar.getInstance()
+                selectedDate.set(selectedYear, selectedMonth, selectedDay)
+
+                if (selectedDate.time.after(Date())) {
+                    Toast.makeText(this, "Birthday cannot be today or a future date.", Toast.LENGTH_SHORT).show()
+                } else {
+                    val dateFormat = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
+                    editText.setText(dateFormat.format(selectedDate.time))
+                }
+            },
+            year,
+            month,
+            day
+        )
+
+        // Set the max date to today
+        datePickerDialog.datePicker.maxDate = System.currentTimeMillis() - 86400000 // Yesterday's date
+        datePickerDialog.show()
+    }
 }
