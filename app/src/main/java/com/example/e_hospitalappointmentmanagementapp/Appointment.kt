@@ -82,12 +82,13 @@ class Appointment : Fragment() {
             bookedDateEditText.setText(it["BOOKED_DATE"] ?: "")
             doctorNameEditText.setText(it["DOCTOR_NAME"] ?: "")
             statusEditText.setText(it["STATUS"] ?: "")
-            paymentEditText.setText(it["PAYMENT"] ?: "")
+            paymentEditText.setText(it["PAYMENT"] ?: "N/A")
             feedbackEditText.setText(it["FEEDBACK"] ?: "")
         } ?: run {
             Toast.makeText(requireContext(), "Failed to load appointment details.", Toast.LENGTH_SHORT).show()
         }
     }
+
 
     /**
      * Saves the feedback entered by the user to the database.
