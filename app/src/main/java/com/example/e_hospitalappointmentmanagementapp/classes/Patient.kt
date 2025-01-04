@@ -489,6 +489,52 @@ class Patient(context: Context) : Person(context) {
         }
     }
 
+    fun getAppointmentDetails(appointmentId: Int): Map<String, String>? {
+        val db = dbHelper.readableDatabase
+        val query = """
+        SELECT APPOINMENT.APPOINMENT_DATE, APPOINMENT.BOOKED_DATE, APPOINMENT.STATUS, APPOINMENT.FEEDBACK,
+               PAYMENT.AMOUNT AS PAYMENT, PERSON.FIRST_NAME || ' ' || PERSON.LAST_NAME AS DOCTOR_NAME
+        FROM APPOINMENT
+        LEFT JOIN PAYMENT ON APPOINMENT.APPOINMENT_ID = PAYMENT.PAYMENT_ID
+        LEFT JOIN PERSON ON APPOINMENT.PERSON_ID = PERSON.PERSON_ID
+        WHERE APPOINMENT.APPOINMENT_ID = ?
+    """
+        val cursor = db.rawQuery(query, arrayOf(appointmentId.toString()))
+
+        return try {
+            if (cursor.moveToFirst()) {
+                mapOf(
+                    "APPOINTMENT_DATE" to cursor.getString(cursor.getColumnIndexOrThrow("APPOINMENT_DATE")),
+                    "BOOKED_DATE" to cursor.getString(cursor.getColumnIndexOrThrow("BOOKED_DATE")),
+                    "STATUS" to cursor.getString(cursor.getColumnIndexOrThrow("STATUS")),
+                    "FEEDBACK" to (cursor.getString(cursor.getColumnIndexOrThrow("FEEDBACK")) ?: ""),
+                    "PAYMENT" to (cursor.getString(cursor.getColumnIndexOrThrow("PAYMENT")) ?: "N/A"),
+                    "DOCTOR_NAME" to cursor.getString(cursor.getColumnIndexOrThrow("DOCTOR_NAME"))
+                )
+            } else {
+                null
+            }
+        } finally {
+            cursor.close()
+            db.close()
+        }
+    }
+
+    fun updateAppointmentFeedback(appointmentId: Int, feedback: String): Boolean {
+        val db = dbHelper.writableDatabase
+        return try {
+            val contentValues = ContentValues().apply {
+                put("FEEDBACK", feedback)
+            }
+            val rowsUpdated = db.update("APPOINMENT", contentValues, "APPOINMENT_ID = ?", arrayOf(appointmentId.toString()))
+            rowsUpdated > 0
+        } catch (e: Exception) {
+            e.printStackTrace()
+            false
+        } finally {
+            db.close()
+        }
+    }
 
 
 }
