@@ -1,6 +1,7 @@
 package com.example.e_hospitalappointmentmanagementapp
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -37,29 +38,32 @@ class notification : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        // Fetch and display appointment notifications
-        fetchAndDisplayNotifications()
+        // Insert and load notifications
+        insertAndLoadNotifications()
     }
 
-    private fun fetchAndDisplayNotifications() {
+    private fun insertAndLoadNotifications() {
         try {
-            // Fetch appointments from the Patient class
-            val appointments = patient.getAppointmentsByPersonId(personId)
+            val notifications = mutableListOf<String>()
 
-            if (appointments.isEmpty()) {
-                Toast.makeText(context, "No notifications available.", Toast.LENGTH_SHORT).show()
-                return
-            }
-
-            // Convert appointments to a list of notification strings
-            val notifications = appointments.map { appointment ->
-                "Reminder: Appointment scheduled on ${appointment["APPOINMENT_DATE"]} - Status: ${appointment["STATUS"]}"
+            // Fetch appointments and add notifications
+            val appointments = patient.getAppointmentsForNotifications(personId)
+            for ((appointmentId, appointmentDate) in appointments) {
+                if (patient.insertNotificationIfNotExists(personId, appointmentId)) {
+                    Log.d("Notification", "Notification inserted for Appointment ID: $appointmentId")
+                }
+                notifications.add("Reminder: Appointment scheduled on $appointmentDate")
             }
 
             // Display notifications in ListView
-            val adapter = ArrayAdapter(requireContext(), android.R.layout.simple_list_item_1, notifications)
-            notificationsListView.adapter = adapter
+            if (notifications.isEmpty()) {
+                Toast.makeText(context, "No notifications available.", Toast.LENGTH_SHORT).show()
+            } else {
+                val adapter = ArrayAdapter(requireContext(), android.R.layout.simple_list_item_1, notifications)
+                notificationsListView.adapter = adapter
+            }
         } catch (e: Exception) {
+            Log.e("NotificationFragment", "Error loading notifications", e)
             Toast.makeText(context, "Failed to load notifications.", Toast.LENGTH_SHORT).show()
         }
     }
