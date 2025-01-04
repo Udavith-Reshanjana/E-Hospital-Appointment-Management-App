@@ -241,7 +241,7 @@ class patientprofile : Fragment() {
     }
 
 
-    private fun showDatePicker() {
+    private fun showDatePicker1() {
         val calendar = Calendar.getInstance()
         val datePickerDialog = DatePickerDialog(
             requireContext(),
@@ -262,6 +262,34 @@ class patientprofile : Fragment() {
         )
         datePickerDialog.show()
     }
+
+    private fun showDatePicker() {
+        val calendar = Calendar.getInstance()
+        val currentDate = Calendar.getInstance()
+
+        val datePickerDialog = DatePickerDialog(
+            requireContext(),
+            { _, year, month, dayOfMonth ->
+                val selectedDate = Calendar.getInstance()
+                selectedDate.set(year, month, dayOfMonth)
+
+                if (selectedDate.after(currentDate)) {
+                    Toast.makeText(context, "Birthday cannot be today or a future date.", Toast.LENGTH_SHORT).show()
+                } else {
+                    val format = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
+                    birthdayField.setText(format.format(selectedDate.time))
+                }
+            },
+            calendar.get(Calendar.YEAR),
+            calendar.get(Calendar.MONTH),
+            calendar.get(Calendar.DAY_OF_MONTH)
+        )
+
+        // Restrict the max date to yesterday to ensure birthday cannot be today or a future date
+        datePickerDialog.datePicker.maxDate = System.currentTimeMillis() - 86400000 // Yesterday's date
+        datePickerDialog.show()
+    }
+
 
     private fun togglePasswordVisibility(editText: EditText, button: ImageButton) {
         val isPasswordVisible = editText.inputType == InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD
