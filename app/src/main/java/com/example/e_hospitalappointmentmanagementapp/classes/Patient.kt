@@ -536,5 +536,95 @@ class Patient(context: Context) : Person(context) {
         }
     }
 
+    fun updateProfile(
+        personId: Int,
+        firstName: String,
+        lastName: String?,
+        email: String?,
+        oldPassword: String,
+        newPassword: String?,
+        birthday: String?
+    ): Boolean {
+        return try {
+            dbHelper.writableDatabase.use { db ->
+                // Verify old password
+                val query = "SELECT PERSON_PASSWORD FROM PERSON WHERE PERSON_ID = ?"
+                val cursor = db.rawQuery(query, arrayOf(personId.toString()))
+                if (cursor.moveToFirst()) {
+                    val currentPassword = cursor.getString(cursor.getColumnIndexOrThrow("PERSON_PASSWORD"))
+                    cursor.close()
+
+                    if (currentPassword != oldPassword) {
+                        return false // Old password doesn't match
+                    }
+                } else {
+                    cursor.close()
+                    return false // Person not found
+                }
+
+                // Update profile fields
+                val contentValues = ContentValues().apply {
+                    put("FIRST_NAME", firstName)
+                    put("LAST_NAME", lastName)
+                    put("BIRTHDAY", birthday)
+                    if (email != null) put("EMAIL", email)
+                    if (!newPassword.isNullOrBlank()) put("PERSON_PASSWORD", newPassword)
+                }
+
+                val rowsUpdated = db.update("PERSON", contentValues, "PERSON_ID = ?", arrayOf(personId.toString()))
+                rowsUpdated > 0 // Return true if at least one row was updated
+            }
+        } catch (e: Exception) {
+            e.printStackTrace()
+            false
+        }
+    }
+
+    fun getProfile(personId: Int): Map<String, Any?>? {
+        val db = dbHelper.readableDatabase
+        val query = """
+        SELECT FIRST_NAME, LAST_NAME, EMAIL, PERSON_PASSWORD, PROFILE_PIC, BIRTHDAY
+        FROM PERSON 
+        WHERE PERSON_ID = ?
+    """
+        val cursor = db.rawQuery(query, arrayOf(personId.toString()))
+
+        return if (cursor.moveToFirst()) {
+            mapOf(
+                "FIRST_NAME" to cursor.getString(cursor.getColumnIndexOrThrow("FIRST_NAME")),
+                "LAST_NAME" to cursor.getString(cursor.getColumnIndexOrThrow("LAST_NAME")),
+                "EMAIL" to cursor.getString(cursor.getColumnIndexOrThrow("EMAIL")),
+                "PERSON_PASSWORD" to cursor.getString(cursor.getColumnIndexOrThrow("PERSON_PASSWORD")),
+                "PROFILE_PIC" to cursor.getBlob(cursor.getColumnIndexOrThrow("PROFILE_PIC")),
+                "BIRTHDAY" to cursor.getString(cursor.getColumnIndexOrThrow("BIRTHDAY"))
+            )
+        } else {
+            null
+        }.also {
+            cursor.close()
+            db.close()
+        }
+    }
+
+    fun isCorrectPassword(personId: Int, oldPassword: String): Boolean {
+        return try {
+            dbHelper.readableDatabase.use { db ->
+                val query = "SELECT PERSON_PASSWORD FROM PERSON WHERE PERSON_ID = ?"
+                db.rawQuery(query, arrayOf(personId.toString())).use { cursor ->
+                    if (cursor.moveToFirst()) {
+                        val storedPassword = cursor.getString(cursor.getColumnIndexOrThrow("PERSON_PASSWORD"))
+                        storedPassword == oldPassword
+                    } else {
+                        false // Person not found
+                    }
+                }
+            }
+        } catch (e: Exception) {
+            e.printStackTrace()
+            false
+        }
+    }
+
+
 
 }
