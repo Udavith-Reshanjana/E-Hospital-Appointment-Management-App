@@ -492,13 +492,27 @@ class Patient(context: Context) : Person(context) {
     fun getAppointmentDetails(appointmentId: Int): Map<String, String>? {
         val db = dbHelper.readableDatabase
         val query = """
-        SELECT APPOINMENT.APPOINMENT_DATE, APPOINMENT.BOOKED_DATE, APPOINMENT.STATUS, APPOINMENT.FEEDBACK,
-               PAYMENT.AMOUNT AS PAYMENT, PERSON.FIRST_NAME || ' ' || PERSON.LAST_NAME AS DOCTOR_NAME
-        FROM APPOINMENT
-        LEFT JOIN PAYMENT ON APPOINMENT.APPOINMENT_ID = PAYMENT.PAYMENT_ID
-        LEFT JOIN PERSON ON APPOINMENT.PERSON_ID = PERSON.PERSON_ID
-        WHERE APPOINMENT.APPOINMENT_ID = ?
+        SELECT 
+            APPOINMENT.APPOINMENT_DATE,
+            APPOINMENT.BOOKED_DATE,
+            APPOINMENT.STATUS,
+            APPOINMENT.FEEDBACK,
+            (CASE WHEN PAYMENT.AMOUNT IS NOT NULL THEN PAYMENT.AMOUNT ELSE 0 END) AS PAYMENT,
+            PERSON.FIRST_NAME || ' ' || PERSON.LAST_NAME AS DOCTOR_NAME
+        FROM 
+            APPOINMENT
+        LEFT JOIN 
+            PAYMENT 
+        ON 
+            APPOINMENT.APPOINMENT_ID = PAYMENT.PAYMENT_ID
+        LEFT JOIN 
+            PERSON 
+        ON 
+            APPOINMENT.PERSON_ID = PERSON.PERSON_ID
+        WHERE 
+            APPOINMENT.APPOINMENT_ID = ?
     """
+
         val cursor = db.rawQuery(query, arrayOf(appointmentId.toString()))
 
         return try {
@@ -519,6 +533,50 @@ class Patient(context: Context) : Person(context) {
             db.close()
         }
     }
+
+    fun getAppointmentDetails1(appointmentId: Int): Map<String, String>? {
+        val db = dbHelper.readableDatabase
+        val query = """
+        SELECT 
+            APPOINMENT.APPOINMENT_DATE,
+            APPOINMENT.BOOKED_DATE,
+            APPOINMENT.STATUS,
+            APPOINMENT.FEEDBACK,
+            PAYMENT.AMOUNT AS PAYMENT,
+            PERSON.FIRST_NAME || ' ' || PERSON.LAST_NAME AS DOCTOR_NAME
+        FROM 
+            APPOINMENT
+        LEFT JOIN 
+            PAYMENT 
+        ON 
+            APPOINMENT.APPOINMENT_ID = PAYMENT.PAYMENT_ID
+        LEFT JOIN 
+            PERSON 
+        ON 
+            APPOINMENT.PERSON_ID = PERSON.PERSON_ID
+        WHERE 
+            APPOINMENT.APPOINMENT_ID = ?
+    """
+        val cursor = db.rawQuery(query, arrayOf(appointmentId.toString()))
+
+        return try {
+            if (cursor.moveToFirst()) {
+                mapOf(
+                    "APPOINTMENT_DATE" to (cursor.getString(cursor.getColumnIndexOrThrow("APPOINMENT_DATE")) ?: ""),
+                    "BOOKED_DATE" to (cursor.getString(cursor.getColumnIndexOrThrow("BOOKED_DATE")) ?: ""),
+                    "STATUS" to (cursor.getString(cursor.getColumnIndexOrThrow("STATUS")) ?: ""),
+                    "FEEDBACK" to (cursor.getString(cursor.getColumnIndexOrThrow("FEEDBACK")) ?: ""),
+                    "PAYMENT" to (cursor.getDouble(cursor.getColumnIndexOrThrow("PAYMENT")).toString() ?: "N/A"),
+                    "DOCTOR_NAME" to (cursor.getString(cursor.getColumnIndexOrThrow("DOCTOR_NAME")) ?: "Unknown")
+                )
+            } else {
+                null
+            }
+        } finally {
+            cursor.close()
+        }
+    }
+
 
     fun updateAppointmentFeedback(appointmentId: Int, feedback: String): Boolean {
         val db = dbHelper.writableDatabase
