@@ -323,5 +323,21 @@ class Doctor(context: Context) : Person(context) {
         }
     }
 
+    fun updateAppointmentStatus(appointmentId: Int, newStatus: String): Boolean {
+        val db = dbHelper.writableDatabase
+        return try {
+            val contentValues = ContentValues().apply {
+                put("STATUS", newStatus)
+            }
+            val rowsUpdated = db.update("APPOINMENT", contentValues, "APPOINMENT_ID = ?", arrayOf(appointmentId.toString()))
+            rowsUpdated > 0 // Returns true if at least one row was updated
+        } catch (e: Exception) {
+            e.printStackTrace()
+            false
+        } finally {
+            db.close()
+        }
+    }
+
 
 }
