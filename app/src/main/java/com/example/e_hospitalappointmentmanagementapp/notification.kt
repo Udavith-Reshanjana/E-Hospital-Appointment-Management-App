@@ -10,6 +10,7 @@ import android.widget.ListView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.example.e_hospitalappointmentmanagementapp.classes.Patient
+import java.util.*
 
 class notification : Fragment() {
     private var personId: Int = -1
@@ -38,32 +39,36 @@ class notification : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        // Insert and load notifications
-        insertAndLoadNotifications()
+        // Load and display notifications
+        loadAppointmentsAsNotifications()
     }
 
-    private fun insertAndLoadNotifications() {
+    private fun loadAppointmentsAsNotifications() {
         try {
-            val notifications = mutableListOf<String>()
+            val appointments = patient.getAppointmentsByPersonId(personId)
 
-            // Fetch appointments and add notifications
-            val appointments = patient.getAppointmentsForNotifications(personId)
-            for ((appointmentId, appointmentDate) in appointments) {
-                if (patient.insertNotificationIfNotExists(personId, appointmentId)) {
-                    Log.d("Notification", "Notification inserted for Appointment ID: $appointmentId")
-                }
-                notifications.add("Reminder: Appointment scheduled on $appointmentDate")
-            }
-
-            // Display notifications in ListView
-            if (notifications.isEmpty()) {
-                Toast.makeText(context, "No notifications available.", Toast.LENGTH_SHORT).show()
+            if (appointments.isEmpty()) {
+                Toast.makeText(context, "No appointments available.", Toast.LENGTH_SHORT).show()
             } else {
+                val notifications = appointments.map { appointment ->
+                    val appointmentId = appointment["APPOINMENT_ID"]
+                    val appointmentDate = appointment["APPOINMENT_DATE"]
+                    val status = appointment["STATUS"]
+                    val bookedDate = appointment["BOOKED_DATE"]
+
+                    when (status?.lowercase(Locale.getDefault())) {
+                        "pending" -> "Your appointment #$appointmentId is scheduled for $appointmentDate and is currently pending. Booked on $bookedDate."
+                        "confirmed" -> "Reminder: Your confirmed appointment #$appointmentId is on $appointmentDate. Booked on $bookedDate."
+                        "completed" -> "Thank you for attending appointment #$appointmentId on $appointmentDate. We hope to see you again!"
+                        else -> "Appointment #$appointmentId is scheduled for $appointmentDate with status: $status. Booked on $bookedDate."
+                    }
+                }
+
                 val adapter = ArrayAdapter(requireContext(), android.R.layout.simple_list_item_1, notifications)
                 notificationsListView.adapter = adapter
             }
         } catch (e: Exception) {
-            Log.e("NotificationFragment", "Error loading notifications", e)
+            Log.e("NotificationFragment", "Error loading appointments", e)
             Toast.makeText(context, "Failed to load notifications.", Toast.LENGTH_SHORT).show()
         }
     }
