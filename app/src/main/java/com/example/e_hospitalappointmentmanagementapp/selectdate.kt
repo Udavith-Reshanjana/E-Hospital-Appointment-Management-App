@@ -86,8 +86,10 @@ class selectdate : Fragment() {
     /**
      * Shows a date picker dialog for selecting an appointment date.
      */
+
     private fun showDatePickerDialog() {
         val calendar = Calendar.getInstance()
+
         val datePickerDialog = DatePickerDialog(
             requireContext(),
             { _, year, month, dayOfMonth ->
@@ -101,6 +103,10 @@ class selectdate : Fragment() {
             calendar.get(Calendar.MONTH),
             calendar.get(Calendar.DAY_OF_MONTH)
         )
+
+        // Set the minimum date to today
+        datePickerDialog.datePicker.minDate = calendar.timeInMillis
+
         datePickerDialog.show()
     }
 
