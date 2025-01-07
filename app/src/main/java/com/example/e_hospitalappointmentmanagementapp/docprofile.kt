@@ -72,27 +72,12 @@ class docprofile : AppCompatActivity() {
     fun updateProfile(view: View) {
         val fName = findViewById<EditText>(R.id.docprofilefirstname).text.toString()
         val lName = findViewById<EditText>(R.id.docprofilelastname).text.toString()
-        val email = findViewById<EditText>(R.id.docprofileemail).text.toString()
         val oldPassword = oldPasswordField.text.toString()
         val newPassword = newPasswordField.text.toString()
 
-        if (fName.isBlank() || lName.isBlank() || email.isBlank()) {
+        if (fName.isBlank() || lName.isBlank()) {
             Toast.makeText(this, "Please fill in all required fields", Toast.LENGTH_SHORT).show()
             return
-        }
-
-        if (email.isNotBlank()) {
-            // Validate email format
-            if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
-                Toast.makeText(this, "Invalid email format", Toast.LENGTH_SHORT).show()
-                return
-            }
-
-            // Validate email uniqueness
-            if (doctor.isEmailExists(email)) {
-                Toast.makeText(this, "Email already exists. Please use a different email.", Toast.LENGTH_SHORT).show()
-                return
-            }
         }
 
         if (newPassword.isNotBlank() && newPassword == oldPassword) {
@@ -104,7 +89,6 @@ class docprofile : AppCompatActivity() {
             personId,
             fName,
             lName,
-            email,
             oldPassword,
             newPassword
         )
@@ -124,7 +108,6 @@ class docprofile : AppCompatActivity() {
             // Set the first name, last name, and email fields
             findViewById<EditText>(R.id.docprofilefirstname).setText(profile["FIRST_NAME"] as String? ?: "")
             findViewById<EditText>(R.id.docprofilelastname).setText(profile["LAST_NAME"] as String? ?: "")
-            findViewById<EditText>(R.id.docprofileemail).setText(profile["EMAIL"] as String? ?: "")
 
             // Handle the profile picture
             val profilePic = profile["PROFILE_PIC"] as ByteArray?

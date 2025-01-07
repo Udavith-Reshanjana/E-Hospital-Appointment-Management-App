@@ -144,7 +144,6 @@ class Doctor(context: Context) : Person(context) {
         personId: Int,
         firstName: String,
         lastName: String,
-        email: String,
         oldPassword: String,
         newPassword: String
     ): Boolean {
@@ -177,7 +176,6 @@ class Doctor(context: Context) : Person(context) {
             val contentValues = ContentValues().apply {
                 put("FIRST_NAME", firstName)
                 put("LAST_NAME", lastName)
-                put("EMAIL", email)
                 if (newPassword.isNotBlank()) put("PERSON_PASSWORD", newPassword)
             }
 
@@ -338,6 +336,4 @@ class Doctor(context: Context) : Person(context) {
             db.close()
         }
     }
-
-
 }
