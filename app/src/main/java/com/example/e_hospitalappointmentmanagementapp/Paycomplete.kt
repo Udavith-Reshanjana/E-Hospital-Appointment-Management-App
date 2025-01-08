@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
+import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.Fragment
 import com.example.e_hospitalappointmentmanagementapp.classes.Patient
 import com.example.e_hospitalappointmentmanagementapp.classes.Person
@@ -67,6 +68,19 @@ class Paycomplete : Fragment() {
 
         return rootView
     }
+
+    override fun onResume() {
+        super.onResume()
+        requireActivity().onBackPressedDispatcher.addCallback(
+            viewLifecycleOwner,
+            object : OnBackPressedCallback(true) {
+                override fun handleOnBackPressed() {
+                    Toast.makeText(requireContext(), "Back to previous screen not allowed after payment.", Toast.LENGTH_SHORT).show()
+                }
+            }
+        )
+    }
+
 
     /**
      * Retrieves the hospital name and doctor's available time for the appointment.
