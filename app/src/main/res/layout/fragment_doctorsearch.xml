@@ -7,7 +7,7 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:layout_marginTop="15dp"
         android:orientation="vertical">
 
@@ -16,7 +16,7 @@
             android:queryHint="Search Doctor Here"
             android:iconifiedByDefault="false"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" >
+            android:layout_height="wrap_content" >
 
         </SearchView>
 
@@ -25,14 +25,14 @@
             android:spinnerMode="dropdown"
             android:layout_width="match_parent"
             android:layout_marginTop="5dp"
-            android:layout_height="wrap_content" />
+            android:layout_height="35dp" />
 
         <Spinner
             android:id="@+id/spinner2"
             android:spinnerMode="dropdown"
             android:layout_width="match_parent"
             android:layout_marginTop="5dp"
-            android:layout_height="wrap_content" />
+            android:layout_height="35dp" />
 
         <ScrollView
             android:layout_width="match_parent"
@@ -41,13 +41,14 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical" >
+                android:orientation="vertical">
 
                 <ListView
                     android:id="@+id/doctorslist"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_marginTop="15dp" />
+                    android:layout_marginTop="15dp"
+                    android:listSelector="@drawable/listselect" />
             </LinearLayout>
         </ScrollView>
 

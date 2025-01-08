@@ -28,6 +28,7 @@
                     android:layout_height="150dp"
                     android:layout_marginBottom="5dp"
                     android:layout_gravity="center"
+                    android:background="@drawable/img"
                     tools:src="@tools:sample/avatars"
                     android:onClick="changeProfilePictureOfPatient"/>
 
@@ -131,7 +132,7 @@
                         android:id="@+id/toggleOldPassword"
                         android:layout_width="50dp"
                         android:layout_height="50dp"
-                        android:background="#FFFFFF"
+                        android:background="@null"
                         android:scaleType="centerCrop"
                         android:src="@drawable/ic_eye_closed" />
                 </LinearLayout>
@@ -161,7 +162,7 @@
                         android:layout_width="50dp"
                         android:layout_height="50dp"
                         android:scaleType="centerCrop"
-                        android:background="#FFFFFF"
+                        android:background="@null"
                         android:src="@drawable/ic_eye_closed" />
                 </LinearLayout>
 
@@ -187,12 +188,12 @@
                     android:layout_height="wrap_content"
                     android:textStyle="bold"
                     android:layout_marginRight="15dp"
-                    android:background="#DEC5E3"
+                    android:background="@drawable/buttonpink"
                     android:text="Save" />
 
                 <Button
                     android:id="@+id/logoutbutton"
-                    android:background="#B6DCFE"
+                    android:background="@drawable/buttonblue"
                     android:layout_width="wrap_content"
                     android:textStyle="bold"
                     android:layout_height="wrap_content"

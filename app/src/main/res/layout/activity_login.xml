@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:gravity="center"
-    android:background="#F8EDEB"
+    android:background="#fefae0"
     android:orientation="vertical"
     tools:context=".Login">
 
@@ -68,7 +68,7 @@
             android:layout_marginTop="20dp"
             android:textStyle="bold"
             android:text="Log In"
-            android:background="#DEC5E3"
+            android:background="@drawable/buttonpink"
             android:textColor="@color/black"
             android:onClick="logIn"/>
 
@@ -97,12 +97,13 @@
             android:text="Don't have an account?" />
 
         <Button
+            android:layout_marginBottom="5dp"
             android:id="@+id/signupbutton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textStyle="bold"
             android:text="Sign Up"
-            android:background="#A9F8FB"
+            android:background="@drawable/buttonblue"
             android:textColor="@color/black"
             android:onClick="signUp"/>
 

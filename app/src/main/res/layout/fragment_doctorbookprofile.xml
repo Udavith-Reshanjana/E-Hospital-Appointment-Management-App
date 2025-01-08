@@ -24,6 +24,7 @@
                 <ImageButton
                     android:id="@+id/imageButton"
                     android:layout_width="150dp"
+                    android:background="@drawable/img"
                     android:layout_height="150dp"
                     android:layout_marginBottom="5dp"
                     android:layout_gravity="center"
@@ -143,9 +144,11 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textStyle="bold"
+                android:paddingTop="20dp"
+                android:paddingBottom="20dp"
                 android:paddingRight="15dp"
                 android:paddingLeft="15dp"
-                android:background="#DEC5E3"
+                android:background="@drawable/buttonblue"
                 android:text="Book an appointment" />
 
             <Button
@@ -153,10 +156,13 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textStyle="bold"
+                android:paddingTop="20dp"
+                android:paddingBottom="20dp"
                 android:paddingRight="15dp"
                 android:paddingLeft="15dp"
-                android:background="#FF746C"
-                android:layout_marginTop="60dp"
+                android:textColor="#fefae0"
+                android:background="@drawable/buttonred"
+                android:layout_marginTop="15dp"
                 android:layout_marginBottom="20dp"
                 android:text="Discard the appoinment" />
         </LinearLayout>

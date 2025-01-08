@@ -10,6 +10,8 @@ import android.widget.Button
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentTransaction
+import com.example.e_hospitalappointmentmanagementapp.classes.Person
+
 
 class Home : Fragment() {
 
@@ -35,6 +37,7 @@ class Home : Fragment() {
 
         // Handle "Book Appointment" button click
         bookAppointmentButton.setOnClickListener {
+            Person.VibrationUtil.triggerVibrationshort(requireContext())
             val bookAppointmentFragment = doctorsearch()
             bookAppointmentFragment.arguments = Bundle().apply {
                 putInt("person_id", personId ?: -1)
@@ -44,6 +47,7 @@ class Home : Fragment() {
 
         // Handle "My Appointments" button click
         myAppointmentsButton.setOnClickListener {
+            Person.VibrationUtil.triggerVibrationshort(requireContext())
             val myAppointmentsFragment = myappointments()
             myAppointmentsFragment.arguments = Bundle().apply {
                 putInt("person_id", personId ?: -1)
@@ -53,6 +57,7 @@ class Home : Fragment() {
 
         // Handle "Log Out" button click
         logoutButton.setOnClickListener {
+            Person.VibrationUtil.triggerVibration(requireContext())
             AlertDialog.Builder(requireContext())
                 .setTitle("Confirm Logout")
                 .setMessage("Are you sure you want to log out?")
@@ -60,6 +65,7 @@ class Home : Fragment() {
                     val intent = Intent(requireContext(), Login::class.java)
                     intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
                     startActivity(intent)
+                    Person.VibrationUtil.triggerVibrationshort(requireContext())
                     requireActivity().finish()
                 }
                 .setNegativeButton("No", null)

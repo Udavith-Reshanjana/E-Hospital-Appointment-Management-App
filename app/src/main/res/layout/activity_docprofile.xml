@@ -3,19 +3,20 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
+    android:background="#f4f9e9"
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context=".docprofile">
 
     <LinearLayout
         android:layout_width="match_parent"
+        android:layout_margin="15dp"
         android:layout_height="match_parent"
         android:orientation="vertical">
 
         <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"
+            android:layout_height="wrap_content"
             android:layout_marginTop="25dp">
 
             <LinearLayout
@@ -27,6 +28,7 @@
                     android:id="@+id/propic"
                     android:layout_width="150dp"
                     android:layout_height="150dp"
+                    android:background="@drawable/img"
                     android:layout_gravity="center"
                     android:layout_marginBottom="5dp"
                     android:onClick="changeProfilePicture"/>
@@ -133,7 +135,7 @@
                         android:layout_width="50dp"
                         android:layout_height="50dp"
                         android:scaleType="centerCrop"
-                        android:background="#FFFFFF"
+                        android:background="@null"
                         android:src="@drawable/ic_eye_closed" />
                 </LinearLayout>
 
@@ -162,7 +164,7 @@
                         android:layout_width="50dp"
                         android:layout_height="50dp"
                         android:scaleType="centerCrop"
-                        android:background="#FFFFFF"
+                        android:background="@null"
                         android:src="@drawable/ic_eye_closed" />
                 </LinearLayout>
             </LinearLayout>
@@ -171,8 +173,8 @@
         <!-- Buttons -->
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
+            android:layout_height="fill_parent"
+            android:gravity="center|bottom"
             android:orientation="horizontal"
             android:padding="16dp">
 
@@ -180,19 +182,21 @@
                 android:id="@+id/doc_savebutton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginBottom="5dp"
                 android:text="Save"
                 android:textStyle="bold"
-                android:background="@color/purple_200"
+                android:background="@drawable/buttonbrown"
                 android:layout_marginEnd="20dp"
                 android:onClick="updateProfile"/>
 
             <Button
                 android:id="@+id/doc_logoutbutton"
                 android:layout_width="wrap_content"
+                android:layout_marginBottom="5dp"
                 android:layout_height="wrap_content"
                 android:text="Log Out"
                 android:textStyle="bold"
-                android:background="#A9F8FB"
+                android:background="@drawable/button1"
                 android:onClick="logout"/>
         </LinearLayout>
     </LinearLayout>

@@ -16,6 +16,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="35dp"
+            android:textStyle="bold"
             android:textColor="@color/black"
             android:layout_gravity="center"
             android:text="My Appointments" />
@@ -33,7 +34,8 @@
                     android:id="@+id/myappointments"
                     android:layout_width="match_parent"
                     android:layout_height="654dp"
-                    android:layout_marginTop="15dp" />
+                    android:listSelector="@drawable/listselect"
+                    android:layout_marginTop="25dp" />
             </LinearLayout>
         </ScrollView>
 

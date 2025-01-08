@@ -9,6 +9,9 @@ import android.view.ViewGroup
 import android.widget.*
 import androidx.fragment.app.Fragment
 import com.example.e_hospitalappointmentmanagementapp.classes.Patient
+import com.example.e_hospitalappointmentmanagementapp.classes.Person.VibrationUtil.triggerVibration
+import com.example.e_hospitalappointmentmanagementapp.classes.Person.VibrationUtil.triggerVibrationshort
+
 
 class doctorbookprofile : Fragment() {
 
@@ -54,8 +57,10 @@ class doctorbookprofile : Fragment() {
         bookAppointmentButton.setOnClickListener {
             val selectedHospital = hospitalSpinner.selectedItem?.toString()
             if (selectedHospital == null || selectedHospital == "Select Hospital") {
+                triggerVibration(requireContext())
                 Toast.makeText(requireContext(), "Please select a hospital.", Toast.LENGTH_SHORT).show()
             } else {
+                triggerVibrationshort(requireContext())
                 navigateToSelectDate(doctorId, patientId, selectedHospital)
             }
         }
@@ -63,6 +68,7 @@ class doctorbookprofile : Fragment() {
         // Handle "Discard Appointment" button
         discardButton.setOnClickListener {
             showDiscardConfirmation()
+            triggerVibration(requireContext())
         }
 
         return rootView

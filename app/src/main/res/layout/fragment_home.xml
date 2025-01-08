@@ -3,7 +3,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#F8EDEB"
 
     tools:context=".Home">
 
@@ -46,7 +45,7 @@
                 android:layout_width="match_parent"
                 android:layout_marginBottom="10dp"
                 android:textSize="20dp"
-                android:background="#DEC5E3"
+                android:background="@drawable/buttonpink"
                 android:textStyle="bold"
                 android:layout_height="75dp"
                 android:text="Book Appointment" />
@@ -54,7 +53,7 @@
             <Button
                 android:id="@+id/myappointmentbutton"
                 android:textSize="20dp"
-                android:background="#DEC5E3"
+                android:background="@drawable/buttonpink"
                 android:layout_width="match_parent"
                 android:layout_marginBottom="10dp"
                 android:textStyle="bold"
@@ -75,7 +74,7 @@
                 android:layout_height="wrap_content"
                 android:textStyle="bold"
                 android:textSize="20dp"
-                android:background="#A9F8FB"
+                android:background="@drawable/buttonblue"
                 android:padding="20dp"
                 android:layout_marginBottom="25dp"
                 android:text="Log out" />

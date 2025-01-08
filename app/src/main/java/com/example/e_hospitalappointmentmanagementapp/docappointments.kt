@@ -7,6 +7,7 @@ import android.widget.ArrayAdapter
 import android.widget.ListView
 import androidx.appcompat.app.AppCompatActivity
 import com.example.e_hospitalappointmentmanagementapp.classes.Doctor
+import com.example.e_hospitalappointmentmanagementapp.classes.Person
 
 class docappointments : AppCompatActivity() {
 
@@ -79,6 +80,7 @@ class docappointments : AppCompatActivity() {
     }
 
     private fun navigateToAppointmentManage(position: Int) {
+        Person.VibrationUtil.triggerVibrationshort(this)
         try {
             val selectedAppointment = appointments[position]
             val appointmentId = selectedAppointment["APPOINMENT_ID"]
