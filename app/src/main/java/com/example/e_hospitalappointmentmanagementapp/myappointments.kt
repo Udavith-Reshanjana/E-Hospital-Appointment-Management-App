@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import android.widget.*
 import androidx.fragment.app.Fragment
 import com.example.e_hospitalappointmentmanagementapp.classes.Patient
+import com.example.e_hospitalappointmentmanagementapp.classes.Person
 
 class myappointments : Fragment() {
 
@@ -68,6 +69,7 @@ class myappointments : Fragment() {
     }
 
     private fun navigateToAppointmentFragment(personId: Int, appointmentId: Int) {
+        Person.VibrationUtil.triggerVibrationshort(requireContext())
         val bundle = Bundle().apply {
             putInt("person_id", personId)
             putInt("appointment_id", appointmentId)

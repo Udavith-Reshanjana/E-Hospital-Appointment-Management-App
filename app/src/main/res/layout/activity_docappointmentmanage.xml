@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#f4f9e9"
     android:orientation="vertical"
     tools:context=".docappointmentmanage">
 
@@ -17,7 +18,9 @@
             android:id="@+id/textView31"
             android:layout_width="wrap_content"
             android:layout_gravity="center"
-            android:layout_marginBottom="15dp"
+            android:layout_marginBottom="25dp"
+            android:textColor="@color/black"
+            android:textStyle="bold"
             android:textSize="25dp"
             android:layout_height="wrap_content"
             android:text="Appointment ID: $$$$$" />
@@ -154,15 +157,15 @@
             android:id="@+id/a_remove"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:padding="15dp"
+            android:layout_marginBottom="5dp"
+            android:textColor="#f4f9e9"
+            android:textSize="18dp"
+            android:background="@drawable/buttonred"
+            android:layout_marginRight="25dp"
             android:textStyle="bold"
             android:text="remove appointment" />
 
-        <Button
-            android:id="@+id/a_back"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textStyle="bold"
-            android:text="Back" />
     </LinearLayout>
 
 </LinearLayout>

@@ -7,6 +7,9 @@ import android.view.ViewGroup
 import android.widget.*
 import androidx.fragment.app.Fragment
 import com.example.e_hospitalappointmentmanagementapp.classes.Patient
+import com.example.e_hospitalappointmentmanagementapp.classes.Person.VibrationUtil.triggerVibration
+
+import com.example.e_hospitalappointmentmanagementapp.classes.Person.VibrationUtil.triggerVibrationshort
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -40,7 +43,6 @@ class Appointment : Fragment() {
         paymentEditText = rootView.findViewById(R.id.a_pay)
         feedbackEditText = rootView.findViewById(R.id.a_feedback)
         leaveFeedbackButton = rootView.findViewById(R.id.leavefeedback)
-        backButton = rootView.findViewById(R.id.back)
         appointmentIDTextView = rootView.findViewById(R.id.textView31)
 
         // Initialize Patient class
@@ -61,12 +63,11 @@ class Appointment : Fragment() {
         // Handle Leave Feedback button click
         leaveFeedbackButton.setOnClickListener {
             saveFeedback()
+
         }
 
         // Handle Back button click
-        backButton.setOnClickListener {
-            navigateBack()
-        }
+
 
         appointmentIDTextView.text = "Appointment ID: $appointmentId"
 
@@ -130,16 +131,19 @@ class Appointment : Fragment() {
     private fun saveFeedback() {
         val feedback = feedbackEditText.text.toString().trim()
         if (feedback.isEmpty()) {
+            triggerVibration(requireContext())
             Toast.makeText(requireContext(), "Feedback cannot be empty.", Toast.LENGTH_SHORT).show()
             return
         }
 
         val success = patient.updateAppointmentFeedback(appointmentId, feedback)
         if (success) {
+            triggerVibrationshort(requireContext())
             Toast.makeText(requireContext(), "Feedback saved successfully.", Toast.LENGTH_SHORT).show()
             // Navigate back to the previous fragment
             parentFragmentManager.popBackStack()
         } else {
+            triggerVibration(requireContext())
             Toast.makeText(requireContext(), "Failed to save feedback.", Toast.LENGTH_SHORT).show()
         }
     }

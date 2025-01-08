@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import com.example.e_hospitalappointmentmanagementapp.classes.Doctor
+import com.example.e_hospitalappointmentmanagementapp.classes.Person
 import java.util.*
 import java.util.regex.Pattern
 
@@ -46,6 +47,7 @@ class docavailable : AppCompatActivity() {
 
         dateListView.setOnItemClickListener { _, _, position, _ ->
             selectedItemPosition = position
+            Person.VibrationUtil.triggerVibrationshort(this)
             Toast.makeText(this, "Selected: ${availabilityList[position]}", Toast.LENGTH_SHORT).show()
         }
 
@@ -54,8 +56,12 @@ class docavailable : AppCompatActivity() {
         loadAvailability()
 
         // Set TimePickerDialog for fromTimeInput and toTimeInput
-        fromTimeInput.setOnClickListener { showTimePickerDialog(fromTimeInput) }
-        toTimeInput.setOnClickListener { showTimePickerDialog(toTimeInput) }
+        fromTimeInput.setOnClickListener {
+            Person.VibrationUtil.triggerVibrationshort(this)
+            showTimePickerDialog(fromTimeInput) }
+        toTimeInput.setOnClickListener {
+            Person.VibrationUtil.triggerVibrationshort(this)
+            showTimePickerDialog(toTimeInput) }
 
         findViewById<Button>(R.id.addtime).setOnClickListener { addAvailability() }
         findViewById<Button>(R.id.removetime).setOnClickListener { removeAvailability() }
@@ -72,6 +78,7 @@ class docavailable : AppCompatActivity() {
         val hospitals = doctor.getHospitalsForDoctor(docId)
 
         if (hospitals.isEmpty()) {
+            Person.VibrationUtil.triggerVibration(this)
             Toast.makeText(this, "No hospitals found for the doctor.", Toast.LENGTH_SHORT).show()
             return
         }
@@ -98,16 +105,19 @@ class docavailable : AppCompatActivity() {
         val selectedHospital = hospitalSpinner.selectedItem?.toString() ?: ""
 
         if (selectedDay.isEmpty() || fromTime.isEmpty() || toTime.isEmpty() || selectedHospital.isEmpty()) {
+            Person.VibrationUtil.triggerVibration(this)
             Toast.makeText(this, "All fields are required", Toast.LENGTH_SHORT).show()
             return
         }
 
         if (!isValid24HourTime(fromTime) || !isValid24HourTime(toTime)) {
+            Person.VibrationUtil.triggerVibration(this)
             Toast.makeText(this, "Invalid time format. Use HH:mm in 24-hour format.", Toast.LENGTH_SHORT).show()
             return
         }
 
         if (!isFromTimeBeforeToTime(fromTime, toTime)) {
+            Person.VibrationUtil.triggerVibration(this)
             Toast.makeText(this, "From time must be before To time", Toast.LENGTH_SHORT).show()
             return
         }
@@ -115,9 +125,11 @@ class docavailable : AppCompatActivity() {
         val isAdded = doctor.addAvailability(docId, selectedDay, fromTime, toTime)
 
         if (isAdded) {
+            Person.VibrationUtil.triggerVibrationshort(this)
             Toast.makeText(this, "Availability added successfully", Toast.LENGTH_SHORT).show()
             loadAvailability()
         } else {
+            Person.VibrationUtil.triggerVibration(this)
             Toast.makeText(this, "Failed to add availability", Toast.LENGTH_SHORT).show()
         }
     }
@@ -134,6 +146,7 @@ class docavailable : AppCompatActivity() {
 
 
     private fun removeAvailability() {
+        Person.VibrationUtil.triggerVibrationshort(this)
         if (selectedItemPosition == AdapterView.INVALID_POSITION) {
             Toast.makeText(this, "Please select an item to remove", Toast.LENGTH_SHORT).show()
             return
@@ -147,9 +160,11 @@ class docavailable : AppCompatActivity() {
         val isRemoved = doctor.removeAvailability(docId, selectedDay, fromTime)
 
         if (isRemoved) {
+            Person.VibrationUtil.triggerVibrationshort(this)
             Toast.makeText(this, "Availability removed successfully", Toast.LENGTH_SHORT).show()
             loadAvailability()
         } else {
+            Person.VibrationUtil.triggerVibration(this)
             Toast.makeText(this, "Failed to remove availability", Toast.LENGTH_SHORT).show()
         }
     }
@@ -160,6 +175,7 @@ class docavailable : AppCompatActivity() {
     }
 
     private fun showTimePickerDialog(editText: EditText) {
+        Person.VibrationUtil.triggerVibrationshort(this)
         val calendar = Calendar.getInstance()
         val hour = calendar.get(Calendar.HOUR_OF_DAY)
         val minute = calendar.get(Calendar.MINUTE)

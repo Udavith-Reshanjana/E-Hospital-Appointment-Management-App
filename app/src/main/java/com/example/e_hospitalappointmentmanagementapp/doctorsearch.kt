@@ -8,6 +8,7 @@ import android.widget.*
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
 import com.example.e_hospitalappointmentmanagementapp.classes.Patient
+import com.example.e_hospitalappointmentmanagementapp.classes.Person
 
 class doctorsearch : Fragment() {
 
@@ -72,6 +73,7 @@ class doctorsearch : Fragment() {
     }
 
     private fun searchDoctors(query: String) {
+        Person.VibrationUtil.triggerVibrationshort(requireContext())
         val filteredDoctors = patient.searchDoctors(query)
         if (filteredDoctors.isNotEmpty()) {
             val adapter = ArrayAdapter(
@@ -153,6 +155,7 @@ class doctorsearch : Fragment() {
     }
 
     private fun handleDoctorItemClick(position: Int) {
+        Person.VibrationUtil.triggerVibrationshort(requireContext())
         val selectedDoctor = doctorsListView.adapter.getItem(position) as String
         val doctorDetails = selectedDoctor.split("\n")
         val doctorName = doctorDetails[0].replace("Dr. ", "").trim()
@@ -165,6 +168,7 @@ class doctorsearch : Fragment() {
             .setMessage("Do you want to book an appointment for $doctorName?")
             .setPositiveButton("Yes") { _, _ ->
                 navigateToDoctorBookProfile(doctorId, personId)
+                Person.VibrationUtil.triggerVibrationshort(requireContext())
             }
             .setNegativeButton("No", null)
             .create()

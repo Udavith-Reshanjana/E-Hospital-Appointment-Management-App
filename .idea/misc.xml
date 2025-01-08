@@ -3,6 +3,18 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/E-hospital/E-Hospital-Appointment-Management-App/app/src/main/res/drawable-v24/button1.xml" value="0.337" />
+        <entry key="..\:/E-hospital/E-Hospital-Appointment-Management-App/app/src/main/res/drawable-v24/buttonblue.xml" value="0.314" />
+        <entry key="..\:/E-hospital/E-Hospital-Appointment-Management-App/app/src/main/res/drawable-v24/buttonbrown.xml" value="0.337" />
+        <entry key="..\:/E-hospital/E-Hospital-Appointment-Management-App/app/src/main/res/drawable-v24/buttongreen.xml" value="0.3975" />
+        <entry key="..\:/E-hospital/E-Hospital-Appointment-Management-App/app/src/main/res/drawable-v24/buttonpink.xml" value="0.314" />
+        <entry key="..\:/E-hospital/E-Hospital-Appointment-Management-App/app/src/main/res/drawable-v24/buttonred.xml" value="0.3975" />
+        <entry key="..\:/E-hospital/E-Hospital-Appointment-Management-App/app/src/main/res/drawable-v24/img.xml" value="0.3975" />
+        <entry key="..\:/E-hospital/E-Hospital-Appointment-Management-App/app/src/main/res/drawable-v24/listselect.xml" value="0.3975" />
+        <entry key="..\:/E-hospital/E-Hospital-Appointment-Management-App/app/src/main/res/layout/activity_docappointmentmanage.xml" value="0.3109375" />
+        <entry key="..\:/E-hospital/E-Hospital-Appointment-Management-App/app/src/main/res/layout/activity_docappointments.xml" value="0.33" />
+        <entry key="..\:/E-hospital/E-Hospital-Appointment-Management-App/app/src/main/res/layout/activity_docavailable.xml" value="0.55" />
+        <entry key="..\:/E-hospital/E-Hospital-Appointment-Management-App/app/src/main/res/layout/activity_docprofile.xml" value="0.55" />
         <entry key="..\:/E-hospital/E-Hospital-Appointment-Management-App/app/src/main/res/layout/activity_docreg.xml" value="0.33" />
         <entry key="..\:/E-hospital/E-Hospital-Appointment-Management-App/app/src/main/res/layout/activity_doctormain.xml" value="0.33" />
         <entry key="..\:/E-hospital/E-Hospital-Appointment-Management-App/app/src/main/res/layout/activity_login.xml" value="0.33" />
@@ -12,13 +24,13 @@
         <entry key="..\:/E-hospital/E-Hospital-Appointment-Management-App/app/src/main/res/layout/fragment_chatbot.xml" value="0.1802536231884058" />
         <entry key="..\:/E-hospital/E-Hospital-Appointment-Management-App/app/src/main/res/layout/fragment_doctorbookprofile.xml" value="0.33" />
         <entry key="..\:/E-hospital/E-Hospital-Appointment-Management-App/app/src/main/res/layout/fragment_doctorsearch.xml" value="0.2558876811594203" />
-        <entry key="..\:/E-hospital/E-Hospital-Appointment-Management-App/app/src/main/res/layout/fragment_home.xml" value="0.1802536231884058" />
+        <entry key="..\:/E-hospital/E-Hospital-Appointment-Management-App/app/src/main/res/layout/fragment_home.xml" value="0.33" />
         <entry key="..\:/E-hospital/E-Hospital-Appointment-Management-App/app/src/main/res/layout/fragment_myappointments.xml" value="0.2558876811594203" />
-        <entry key="..\:/E-hospital/E-Hospital-Appointment-Management-App/app/src/main/res/layout/fragment_notification.xml" value="0.1802536231884058" />
+        <entry key="..\:/E-hospital/E-Hospital-Appointment-Management-App/app/src/main/res/layout/fragment_notification.xml" value="0.33" />
         <entry key="..\:/E-hospital/E-Hospital-Appointment-Management-App/app/src/main/res/layout/fragment_patientprofile.xml" value="0.33" />
-        <entry key="..\:/E-hospital/E-Hospital-Appointment-Management-App/app/src/main/res/layout/fragment_paycomplete.xml" value="0.1802536231884058" />
+        <entry key="..\:/E-hospital/E-Hospital-Appointment-Management-App/app/src/main/res/layout/fragment_paycomplete.xml" value="0.33" />
         <entry key="..\:/E-hospital/E-Hospital-Appointment-Management-App/app/src/main/res/layout/fragment_payment.xml" value="0.33" />
-        <entry key="..\:/E-hospital/E-Hospital-Appointment-Management-App/app/src/main/res/layout/fragment_selectdate.xml" value="0.1802536231884058" />
+        <entry key="..\:/E-hospital/E-Hospital-Appointment-Management-App/app/src/main/res/layout/fragment_selectdate.xml" value="0.33" />
         <entry key="..\:/E-hospital/E-Hospital-Appointment-Management-App/app/src/main/res/layout/fragment_settings.xml" value="0.20923913043478262" />
         <entry key="..\:/Users/lenovo/Documents/GitHub/E-Hospital-Appointment-Management-App/app/src/main/res/drawable/ic_launcher_lhospital_logo_background.xml" value="0.1945" />
         <entry key="..\:/Users/lenovo/Documents/GitHub/E-Hospital-Appointment-Management-App/app/src/main/res/layout/activity_docappointmentmanage.xml" value="0.2" />

@@ -57,9 +57,10 @@ The **E-Hospital Appointment Management App** aims to revolutionize the interact
 ---
 
 ## Tools and Technologies
-- **Frontend**: Flutter
+- **Frontend**: XML Layouts
 - **Design**: Figma, Canva
-- **Backend**: MySQL
+- **Backend**: Kotlin 
+- **Database**: MySQLite
 - **Version Control**: GitHub
 - **Development Environment**: Android Studio
 

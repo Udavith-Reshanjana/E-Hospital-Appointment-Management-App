@@ -28,10 +28,10 @@
 
             <TextView
                 android:id="@+id/textView20"
-                android:layout_width="150dp"
+                android:layout_width="200dp"
                 android:textSize="18dp"
-                android:layout_height="fill_parent"
-                android:text="Payment Amount (Rs.): " />
+                android:layout_height="wrap_content"
+                android:text="Payment Amount (LKR): " />
 
             <EditText
                 android:id="@+id/payamount"
@@ -138,7 +138,9 @@
                 android:textSize="30dp"
                 android:paddingLeft="25dp"
                 android:paddingRight="25dp"
-                android:background="#DEC5E3"
+                android:layout_marginBottom="10dp"
+                android:textColor="#fefae0"
+                android:background="@drawable/buttongreen"
                 android:layout_height="wrap_content"
                 android:textStyle="bold"
                 android:text="Pay" />

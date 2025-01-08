@@ -7,6 +7,8 @@ import android.widget.Switch
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentTransaction
+import com.example.e_hospitalappointmentmanagementapp.classes.Patient
+import com.example.e_hospitalappointmentmanagementapp.classes.Person
 
 class Patientmain : AppCompatActivity() {
 
@@ -29,26 +31,31 @@ class Patientmain : AppCompatActivity() {
         homebutton.setOnClickListener {
             openFragment(Home())
             buttoncolor(homebutton)
+            Person.VibrationUtil.triggerVibrationshort(this)
         }
 
         chatbutton.setOnClickListener {
             openFragment(chatbot())
             buttoncolor(chatbutton)
+            Person.VibrationUtil.triggerVibrationshort(this)
         }
 
         notificationbutton.setOnClickListener {
             openFragment(notification())
             buttoncolor(notificationbutton)
+            Person.VibrationUtil.triggerVibrationshort(this)
         }
 
         profilebutton.setOnClickListener {
             openFragment(patientprofile())
             buttoncolor(profilebutton)
+            Person.VibrationUtil.triggerVibrationshort(this)
         }
 
         settingsbutton.setOnClickListener {
             openFragment(settings())
             buttoncolor(settingsbutton)
+            Person.VibrationUtil.triggerVibrationshort(this)
         }
 
         val firstName = intent.getStringExtra("first_name")

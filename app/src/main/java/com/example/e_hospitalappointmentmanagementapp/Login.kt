@@ -3,13 +3,10 @@ package com.example.e_hospitalappointmentmanagementapp
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
-import android.view.Window
-import android.view.WindowManager
 import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
-import com.example.e_hospitalappointmentmanagementapp.classes.Doctor
 import com.example.e_hospitalappointmentmanagementapp.classes.Person
 
 class Login : AppCompatActivity() {
@@ -28,6 +25,7 @@ class Login : AppCompatActivity() {
 
         // Validate input
         if (uEmail.isEmpty() || uPword.isEmpty()) {
+            Person.VibrationUtil.triggerVibration(this)
             Toast.makeText(this, "Please fill in both email and password!", Toast.LENGTH_SHORT).show()
             return
         }
@@ -37,9 +35,11 @@ class Login : AppCompatActivity() {
         val isLoggedIn = person.logUser(uEmail, uPword)
 
         if (isLoggedIn) {
+            Person.VibrationUtil.triggerVibrationshort(this)
             val userTypeNumber = person.getPersontype(uEmail, uPword)
             gotoPersonMainScreen(userTypeNumber, uEmail, uPword)
         } else {
+            Person.VibrationUtil.triggerVibration(this)
             Toast.makeText(this, "Invalid email or password!", Toast.LENGTH_SHORT).show()
         }
     }
@@ -76,6 +76,7 @@ class Login : AppCompatActivity() {
     }
 
     fun signUp(view: View) {
+        Person.VibrationUtil.triggerVibrationshort(this)
         // Create an AlertDialog for user verification
         val options = arrayOf("Doctor", "Patient")
 
@@ -83,6 +84,8 @@ class Login : AppCompatActivity() {
         builder.setTitle("Verify your role")
         builder.setItems(options) { _, which ->
             gotoPersonRegistrationScreen(which)
+            Person.VibrationUtil.triggerVibrationshort(this)
+
         }
 
         builder.create().show()

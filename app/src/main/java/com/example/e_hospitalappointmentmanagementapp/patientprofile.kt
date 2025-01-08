@@ -15,6 +15,8 @@ import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentTransaction
 import com.example.e_hospitalappointmentmanagementapp.classes.Patient
+import com.example.e_hospitalappointmentmanagementapp.classes.Person
+import com.example.e_hospitalappointmentmanagementapp.classes.Person.VibrationUtil.triggerVibration
 import java.io.ByteArrayOutputStream
 import java.text.SimpleDateFormat
 import java.util.*
@@ -33,6 +35,7 @@ class patientprofile : Fragment() {
 
     private val pickImageLauncher = registerForActivityResult(ActivityResultContracts.GetContent()) { uri ->
         uri?.let {
+            Person.VibrationUtil.triggerVibrationshort(requireContext())
             try {
                 val inputStream = requireContext().contentResolver.openInputStream(it)
                 val bitmap = BitmapFactory.decodeStream(inputStream)
@@ -171,11 +174,13 @@ class patientprofile : Fragment() {
 
         // Validate birthday
         if (!isValidDate(birthday)) {
+            Person.VibrationUtil.triggerVibration(requireContext())
             Toast.makeText(context, "Invalid birthday. Choose a past date.", Toast.LENGTH_SHORT).show()
             return
         }
 
         if (newPassword.isNotBlank() && newPassword == oldPassword) {
+            Person.VibrationUtil.triggerVibration(requireContext())
             Toast.makeText(context, "New password cannot be the same as the old password", Toast.LENGTH_SHORT).show()
             return
         }
@@ -183,8 +188,11 @@ class patientprofile : Fragment() {
         val success = patient.updateProfile(personId, firstName, lastName, null, oldPassword, newPassword, birthday)
 
         if (success) {
+            Person.VibrationUtil.triggerVibrationshort(requireContext())
+
             Toast.makeText(context, "Profile updated successfully", Toast.LENGTH_SHORT).show()
         } else {
+            Person.VibrationUtil.triggerVibration(requireContext())
             Toast.makeText(context, "Failed to update profile", Toast.LENGTH_SHORT).show()
         }
     }
@@ -198,18 +206,21 @@ class patientprofile : Fragment() {
 
         // Validate mandatory fields
         if (firstName.isBlank() || lastName.isBlank() || birthday.isBlank()) {
+            Person.VibrationUtil.triggerVibration(requireContext())
             Toast.makeText(context, "Please fill in all required fields", Toast.LENGTH_SHORT).show()
             return
         }
 
         // Validate birthday
         if (!isValidDate(birthday)) {
+            Person.VibrationUtil.triggerVibration(requireContext())
             Toast.makeText(context, "Invalid birthday. Choose a past date.", Toast.LENGTH_SHORT).show()
             return
         }
 
         // Check if new password is the same as the old password
         if (newPassword.isNotBlank() && newPassword == oldPassword) {
+            Person.VibrationUtil.triggerVibration(requireContext())
             Toast.makeText(context, "New password cannot be the same as the old password.", Toast.LENGTH_SHORT).show()
             return
         }
@@ -228,13 +239,15 @@ class patientprofile : Fragment() {
                 .replace(R.id.fragmentviewer, homeFragment)
                 .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
                 .commit()
-
+            Person.VibrationUtil.triggerVibrationshort(requireContext())
             Toast.makeText(context, "Profile updated successfully.", Toast.LENGTH_SHORT).show()
         } else {
             // Specific error handling
             if (!patient.isCorrectPassword(personId, oldPassword)) {
+                Person.VibrationUtil.triggerVibration(requireContext())
                 Toast.makeText(context, "Incorrect old password. Please try again.", Toast.LENGTH_SHORT).show()
             } else {
+                Person.VibrationUtil.triggerVibration(requireContext())
                 Toast.makeText(context, "Failed to update profile. Please try again later.", Toast.LENGTH_SHORT).show()
             }
         }
@@ -250,6 +263,7 @@ class patientprofile : Fragment() {
                 selectedDate.set(year, month, dayOfMonth)
 
                 if (selectedDate.after(Calendar.getInstance())) {
+                    Person.VibrationUtil.triggerVibration(requireContext())
                     Toast.makeText(context, "Birthday cannot be today or a future date.", Toast.LENGTH_SHORT).show()
                 } else {
                     val format = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
@@ -274,6 +288,7 @@ class patientprofile : Fragment() {
                 selectedDate.set(year, month, dayOfMonth)
 
                 if (selectedDate.after(currentDate)) {
+                    Person.VibrationUtil.triggerVibration(requireContext())
                     Toast.makeText(context, "Birthday cannot be today or a future date.", Toast.LENGTH_SHORT).show()
                 } else {
                     val format = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
@@ -304,6 +319,7 @@ class patientprofile : Fragment() {
     }
 
     private fun logout() {
+        Person.VibrationUtil.triggerVibration(requireContext())
         AlertDialog.Builder(requireContext())
             .setTitle("Confirm Logout")
             .setMessage("Are you sure you want to log out?")
@@ -311,6 +327,8 @@ class patientprofile : Fragment() {
                 val intent = Intent(requireContext(), Login::class.java)
                 intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
                 startActivity(intent)
+                triggerVibration(requireContext())
+
                 requireActivity().finish()
             }
             .setNegativeButton("No", null)

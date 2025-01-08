@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import android.widget.*
 import androidx.fragment.app.Fragment
 import com.example.e_hospitalappointmentmanagementapp.classes.Patient
+import com.example.e_hospitalappointmentmanagementapp.classes.Person
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -43,8 +44,10 @@ class payment : Fragment() {
         // Set up pay button click listener
         payButton.setOnClickListener {
             if (validateInputData()) {
+                Person.VibrationUtil.triggerVibrationshort(requireContext())
                 processPayment()
             } else {
+                Person.VibrationUtil.triggerVibration(requireContext())
                 Toast.makeText(requireContext(), "Invalid data. Cannot proceed with payment.", Toast.LENGTH_SHORT).show()
             }
         }
@@ -61,6 +64,7 @@ class payment : Fragment() {
         val appointmentId = insertAppointment()
 
         if (appointmentId == -1) {
+            Person.VibrationUtil.triggerVibration(requireContext())
             Toast.makeText(requireContext(), "Failed to create appointment.", Toast.LENGTH_SHORT).show()
             return
         }
@@ -68,6 +72,7 @@ class payment : Fragment() {
         // Insert into PATIENT_APPOINTMENT table
         val patientAppointmentSuccess = insertPatientAppointment(appointmentId)
         if (!patientAppointmentSuccess) {
+            Person.VibrationUtil.triggerVibration(requireContext())
             Toast.makeText(requireContext(), "Failed to link patient to appointment.", Toast.LENGTH_SHORT).show()
             return
         }
@@ -75,6 +80,7 @@ class payment : Fragment() {
         // Insert into PAYMENT table
         val paymentId = insertPayment()
         if (paymentId == -1) {
+            Person.VibrationUtil.triggerVibration(requireContext())
             Toast.makeText(requireContext(), "Failed to process payment.", Toast.LENGTH_SHORT).show()
             return
         }
