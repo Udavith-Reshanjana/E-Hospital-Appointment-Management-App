@@ -7,6 +7,7 @@ import android.view.View
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import com.example.e_hospitalappointmentmanagementapp.classes.Doctor
+import com.example.e_hospitalappointmentmanagementapp.classes.Person
 
 class docappointmentmanage : AppCompatActivity() {
 
@@ -38,7 +39,6 @@ class docappointmentmanage : AppCompatActivity() {
 
         // Set up button actions
         findViewById<Button>(R.id.a_remove).setOnClickListener { removeAppointment() }
-        findViewById<Button>(R.id.a_back).setOnClickListener { navigateBackToAppointments() }
 
         // Set up spinner change listener
         statusSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
@@ -88,6 +88,7 @@ class docappointmentmanage : AppCompatActivity() {
     }
 
     private fun updateAppointmentStatus(newStatus: String) {
+        Person.VibrationUtil.triggerVibrationshort(this)
         if (appointmentId != null) {
             val doctor = Doctor(this)
 
@@ -96,9 +97,12 @@ class docappointmentmanage : AppCompatActivity() {
             val isUpdated = doctor.updateAppointmentStatus(appointmentId!!.toInt(), newStatus)
 
             if (isUpdated) {
+                Person.VibrationUtil.triggerVibrationshort(this)
                 Toast.makeText(this, "Appointment status updated to $newStatus.", Toast.LENGTH_SHORT).show()
                 navigateBackToAppointments()
             } else {
+                Person.VibrationUtil.triggerVibration(this)
+
                 Toast.makeText(this, "Failed to update appointment status.", Toast.LENGTH_SHORT).show()
             }
         } else {
@@ -115,6 +119,7 @@ class docappointmentmanage : AppCompatActivity() {
     }
 
     private fun removeAppointment() {
+        Person.VibrationUtil.triggerVibration(this)
         if (appointmentId != null) {
             val doctor = Doctor(this)
 
@@ -128,6 +133,7 @@ class docappointmentmanage : AppCompatActivity() {
                 setResult(RESULT_OK) // Indicate success
                 finish() // Close this activity
             } else {
+                Person.VibrationUtil.triggerVibration(this)
                 Toast.makeText(this, "Failed to remove appointment.", Toast.LENGTH_SHORT).show()
             }
         } else {

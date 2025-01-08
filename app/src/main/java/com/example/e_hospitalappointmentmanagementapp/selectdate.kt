@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import android.widget.*
 import androidx.fragment.app.Fragment
 import com.example.e_hospitalappointmentmanagementapp.classes.Patient
+import com.example.e_hospitalappointmentmanagementapp.classes.Person
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -57,6 +58,7 @@ class selectdate : Fragment() {
         // Set up appointment date picker
         appointmentDateEditText.setOnClickListener {
             showDatePickerDialog()
+            Person.VibrationUtil.triggerVibrationshort(requireContext())
         }
 
         // Handle proceed button click
@@ -76,9 +78,11 @@ class selectdate : Fragment() {
             timeListView.adapter = adapter
             timeListView.setOnItemClickListener { _, _, position, _ ->
                 selectedDay = availableDays[position]
+                Person.VibrationUtil.triggerVibrationshort(requireContext())
                 Toast.makeText(requireContext(), "Selected day: $selectedDay", Toast.LENGTH_SHORT).show()
             }
         } else {
+            Person.VibrationUtil.triggerVibration(requireContext())
             Toast.makeText(requireContext(), "No available days for this doctor.", Toast.LENGTH_SHORT).show()
         }
     }
@@ -115,21 +119,25 @@ class selectdate : Fragment() {
      */
     private fun validateAndProceed() {
         if (selectedDay == null) {
+            Person.VibrationUtil.triggerVibration(requireContext())
             Toast.makeText(requireContext(), "Please select a day.", Toast.LENGTH_SHORT).show()
             return
         }
 
         if (selectedDate == null) {
+            Person.VibrationUtil.triggerVibration(requireContext())
             Toast.makeText(requireContext(), "Please select an appointment date.", Toast.LENGTH_SHORT).show()
             return
         }
 
         if (!isDateMatchingDay(selectedDate!!, selectedDay!!)) {
+            Person.VibrationUtil.triggerVibration(requireContext())
             Toast.makeText(requireContext(), "Selected date does not match the available day.", Toast.LENGTH_SHORT).show()
             return
         }
-
+        Person.VibrationUtil.triggerVibrationshort(requireContext())
         navigateToPaymentFragment()
+
     }
 
     /**

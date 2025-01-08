@@ -7,6 +7,7 @@ import android.view.View
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import com.example.e_hospitalappointmentmanagementapp.classes.Patient
+import com.example.e_hospitalappointmentmanagementapp.classes.Person
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -36,43 +37,51 @@ class PatientReg : AppCompatActivity() {
 
         // Validate input fields
         if (patientFirstName.isEmpty() || patientLastName.isEmpty() || patientEmail.isEmpty() || patientBirthday.isEmpty() || patientPassword.isEmpty() || patientPasswordConf.isEmpty()) {
+            Person.VibrationUtil.triggerVibration(this)
             Toast.makeText(this, "Please fill in all fields", Toast.LENGTH_SHORT).show()
             return
         }
 
         if (!android.util.Patterns.EMAIL_ADDRESS.matcher(patientEmail).matches()) {
+            Person.VibrationUtil.triggerVibration(this)
             Toast.makeText(this, "Please enter a valid email address", Toast.LENGTH_SHORT).show()
             return
         }
 
         if (patient.isEmailExists(patientEmail)) {
+            Person.VibrationUtil.triggerVibration(this)
             Toast.makeText(this, "Your email already exists", Toast.LENGTH_SHORT).show()
             return
         }
 
         if (!(patient.isValidDate(patientBirthday))) {
+            Person.VibrationUtil.triggerVibration(this)
             Toast.makeText(this, "Please follow \"YYYY-MM-DD\" format for birthday", Toast.LENGTH_SHORT).show()
             return
         }
 
         if (patientPassword != patientPasswordConf) {
+            Person.VibrationUtil.triggerVibration(this)
             Toast.makeText(this, "Passwords and confirmation password do not match", Toast.LENGTH_SHORT).show()
             return
         }
 
         if (patientPassword.length < 8) {
+            Person.VibrationUtil.triggerVibration(this)
             Toast.makeText(this, "Password must be at least 8 characters long", Toast.LENGTH_SHORT).show()
             return
         }
 
         val selectedGenderId = genderRadioGroup.checkedRadioButtonId
         if (selectedGenderId == -1) {
+            Person.VibrationUtil.triggerVibration(this)
             Toast.makeText(this, "Please select a gender", Toast.LENGTH_SHORT).show()
             return
         }
         val selectedGender = findViewById<RadioButton>(selectedGenderId).text.toString()
 
         if (!termsCheckBox.isChecked) {
+            Person.VibrationUtil.triggerVibration(this)
             Toast.makeText(this, "Please agree to the terms and conditions", Toast.LENGTH_SHORT).show()
             return
         }
@@ -94,12 +103,15 @@ class PatientReg : AppCompatActivity() {
             if (isRegistered) {
                 Toast.makeText(this, "Patient Registered Successfully!", Toast.LENGTH_LONG).show()
                 clearPatientForm()
+                Person.VibrationUtil.triggerVibrationshort(this)
                 gotoAnyScreen(Login::class.java)
             } else {
+                Person.VibrationUtil.triggerVibration(this)
                 Toast.makeText(this, "Patient registration failed. Please try again.", Toast.LENGTH_SHORT).show()
             }
         } catch (e: Exception) {
             e.printStackTrace()
+            Person.VibrationUtil.triggerVibration(this)
             Toast.makeText(this, "Error during registration: ${e.message}", Toast.LENGTH_SHORT).show()
         }
     }
@@ -123,6 +135,7 @@ class PatientReg : AppCompatActivity() {
     }
 
     fun gotoDoctorRegistration(view: View) {
+        Person.VibrationUtil.triggerVibrationshort(this)
         gotoAnyScreen(Docreg::class.java)
     }
 

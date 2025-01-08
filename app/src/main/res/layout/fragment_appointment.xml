@@ -15,7 +15,10 @@
             android:id="@+id/textView31"
             android:layout_width="wrap_content"
             android:layout_gravity="center"
-            android:layout_marginBottom="15dp"
+            android:layout_marginTop="30dp"
+            android:textColor="@color/black"
+            android:textStyle="bold"
+            android:layout_marginBottom="20dp"
             android:textSize="25dp"
             android:layout_height="wrap_content"
             android:text="Appointment ID: $$$$$" />
@@ -27,8 +30,8 @@
 
             <TextView
                 android:id="@+id/textView33"
-                android:layout_width="150dp"
-                android:layout_height="fill_parent"
+                android:layout_width="160dp"
+                android:layout_height="wrap_content"
                 android:textSize="18dp"
                 android:text="Appointment Date:" />
 
@@ -54,7 +57,7 @@
 
             <TextView
                 android:id="@+id/textView34"
-                android:layout_width="150dp"
+                android:layout_width="160dp"
                 android:textSize="18dp"
                 android:layout_height="wrap_content"
                 android:text="Booked On: " />
@@ -81,7 +84,7 @@
 
             <TextView
                 android:id="@+id/textView35"
-                android:layout_width="150dp"
+                android:layout_width="160dp"
                 android:textSize="18dp"
                 android:layout_height="wrap_content"
                 android:text="Doctor Name: " />
@@ -108,7 +111,7 @@
 
             <TextView
                 android:id="@+id/textView36"
-                android:layout_width="150dp"
+                android:layout_width="160dp"
                 android:textSize="18dp"
                 android:layout_height="wrap_content"
                 android:text="Status: " />
@@ -134,7 +137,7 @@
 
             <TextView
                 android:id="@+id/textView37"
-                android:layout_width="150dp"
+                android:layout_width="160dp"
                 android:textSize="18dp"
                 android:layout_height="wrap_content"
                 android:text="Payment:" />
@@ -161,7 +164,7 @@
 
             <TextView
                 android:id="@+id/textView38"
-                android:layout_width="150dp"
+                android:layout_width="160dp"
                 android:textSize="18dp"
                 android:layout_height="wrap_content"
                 android:text="Feedback:" />
@@ -187,23 +190,17 @@
             android:orientation="horizontal">
 
             <Button
+                android:layout_marginBottom="5dp"
                 android:id="@+id/leavefeedback"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="#DEC5E3"
-                android:paddingLeft="10dp"
-                android:paddingRight="10dp"
-                android:text="Leave a feedback"
+                android:background="@drawable/buttonpink"
+                android:padding="15dp"
+                android:textSize="20dp"
+                android:text="Save feedback"
                 android:layout_marginRight="15dp"
                 android:textStyle="bold" />
 
-            <Button
-                android:id="@+id/back"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="#B6DCFE"
-                android:text="Back"
-                android:textStyle="bold" />
         </LinearLayout>
     </LinearLayout>
 </FrameLayout>

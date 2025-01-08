@@ -9,6 +9,7 @@ import android.widget.EditText
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.example.e_hospitalappointmentmanagementapp.classes.Patient
+import com.example.e_hospitalappointmentmanagementapp.classes.Person
 
 class Paycomplete : Fragment() {
 
@@ -60,6 +61,7 @@ class Paycomplete : Fragment() {
 
         // Handle return button click
         returnButton.setOnClickListener {
+            Person.VibrationUtil.triggerVibration(requireContext())
             navigateToHomeScreen()
         }
 

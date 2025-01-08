@@ -6,6 +6,10 @@ import android.os.Bundle
 import android.view.View
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContentProviderCompat.requireContext
+import com.example.e_hospitalappointmentmanagementapp.classes.Person
+import com.example.e_hospitalappointmentmanagementapp.classes.Person.VibrationUtil.triggerVibration
+import com.example.e_hospitalappointmentmanagementapp.classes.Person.VibrationUtil.triggerVibrationshort
 
 class Doctormain : AppCompatActivity() {
 
@@ -33,23 +37,28 @@ class Doctormain : AppCompatActivity() {
     }
 
     fun gotoDocAppoinmentManagement(view: View) {
+        triggerVibrationshort(this)
         gotoAnyScreen(docappointments::class.java)
     }
 
     fun gotoDocAvailabilityManagement(view: View) {
         gotoAnyScreen(docavailable::class.java)
+        triggerVibrationshort(this)
     }
 
     fun gotoDocProfile(view: View) {
         gotoAnyScreen(docprofile::class.java)
+        triggerVibrationshort(this)
     }
 
     fun logout(view: View) {
+        Person.VibrationUtil.triggerVibration(this)
         AlertDialog.Builder(this)
             .setTitle("Confirm Logout")
             .setMessage("Are you sure you want to log out?")
             .setPositiveButton("Yes") { _, _ ->
                 val intent = Intent(this, Login::class.java)
+                triggerVibration(this)
                 intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
                 startActivity(intent)
                 finish()

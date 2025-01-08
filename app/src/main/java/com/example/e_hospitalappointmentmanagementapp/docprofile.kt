@@ -13,6 +13,7 @@ import android.widget.*
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import com.example.e_hospitalappointmentmanagementapp.classes.Doctor
+import com.example.e_hospitalappointmentmanagementapp.classes.Person
 import java.io.ByteArrayOutputStream
 import java.io.InputStream
 
@@ -56,11 +57,13 @@ class docprofile : AppCompatActivity() {
     }
 
     fun logout(view: View) {
+        Person.VibrationUtil.triggerVibrationshort(this)
         AlertDialog.Builder(this)
             .setTitle("Confirm Logout")
             .setMessage("Are you sure you want to log out?")
             .setPositiveButton("Yes") { _, _ ->
                 val intent = Intent(this, Login::class.java)
+                Person.VibrationUtil.triggerVibration(this)
                 intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
                 startActivity(intent)
                 finish()
@@ -76,11 +79,13 @@ class docprofile : AppCompatActivity() {
         val newPassword = newPasswordField.text.toString()
 
         if (fName.isBlank() || lName.isBlank()) {
+            Person.VibrationUtil.triggerVibration(this)
             Toast.makeText(this, "Please fill in all required fields", Toast.LENGTH_SHORT).show()
             return
         }
 
         if (newPassword.isNotBlank() && newPassword == oldPassword) {
+            Person.VibrationUtil.triggerVibration(this)
             Toast.makeText(this, "New password cannot be the same as the old password", Toast.LENGTH_SHORT).show()
             return
         }
@@ -94,8 +99,10 @@ class docprofile : AppCompatActivity() {
         )
 
         if (success) {
+            Person.VibrationUtil.triggerVibrationshort(this)
             Toast.makeText(this, "Profile updated successfully", Toast.LENGTH_SHORT).show()
         } else {
+            Person.VibrationUtil.triggerVibration(this)
             Toast.makeText(this, "Failed to update profile", Toast.LENGTH_SHORT).show()
         }
     }
@@ -138,6 +145,7 @@ class docprofile : AppCompatActivity() {
 
     private val pickImage = registerForActivityResult(ActivityResultContracts.GetContent()) { uri: Uri? ->
         uri?.let {
+            Person.VibrationUtil.triggerVibrationshort(this)
             val inputStream: InputStream? = contentResolver.openInputStream(it)
             val bitmap = BitmapFactory.decodeStream(inputStream)
             inputStream?.close()
@@ -157,8 +165,10 @@ class docprofile : AppCompatActivity() {
                         setImageBitmap(resizedBitmap)
                         contentDescription = null
                     }
+                    Person.VibrationUtil.triggerVibrationshort(this)
                     Toast.makeText(this, "Profile picture updated successfully!", Toast.LENGTH_SHORT).show()
                 } else {
+                    Person.VibrationUtil.triggerVibration(this)
                     Toast.makeText(this, "Failed to update profile picture.", Toast.LENGTH_SHORT).show()
                 }
             }
@@ -166,15 +176,18 @@ class docprofile : AppCompatActivity() {
     }
 
     fun changeProfilePicture(view: View) {
+        Person.VibrationUtil.triggerVibrationshort(this)
         pickImage.launch("image/*")
     }
 
     private fun togglePasswordVisibility(editText: EditText, button: ImageButton) {
         val isPasswordVisible = editText.inputType == InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD
         if (isPasswordVisible) {
+            Person.VibrationUtil.triggerVibrationshort(this)
             editText.inputType = InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_VARIATION_PASSWORD
             button.setImageResource(R.drawable.ic_eye_closed)
         } else {
+            Person.VibrationUtil.triggerVibrationshort(this)
             editText.inputType = InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD
             button.setImageResource(R.drawable.ic_eye)
         }

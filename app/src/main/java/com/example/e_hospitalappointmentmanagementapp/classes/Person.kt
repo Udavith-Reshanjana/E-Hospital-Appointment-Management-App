@@ -3,7 +3,16 @@ package com.example.e_hospitalappointmentmanagementapp.classes
 import android.content.ContentValues
 import android.content.Context
 import android.database.sqlite.SQLiteOpenHelper
+import android.media.MediaPlayer
+import android.os.Build
+import android.os.VibrationEffect
+import android.os.Vibrator
+import android.view.View
+import android.widget.Button
 import android.widget.Toast
+import androidx.annotation.RequiresApi
+import androidx.core.content.ContextCompat.getSystemService
+import com.example.e_hospitalappointmentmanagementapp.R
 import java.sql.Blob
 import java.text.SimpleDateFormat
 import java.util.*
@@ -169,6 +178,59 @@ open class Person(val context: Context) {
             e.printStackTrace()
             false
         }
+    }
+
+    object VibrationUtil {
+        fun triggerVibration(context: Context, duration: Long = 150) {
+            playClickSound(context)
+            val vibrator = context.getSystemService(Context.VIBRATOR_SERVICE) as Vibrator?
+
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                val vibrationEffect = VibrationEffect.createOneShot(
+                    duration, // Duration in milliseconds
+                    VibrationEffect.DEFAULT_AMPLITUDE // Default amplitude
+                )
+                vibrator?.cancel()
+                vibrator?.vibrate(vibrationEffect)
+            } else {
+                vibrator?.vibrate(duration) // Deprecated in API 26
+            }
+        }
+
+        fun triggerVibrationshort(context: Context) {
+            playClickSound(context)
+            val vibrator = context.getSystemService(Context.VIBRATOR_SERVICE) as Vibrator?
+
+            val vibrationEffect3: VibrationEffect
+
+            // this type of vibration requires API 29
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+
+                // create vibrator effect with the constant EFFECT_DOUBLE_CLICK
+                vibrationEffect3 =
+                    VibrationEffect.createPredefined(VibrationEffect.EFFECT_HEAVY_CLICK)
+
+                // it is safe to cancel other vibrations currently taking place
+                if (vibrator != null) {
+                    vibrator.cancel()
+                }
+                if (vibrator != null) {
+                    vibrator.vibrate(vibrationEffect3)
+                }
+            }
+        }
+
+        private fun playClickSound(context: Context) {
+            val mediaPlayer = MediaPlayer.create(context, R.raw.click) // Replace with your sound resource
+            mediaPlayer.setOnCompletionListener { mp ->
+                mp.release() // Release resources after playback is complete
+            }
+            mediaPlayer.start()
+        }
+
+
+
+
     }
 
 
