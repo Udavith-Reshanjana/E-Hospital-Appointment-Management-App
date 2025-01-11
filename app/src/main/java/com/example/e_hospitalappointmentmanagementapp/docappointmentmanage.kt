@@ -87,6 +87,14 @@ class docappointmentmanage : AppCompatActivity() {
         }
     }
 
+    private fun navigateBackToAppointments() {
+        val intent = Intent(this, docappointments::class.java)
+        intent.putExtra("person_id", personId)
+        intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
+        startActivity(intent)
+        finish()
+    }
+
     private fun updateAppointmentStatus(newStatus: String) {
         Person.VibrationUtil.triggerVibrationshort(this)
         if (appointmentId != null) {
@@ -99,23 +107,15 @@ class docappointmentmanage : AppCompatActivity() {
             if (isUpdated) {
                 Person.VibrationUtil.triggerVibrationshort(this)
                 Toast.makeText(this, "Appointment status updated to $newStatus.", Toast.LENGTH_SHORT).show()
+                setResult(RESULT_OK) // Indicate success
                 navigateBackToAppointments()
             } else {
                 Person.VibrationUtil.triggerVibration(this)
-
                 Toast.makeText(this, "Failed to update appointment status.", Toast.LENGTH_SHORT).show()
             }
         } else {
             Toast.makeText(this, "Invalid Appointment ID.", Toast.LENGTH_SHORT).show()
         }
-    }
-
-    private fun navigateBackToAppointments() {
-        val intent = Intent(this, docappointments::class.java) // Replace with the actual class name for the appointments activity
-        intent.putExtra("person_id", personId) // Pass personId through the intent
-        intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
-        startActivity(intent)
-        finish()
     }
 
     private fun removeAppointment() {
@@ -125,7 +125,6 @@ class docappointmentmanage : AppCompatActivity() {
 
             Log.d("docappointmentmanage", "Removing appointment with ID: $appointmentId")
 
-            // Attempt to remove the appointment using its ID
             val isRemoved = doctor.removeAppointment(appointmentId!!.toInt())
 
             if (isRemoved) {
@@ -140,4 +139,5 @@ class docappointmentmanage : AppCompatActivity() {
             Toast.makeText(this, "Invalid Appointment ID.", Toast.LENGTH_SHORT).show()
         }
     }
+
 }
