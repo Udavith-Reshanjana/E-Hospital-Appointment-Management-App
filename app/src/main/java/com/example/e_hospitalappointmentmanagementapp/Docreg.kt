@@ -19,7 +19,7 @@ class Docreg : AppCompatActivity() {
     }
 
     private val PICK_IMAGE_REQUEST = 1
-    private var profilePicData: ByteArray? = null // To hold the selected image data
+    private var medicalLicensePic: ByteArray? = null
 
     fun docSignUp(view: View) {
         val docFirstName = findViewById<EditText>(R.id.DFirstname).text.toString().trim()
@@ -79,7 +79,7 @@ class Docreg : AppCompatActivity() {
         }
 
         // Use the uploaded profile picture (already converted to a byte array)
-        val medicalLicence: ByteArray? = profilePicData
+        val medicalLicence: ByteArray? = medicalLicensePic
 
         try {
             // Save doctor data to the database
@@ -151,10 +151,10 @@ class Docreg : AppCompatActivity() {
                     // Convert the Bitmap to ByteArray
                     val byteArrayOutputStream = ByteArrayOutputStream()
                     bitmap.compress(Bitmap.CompressFormat.PNG, 100, byteArrayOutputStream)
-                    profilePicData = byteArrayOutputStream.toByteArray()
+                    medicalLicensePic = byteArrayOutputStream.toByteArray()
                     Toast.makeText(
                         this,
-                        "Profile picture uploaded successfully!",
+                        "Medical license uploaded successfully!",
                         Toast.LENGTH_SHORT
                     ).show()
                 } catch (e: Exception) {
