@@ -45,6 +45,15 @@ class docappointments : AppCompatActivity() {
         }
     }
 
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+
+        if (requestCode == REQUEST_CODE_MANAGE_APPOINTMENT && resultCode == RESULT_OK) {
+            // Reload appointments after a successful operation in docappointmentmanage
+            personID?.let { loadAppointments(it) }
+        }
+    }
+
     private fun loadAppointments(personId: Int) {
         try {
             // Use the Doctor class to fetch appointments
@@ -52,14 +61,15 @@ class docappointments : AppCompatActivity() {
             appointments = doctor.getAppointmentsByDoctor(personId)
 
             if (appointments.isNotEmpty()) {
+                // Map appointment details to a list of strings for the ListView
                 val appointmentDetailsList = appointments.map { appointment ->
                     """
-                        Appointment ID: ${appointment["APPOINMENT_ID"]}
-                        Date: ${appointment["APPOINMENT_DATE"]}
-                        Status: ${appointment["STATUS"]}
-                        Booked Date: ${appointment["BOOKED_DATE"]}
-                        Feedback: ${appointment["FEEDBACK"]}
-                    """.trimIndent()
+                    Appointment ID: ${appointment["APPOINMENT_ID"]}
+                    Date: ${appointment["APPOINMENT_DATE"]}
+                    Status: ${appointment["STATUS"]}
+                    Booked Date: ${appointment["BOOKED_DATE"]}
+                    Feedback: ${appointment["FEEDBACK"]}
+                """.trimIndent()
                 }
 
                 // Use ArrayAdapter to display appointments in the ListView
@@ -70,7 +80,12 @@ class docappointments : AppCompatActivity() {
                 )
                 appointmentsListView.adapter = adapter
             } else {
-                showErrorMessage("No appointments found.")
+                // If no appointments are available, clear the ListView and show a placeholder message
+                appointmentsListView.adapter = ArrayAdapter(
+                    this,
+                    android.R.layout.simple_list_item_1,
+                    listOf("No appointments found.")
+                )
             }
         } catch (e: Exception) {
             e.printStackTrace()
@@ -78,6 +93,7 @@ class docappointments : AppCompatActivity() {
             showErrorMessage("Error loading appointments.")
         }
     }
+
 
     private fun navigateToAppointmentManage(position: Int) {
         Person.VibrationUtil.triggerVibrationshort(this)
@@ -100,15 +116,6 @@ class docappointments : AppCompatActivity() {
         } catch (e: Exception) {
             e.printStackTrace()
             Log.e("docappointments", "Error navigating to appointment manage: ${e.message}")
-        }
-    }
-
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-
-        if (requestCode == REQUEST_CODE_MANAGE_APPOINTMENT && resultCode == RESULT_OK) {
-            // Reload appointments after a successful operation in docappointmentmanage
-            personID?.let { loadAppointments(it) }
         }
     }
 

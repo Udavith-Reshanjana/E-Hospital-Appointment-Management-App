@@ -48,7 +48,7 @@ class Docreg : AppCompatActivity() {
 
         if (doctor.isEmailExists(docEmail)) {
             Person.VibrationUtil.triggerVibration(this)
-            Toast.makeText(this, "Given email is already exists ", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, "Given email already exists", Toast.LENGTH_SHORT).show()
             return
         }
 
@@ -78,8 +78,8 @@ class Docreg : AppCompatActivity() {
             return
         }
 
-        // Placeholder for profile picture and medical license upload (currently set to null)
-        val medicalLicence: ByteArray? = null
+        // Use the uploaded profile picture (already converted to a byte array)
+        val medicalLicence: ByteArray? = profilePicData
 
         try {
             // Save doctor data to the database
@@ -88,10 +88,10 @@ class Docreg : AppCompatActivity() {
                 lastName = docLastName,
                 personEmail = docEmail,
                 personPassword = docPassword,
-                profilePic = profilePicData,
+                profilePic = null,
                 role = 1,
                 docSpecialty = docSpecialty,
-                medicalLicence = medicalLicence,
+                medicalLicence = medicalLicence, // Save the uploaded image data or null
                 birthDay = null
             )
 
@@ -110,6 +110,7 @@ class Docreg : AppCompatActivity() {
             Toast.makeText(this, "Error during registration: ${e.message}", Toast.LENGTH_SHORT).show()
         }
     }
+
 
     // function for go to any class
     private fun gotoAnyScreen(activityClass: Class<*>) {
