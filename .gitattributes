@@ -1,0 +1,18 @@
+# Exclude XML files (e.g., layout files in Android)
+*.xml linguist-generated=true
+
+# Exclude Gradle files
+*.gradle linguist-generated=true
+
+# Exclude Java files (if they're mostly auto-generated)
+*.java linguist-generated=true
+
+# Exclude IntelliJ IDEA or Android Studio project files
+*.iml linguist-generated=true
+
+# Exclude build directories
+build/** linguist-generated=true
+generated/** linguist-generated=true
+
+# Ensure Kotlin files are detected
+*.kt linguist-detectable=true
